@@ -1,22 +1,41 @@
 \documentclass{thesis}
-
+\usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{url}
 
-\title{Only Everything Lasts Forever}
- 
-\author{Kyle McDonald}
+% Use the first command below if you want captions over 1 line indented.
+% A side effect of this is to remove the use of bold for captions. 
+% To restore bold, also include the second line below.
+%\usepackage[hang]{caption}     % to indent subsequent lines of captions
+%\renewcommand{\captionfont}{\bfseries} % only needed with caption package;
+                                        %   otherwise bold is default)
+                                                
+\thesistitle{\bf Only Everything Lasts Forever}        
+\author{Kyle McDonald}        
+\degree{Master of Fine Arts}
+\department{Electronic Arts} % provide your area of study here; e.g.,
+%  "Mechanical Engineering", "Nuclear Engineering", "Physics", etc.
+\projadviser{Curtis Bahn}
+\coprojadviser{Michael Century}
+\cocoprojadviser{Shawn Lawson}
+%\cothadviser{First co-adviser} %if needed
+%\cocothadviser{Second co-adviser} % if needed
+%  For a masters project use \projadviser instead of \thadviser, 
+%  and \coprojadviser and \cocoprojadviser if needed. 
+\submitdate{April 2010\\(For Graduation May 2010)}        
+\copyrightyear{2010}
+      
+\begin{document} 
+\titlepage % Print titlepage   
+%\copyrightpage % optional         
+\tableofcontents
+%\listoftables % required if there are tables
+%\listoffigures % required if there are figures
 
-\begin{document}
+\specialhead{Acknowledgments}
+I would like to thank...
 
-\maketitle
-
-\chapter{Introduction}
-
-Noise is a human invention. Not only an invention, but a necessity. Noise is misunderstanding and acontextuality. Without humanity, there is no misunderstanding to be had, and thus no noise.
-
-Music is unique in that it represents a subset of non-noise that is historically and biologically informed.
-
+\specialhead{Abstract}
 Only Everything Lasts Forever is a sound composition containing every sound we can distinguish. It explores the social and political associations of sound representation along with the psychology and philosophy of noise and emptiness.
 
 \chapter{The Spirit of Noise}
@@ -168,7 +187,12 @@ In \cite[9]{karlheinz_brandenburg_mp3_1999}, Karlheinz mentions that we have all
 
 \chapter{Conclusion}
 
+% The following produces a numbered bibliography where the numbers
+% correspond to the \cite commands in the text.
+\specialhead{References}
+\begin{singlespace}
 \bibliographystyle{plain}
 \bibliography{original,spiritofnoise,everythingart,glitchart,oelf}
+\end{singlespace}
 
 \end{document}
