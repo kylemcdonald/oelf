@@ -3,18 +3,10 @@
 \usepackage{hyperref}
 \usepackage{url}
 
-% Use the first command below if you want captions over 1 line indented.
-% A side effect of this is to remove the use of bold for captions. 
-% To restore bold, also include the second line below.
-%\usepackage[hang]{caption}     % to indent subsequent lines of captions
-%\renewcommand{\captionfont}{\bfseries} % only needed with caption package;
-                                        %   otherwise bold is default)
-                                                
 \thesistitle{\bf Only Everything Lasts Forever}        
 \author{Kyle McDonald}        
 \degree{Master of Fine Arts}
-\department{Electronic Arts} % provide your area of study here; e.g.,
-%  "Mechanical Engineering", "Nuclear Engineering", "Physics", etc.
+\department{Electronic Arts}
 \projadviser{Curtis Bahn}
 \coprojadviser{Michael Century}
 \cocoprojadviser{Shawn Lawson}
@@ -26,8 +18,7 @@
 \copyrightyear{2010}
       
 \begin{document} 
-\titlepage % Print titlepage   
-%\copyrightpage % optional         
+\titlepage
 \tableofcontents
 %\listoftables % required if there are tables
 %\listoffigures % required if there are figures
@@ -54,6 +45,7 @@ Only Everything Lasts Forever is a sound composition containing every sound we c
 	\cite{Hofstadter07}\cite{Koller01}\cite{erik_thiele_tempest_????}\cite{francesco_vianello_reality_????}
 	\cite{w._wayt_gibbs_hackers_2009}
 \section{Psychology and Nature: Gestalt, Illusion, and Patterns}
+	\cite{markowsky_misconceptions_1992}
 	\cite{Moore07}\cite{Doczi81}\cite{Hofstadter01}\cite{robin_mckie_secret_2004}
 	\cite{alan_dunning_paul_woodrow_and_morley_hollenberg_einsteins_2008}\cite{alexander_bogomolny_kanizsa_????}
 	\cite{brian_dunning_facemars_2008}\cite{dan_paluska_holy_2005}\cite{de_lapparent_slice_1986}
@@ -104,13 +96,13 @@ Only Everything Lasts Forever is a sound composition containing every sound we c
 	
 	I first came across NAND gates when exploring capacitive sensing. NAND gates are useful for constructing feedback loops that vary their frequency with respect to capacitance to ground.\footnote{Using a Schmitt trigger NAND like the 4093 you can use one input as an on-off switch while tying the output to the other input via a resistor. The feedback input is also tied to ground via a capacitor. This is a very basic RC circuit.} When I realized that NANDs could be used to simulate every other chip, I started exploring various NAND configurations and ways of connecting multiple NAND circuits. I developed three different configurations for an experimental filmmaker\footnote{Mexican filmmaker Diego Delmar, alias ``Macushi'' \url{http://www.knock.com.mx/}} based on intuitive explorations of these configurations. I published these designs along with detailed instructions on the tutorial-sharing site Instructables.com. In Spring of 2009 I developed a close connection to a complex variation on the NAND-synth that was developed for a performance context, integrating capacitive, resistive, and illumination sensing in a massively entangled feedback circuit. I see these as the first steps in a more general exploration of NAND-synthesis. I imagine a massive matrix of reconfigurable NAND circuits that can be rearranged during performance: constantly responding the the changing flow of logic, able to simulate any imaginable digital synthesizer in a very practical sense, complex enough to be interesting, but deterministic enough to be learned.
 	
-	Borges' short stores ``The Aleph''\cite{borges_aleph_2004} and ``The Library of Babel''\cite{borges_library_2000} are two examples from literature dealing very directly with the themes of ``everything'' and enumeration. The titular subject of ``The Aleph'' is a visual phenomena; a point in space from which you may see all other points in space. There is a very interesting note near the end about a sonic corollary:
+	Borges' short stores ``The Aleph''\cite{borges_aleph_2004} and ``The Library of Babel''\cite{borges_library_2000} are two examples from literature dealing very directly with the themes of ``everything'' and enumeration. The titular subject of ``The Aleph'' is a visual phenomena: a point in space from which you may see all other points in space. There is a very interesting note near the end about a sonic corollary:
 	
 	\begin{quote}
 	The Faithful who gather at the mosque of Amr, in Cairo, are acquainted with the fact that the entire universe lies inside one of the stone pillars that ring its central court... No one, of course, can actually see it, but those who lay an ear against the surface tell that after some short while they perceive its busy hum... The mosque dates from the seventh century; the pillars come from other temples of pre-Islamic religions, since, as ibn-Khaldun has written: ``In nations founded by nomads, the aid of foreigners is essential in all concerning masonry.''
 	\end{quote}
 	
-	In ``The Library of Babel'', the main character tells of the unusual universe in which he lives: floor after floor of interconnected hexagonal rooms, lined with rows of books on shelves. These shelves are said to contain all the possible 410-page books (40 lines per page, 80 characters per line, from an alphabet of 25 characters). He outlines what this means in practice:
+	In ``The Library of Babel'', the main character tells of the unusual universe in which he lives: floor after floor of interconnected hexagonal rooms, lined with rows of books on shelves. These shelves are said to contain all the possible 410-page books (40 lines per page, 80 characters per line, from an alphabet of 25 characters). He outlines what this implies regarding the contents of the books:
 	
 	\begin{quote}
 	Everything: the minutely detailed history of the future, the archangels' autobiographies, the faithful catalogues of the Library, thousands and thousands of false catalogues, the demonstration of the fallacy of those catalogues, the demonstration of the fallacy of the true catalogue, the Gnostic gospel of Basilides, the commentary on that gospel, the commentary on the commentary on that gospel, the true story of your death, the translation of every book in all languages, the interpolations of every book in all books. 
@@ -122,16 +114,31 @@ Only Everything Lasts Forever is a sound composition containing every sound we c
 	In truth, the Library includes all verbal structures, all variations permitted by the twenty-five orthographical symbols, but not a single example of absolute nonsense. [...] I cannot combine some characters, ``dhcmrlchtdj,'' which the divine Library has not foreseen and which in one of its secret tongues do not contain a terrible meaning. [...] The Library is unlimited and cyclical. If an eternal traveler were to cross it in any direction, after centuries he would see that the same volumes were repeated in the same disorder (which, thus repeated, would be an order: the Order).
 	\end{quote}
 	
-	No book can be nonsense precisely because it exists in the context of an alphabet, in the context of a book, and within the library itself. This contextualization is enough to make it meaningful. Furthermore, in this self-contextualization through enumeration emerges the realization that every possible language is represented, and that this offers another degree of context.
+	No book can be nonsense precisely because it exists in the context of an alphabet, in the context of a book, and within the Order of the Library itself. This context is the meaningfulness. Furthermore, in this self-contextualization through enumeration emerges the realization that every possible language is represented, and that this offers another degree of context.
 	
-	\cite{christian_scheib_statics_????}\cite{jim_campbell_end_1996}\cite{john_f._simon_jr._every_????}
-	\cite{john_f._simon_jr._given:32_1997}
-	\cite{leander_seige_imagen_????}\cite{leonardo_solaas_magic_????}\cite{matthew_mirapaul_in_1997}
-	\cite{michael_aschauer_8-bit_????}\cite{nattiez_music_1990}\cite{remko_scha_every_2001}\cite{sintron_gods_2003}
-	\cite{tomczak_all_2009}\cite{tomczak_hardware-based_2009}\cite{alexander_christiaan_jacob_allrgb_2008}
-	\cite{allan_mccollum_shapes_2006}\cite{jem_finer_longplayer_????}\cite{john_cage_as_????}\cite{paul_slocum_pi_2007}
-	\cite{brian_whitman_eigenradio_2005}\cite{keith_f._lynch_converting_????}
+	In generative visual art there exists an obvious manifestation to Borges' Library. Our 25-letter alphabet is substituted with a 2-letter alphabet of binary, the lines of text becomes rows, and the page becomes an image. Represented so precisely, the computer can steadily enumerate every possible combination of pixels in this image.
+	
+	The best known manifestation of this idea is ``Every Icon'' by John F. Simon Jr.\cite{john_f._simon_jr._every_????}\cite{john_f._simon_jr._given:32_1997}\cite{matthew_mirapaul_in_1997}	
+	
+	\cite{jim_campbell_end_1996}
+	\cite{leander_seige_imagen_????}
+	\cite{leonardo_solaas_magic_????}
+	\cite{sintron_gods_2003}
+	
+	\cite{michael_aschauer_8-bit_????}
+	\cite{nattiez_music_1990}
+	\cite{remko_scha_every_2001}
+	\cite{tomczak_all_2009}
+	\cite{tomczak_hardware-based_2009}
+	\cite{alexander_christiaan_jacob_allrgb_2008}
+	\cite{allan_mccollum_shapes_2006}
+	\cite{jem_finer_longplayer_????}
+	\cite{john_cage_as_????}
+	\cite{paul_slocum_pi_2007}
+	\cite{brian_whitman_eigenradio_2005}
+	\cite{keith_f._lynch_converting_????}
 	\cite{tom_johnson_liner_1999}
+	\cite{christian_scheib_statics_????}
 	
 	What is the connection between enumeration and indeterminacy? They are both about sampling a large space, but one is approached in a compositional manner while the other is meta-compositional and imitative of nature.
 	
