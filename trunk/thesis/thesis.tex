@@ -125,10 +125,10 @@ Only Everything Lasts Forever is a sound composition containing every sound we c
 	In ``The Library of Babel'', the main character tells of the unusual universe in which he lives: floor after floor of interconnected hexagonal rooms, lined with rows of books on shelves. These shelves are said to contain all the possible 410-page books (40 lines per page, 80 characters per line, from an alphabet of 25 characters). He outlines what this implies regarding the contents of the books:
 	
 	\begin{quote}
-	Everything: the minutely detailed history of the future, the archangels' autobiographies, the faithful catalogs of the Library, thousands and thousands of false catalogs, the demonstration of the fallacy of those catalogs, the demonstration of the fallacy of the true catalog, the Gnostic gospel of Basilides, the commentary on that gospel, the commentary on the commentary on that gospel, the true story of your death, the translation of every book in all languages, the interpolations of every book in all books. 
+	Everything: the minutely detailed history of the future, the archangels' autobiographies, the faithful catalogs of the Library, thousands and thousands of false catalogs, the demonstration of the fallacy of those catalogs, the demonstration of the fallacy of the true catalog, the Gnostic gospel of Basilides, the commentary on that gospel, the commentary on the commentary on that gospel, the true story of your death, the translation of every book in all languages, the interpolations of every book in all books.\footnote{In a 2001 post to alt.math.recreational, Keith F. Lynch elaborates further on what exactly is contained in ``everything.''\cite{keith_f._lynch_converting_????} He author offers a long list as a warning to the original poster who asks about representing $\pi$ in binary, warning them they will be ``guilty of: Copyright infringement, Trademark infringement, Possession of child pornography, Espionage (unauthorized possession of top secret information)[...] Also, your computer will contain all of the nastiest known computer viruses.''}
 	\end{quote}
 	
-	Responding to critics who claim that the library can only ``affirm, negate and confuse everything like a delirious divinity'', he says:
+	Responding to critics who claim that the library can only ``affirm, negate and confuse everything like a delirious divinity'', the author writes:
 	
 	\begin{quote}
 	In truth, the Library includes all verbal structures, all variations permitted by the twenty-five orthographical symbols, but not a single example of absolute nonsense. [...] I cannot combine some characters, ``dhcmrlchtdj,'' which the divine Library has not foreseen and which in one of its secret tongues do not contain a terrible meaning. [...] The Library is unlimited and cyclical. If an eternal traveler were to cross it in any direction, after centuries he would see that the same volumes were repeated in the same disorder (which, thus repeated, would be an order: the Order).
@@ -136,6 +136,7 @@ Only Everything Lasts Forever is a sound composition containing every sound we c
 	
 	No book can be nonsense precisely because it exists in the context of an alphabet, in the context of a book, and within the Order of the Library itself. This context is the meaningfulness. Furthermore, in this self-contextualization through enumeration emerges the realization that every possible language is represented, and that this offers another degree of context.
 	
+\subsection{Visual enumeration}
 	In the visual domain there exists an obvious analogy to Borges' Library. His 25-letter alphabet is substituted with the 2-letter alphabet of binary, lines of text becomes rows of pixels, and the page becomes an image. Because this is such a well defined and unambiguous situation, a computer can steadily enumerate every possible combination of pixels in this image.
 	
 	The best known implementation of this idea is ``Every Icon'' by John F. Simon Jr.\cite{john_f._simon_jr._every_????} He uses a 32x32 grid of black and white pixels, and enumerates through the possibilities in binary. The first row alone has $2^{32}$, or about 4.3 billion, combinations. At 100 frames per second, this takes a little over 16 months to complete. The entire image has $2^{32*32}=2^{1024}$ possibilities, or about $10^{308}$. This will take on the order of $10^{298}$ years to complete. This number is so incredibly large, it's just shy of the largest ``dictionary number,'' a ``centillion,'' valued at $10^{303}$. In interviews, Simon calls this number ``several hundred trillion''\cite{matthew_mirapaul_in_1997}:
@@ -180,33 +181,50 @@ Only Everything Lasts Forever is a sound composition containing every sound we c
 	
 	\cite{michael_aschauer_8-bit_????}
 	``8-BIT'' by Michael Aschauer consists of 8 fluorescent tubes steadily counting off all the possible 8-bit numbers using a binary enumeration. A significant part of the piece resides in the unpredictable nature of fluorescent lights, leading to certain combinations lasting only a brief moment.
-		
-	Sebastian Tomczak has done some work with enumeration in a sonic domain, working with loops of short PCM encoded waveforms. ``All 4-bit Waveforms That Have 32 Samples''\cite{tomczak_all_2009} expands into a space of $2^{4^{32}}=16^{32}$ possible samples at 440 Hz, which ``will take 1,079,028,307,100,000,000,000,000,000 centuries to complete.'' His ``Hardware-based Waveform Permutations''\cite{tomczak_hardware-based_2009} implements the same concept in hardware with counters and multiplexers, but for only 4 samples instead of 32.
 	
 	``allRGB'' by Alexander Christiaan Jacob\cite{alexander_christiaan_jacob_allrgb_2008} is a web-based project that invites visiting programmers to create a square image that contains exactly one instance of the 16 million 24-bit RGB colors. The first submissions, from the author himself, explore basic geometric patterns that correspond to easily programmable algorithms. The tenth image is the first representational image, consisting of 16x16 dithered copies of a portrait. A number of user submitted images have appeared since a reddit post\footnote{\url{http://www.reddit.com/r/programming/comments/b002r/the\_objective\_of\_allrgb\_is\_simple\_to\_create/}} popularized the site. Some of the more difficult to generate images are accompanied by mathematical papers explaining the various techniques involved.\footnote{\url{http://d.hatena.ne.jp/ita/20100222/p1}}
+		
+	Since 1987, Alan McCollum has been exploring large numbers and the limits of human-created unique objects with his ``Shapes Project.''\cite{allan_mccollum_shapes_2006} McCollum aims at creating one ``shape'' (a solid black object against a white background) for every person on the planet. Rather than design a program to generate these shapes, McCollum is creating them by hand. To make sure he never repeats the same shape twice, he's constructed a complex shape-generating system that he follows rigorously. 
+
+\subsection{Sonic enumeration}
+
+	Sebastian Tomczak has done some work with enumeration in a sonic domain, working with loops of short PCM encoded waveforms. ``All 4-bit Waveforms That Have 32 Samples''\cite{tomczak_all_2009} expands into a space of $2^{4^{32}}=16^{32}$ possible samples at 440 Hz, which ``will take 1,079,028,307,100,000,000,000,000,000 centuries to complete.'' His ``Hardware-based Waveform Permutations''\cite{tomczak_hardware-based_2009} implements the same concept in hardware with counters and multiplexers, but for only 4 samples instead of 32.
 	
-	Paul Slocum's ``Pi House Generator''\cite{paul_slocum_pi_2007} uses the digits of $\pi$ to generate an infinitely long piece of house music. He claims that there is no repetition, but this is technically impossible as the program is deterministic and runs on a computer with limited resources. Furthermore, $\pi$ itself contains an infinite amount of repetition. It would be more accurate to say that the program generates pseudo-random music informed by the digits of $\pi$.
+	Working with twelve notes of an octave rather than 32 samples, Tom Johnson's ``Chord Catalogue''\cite{tom_johnson_liner_1999} performs a similar iteration through possible sounds: the 8178 possible chords in an octave. The composition uses a similar enumeration as ``De Wensput'': first all two notes intervals, then three note chords, then four notes, etc. An interesting historical precursor is mentioned in the liner notes:
 	
-	John Cage's ``Organ$^2$/ASLSAP'' (As Slow As Possible)\cite{john_cage_as_????} is one of the more infamous performances of a Cage piece. While the first performance lasted only 29 minutes, it is now being performed on a custom built organ at St. Burchardi church in Halberstadt, Germany. Starting with a pause in 2000, it is scheduled to last 639 years, ending in 2640.
+	\begin{quote}
+	Already in the early 17th century, the intellectual monk Marin Mersenne posed questions in the Livre du chant of his Harmonie universelle as to the number of possible melodies one could construct by changing the order of notes in a 22-note sequence. After much calculation he concluded that there was no point in actually carrying out this experiment, since one could never hear that many melodies in one lifetime.
+	\end{quote}
+		
+	Paul Slocum's ``Pi House Generator''\cite{paul_slocum_pi_2007} uses the digits of $\pi$ to generate an infinitely long piece of house music. He claims that there is no repetition, but this is technically impossible as the program is deterministic and runs on a computer with limited resources. Furthermore, $\pi$ itself contains an infinite amount of repetition. It would be more accurate to say that the program generates pseudo-random music informed by the digits of $\pi$, and that it's hard to predict what you'll hear next.
+	
+	John Cage's ``Organ$^2$/ASLAP'' (As Slow As Possible)\cite{john_cage_as_????} is one of the more infamous performances of a Cage piece. While the first performance lasted only 29 minutes, it is now being performed on a custom built organ at St. Burchardi church in Halberstadt, Germany. Starting with a pause in 2000, it is scheduled to last 639 years, ending in 2640. This composition is likely related to Cage's comment that he was ``trying to find a way to make music that does not depend on time.''
 	
 	``Longplayer'' by Jem Finer\cite{jem_finer_longplayer_????} is a thousand year long composition scheduled to end on December 31 2999. Composed as the end of the twentieth century, Longplayer is primarily concerned with time and only secondarily with music. The way it solves the musical ``problem'' of creating a one thousand year long composition is interesting: starting with a single 20'20'' composition for Tibetan singing bowls, six two-minute segments are chosen as source material, these segments are played out of phase, and the phase slowly drifts over time. The slowest drifting phase moves with the composition, only completing its phrase when the entire composition is complete. The fastest changing phase makes a cycle every 3.7 days. Longplayer is regularly performed at Trinity Buoy Wharf in London, and is constantly streaming online.
 	
-		Since 1987, Alan McCollum has been exploring large numbers and the limits of human-created unique objects with his ``Shapes Project.''\cite{allan_mccollum_shapes_2006} McCollum aims at creating one ``shape'' (a solid black object against a white background) for every person on the planet. Rather than design a program to generate these shapes, McCollum is creating them by hand. To make sure he never repeats the same shape twice, he's constructed a complex shape-generating system that he follows rigorously. 
+	Brian Whitman's ``Eigenradio''\cite{brian_whitman_eigenradio_2005} project listened to multiple radio streams and used principle components analysis to create a single stream that represented all of them simultaneously. Whitman is heavily involved with music analysis, and acknowledges that the only way for a computer to ``understand'' music is by learning its relationship to a large amount of extramusical information:
 	
-	\cite{brian_whitman_eigenradio_2005}
-	\cite{keith_f._lynch_converting_????}
-	\cite{tom_johnson_liner_1999}
-	\cite{christian_scheib_statics_????}
+	\begin{quote}
+	In the real world, does anyone ever hear music with absolutely no context? Even if you hear something on the radio by accident, you make an assumption about the artist simply because they have music on the radio. You also know the station and the time of day, maybe the song that came after it.
+	\end{quote}
+		
+\subsection{Experiments in enumeration}
+
+	After discovering so many variations on the ``Every Icon'' theme, I proposed a new work, ``Every Every Icon'':
 	
-	pppd\cite{kyle_mcdonald_pppd_2009} is an indirect approach to enumeration via a random walk. It draws on computability theory\cite{boolos_computability_2002} and the idea of a Turing-complete system. Turing-completeness refers to the ability of a system to compute anything that can be computed. pppd uses a very simple esoteric programming language known as P'' (``P prime prime'') to accomplish this. While practical programming languages are full of statements like \verb!z = x + y!, \verb!println(z)!, and \verb!for(int i = 0; i < n; i++)!, P'' breaks computing down to its essentials: moving a pointer through memory, changing memory, and looping--requiring only six commands, sometimes written as [, ], +, -, < and >. Because P'' is Turing-complete, any program you could write with a language like C++ or Java could also be accomplished with P'' (albeit in a significantly slower and heavily obfuscated manner). Because any possible program can be represented, this means that any possible digital image or sound can also be written to the program's memory space. pppd generates random code, fitting the minor syntactical requirement of balanced brackets, and then visualizes and sonifies the memory space while running the code. In theory, not only can every image and sound be composed, but every compressed representation as well--along with the decompression algorithm. In practice, pppd produces very regular sequences of flashing colors and glitchy sounds. This acts a revelation of the nature of P'': it's likes to representing high-contrast memory sequences within constrained memory regions. Using another language would generate very different results.
+	\begin{quote}
+	This work will include all of the above works, as well as any other variations that may be dreamed up in the future. It will accomplish this by iterating through every possible resolution, at every possible framerate, for every possible bit depth, in every possible order.\footnote{\url{http://erraticsemaphore.blogspot.com/2009/08/every-every-icon.html}}
+	\end{quote}
+	
+	Around the same I also created ``Every Song''\footnote{\url{http://openprocessing.org/visuals/?visualID=1170}}, which iterates through all possible equal-tempered songs using twelve notes in the octave. It does this as quickly as possible, with the reference for the tempo coming from the frequency of the lowest note being played. It uses simple binary enumeration, and proceeds in a manner very similar to ``Every Icon'' with the exception of being infinitely long: after the first chord is enumerated, it follows with all the two-chord sequences, then three, etc. I have never personally seen it get beyond playing an F in the second chord.
+
+	``pppd''\cite{kyle_mcdonald_pppd_2009} is an indirect approach to enumeration via a random walk. It draws on computability theory\cite{boolos_computability_2002} and the idea of a Turing-complete system. Turing-completeness refers to the ability of a system to compute anything that can be computed. pppd uses a very simple esoteric programming language known as P'' (``P prime prime'') to accomplish this. While practical programming languages are full of statements like \verb!z = x + y!, \verb!println(z)!, and \verb!for(int i = 0; i < n; i++)!, P'' breaks computing down to its essentials: moving a pointer through memory, changing memory, and looping--requiring only six commands, sometimes written as [, ], +, -, < and >. Because P'' is Turing-complete, any program you could write with a language like C++ or Java could also be accomplished with P'' (albeit in a significantly slower and heavily obfuscated manner). Because any possible program can be represented, this means that any possible digital image or sound can also be written to the program's memory space. pppd generates random code, fitting the minor syntactical requirement of balanced brackets, and then visualizes and sonifies the memory space while running the code. In theory, not only can every image and sound be composed, but every compressed representation as well--along with the decompression algorithm. In practice, pppd produces very regular sequences of flashing colors and glitchy sounds. This acts a revelation of the nature of P'': it's likes to representing high-contrast memory sequences within constrained memory regions. Using another language would generate very different results.
 	
 	My nandhopper project\cite{kyle_mcdonald_nandhopper_2008} also draws on enumeration via directed random walks. The NAND is a binary logical operation, meaning it takes two inputs that are either true or false and returns a result of true or false. The NAND has the unusual property of being able to represent any possible logical operation on any number of inputs. In other words, while you might normally express a logical statement using multiple operators like IF, AND, OR, and NOT, they can all be reduced to statements that only use NAND. Practically, this means that any possible digital sound synthesis circuit can be represented using only NAND gates.
 	
 	I first came across NAND gates when exploring capacitive sensing. NAND gates are useful for constructing feedback loops that vary their frequency with respect to capacitance to ground.\footnote{Using a Schmitt trigger NAND like the 4093 you can use one input as an on-off switch while tying the output to the other input via a resistor. The feedback input is also tied to ground via a capacitor. This is a very basic RC circuit.} When I realized that NANDs could be used to simulate every other chip, I started exploring various NAND configurations and ways of connecting multiple NAND circuits. I developed three different configurations for an experimental filmmaker\footnote{Mexican filmmaker Diego Delmar, alias ``Macushi'' \url{http://www.knock.com.mx/}} based on intuitive explorations of these configurations. I published these designs along with detailed instructions on the tutorial-sharing site Instructables.com. In Spring of 2009 I developed a close connection to a complex variation on the NAND-synth that was developed for a performance context, integrating capacitive, resistive, and illumination sensing in a massively entangled feedback circuit. I see these as the first steps in a more general exploration of NAND-synthesis. I imagine a massive matrix of reconfigurable NAND circuits that can be rearranged during performance: constantly responding the the changing flow of logic, able to simulate any imaginable digital synthesizer in a very practical sense, complex enough to be interesting, but deterministic enough to be learned.
 	
 	What is the connection between enumeration and indeterminacy? They are both about sampling a large space, but one is approached in a compositional manner while the other is meta-compositional and imitative of nature.
-	
-	ASLAP could be connected to Cage's comment, ``I'm trying to find a way to make music that does not depend on time.''
 	
 \section{Empty Art}
 
@@ -241,6 +259,22 @@ Only Everything Lasts Forever is a sound composition containing every sound we c
 	Rauschenberg's white paintings gave Cage ``permission'' to write 4'33''. The white paintings offer a significant metaphor for understanding 4'33'': not as ``empty'', but as ``mirrors.'' Perhaps ``Mirror Art'' is more fitting than ``Empty Art'' when describing this collection of pieces.
 	
 	Cage tied this realization of music's nature, intentional sound, to music's function: a process of discovery, becoming more attentive to sounds. When describing noise and non-noise, I understand neither in a functional sense.
+		
+	Composer Peter Ablinger has a number of writings dealing with white noise as the sound that contains all sound. He focuses on a sort if intra-coherentism, or finding meaning in self-similar works. He writes, ``redundancy produces information''\cite{christian_scheib_statics_????} and has some other helpful reflections on the relationship between noise, repetition, and meaning:
+	
+	\begin{quote}
+	It was Arnold Schönberg who stated that variation is necessarily a form of repetition as at least something must return between variation and variation. And he thus shifted his attention from the changing aspect of music to the continuous, the repeated. Ablinger's attitude is something like the hidden, reverse secret of the same story: that each repetition is also variation, that there is necessarily always something changing-—that, in other words: repetition does not exist except as an abstraction. 
+	\end{quote}
+	
+	\begin{quote}
+	Human beings are able to think of simultaneous things as successive ones. This is thinking. Thinking is making a successive order out of the surrounding whole, out of totality. Thinking therefore might be thought of as the negation of simultaneity. Thinking then is the negation of any actually accessible lived experience.
+	\end{quote}
+	
+	\begin{quote}
+	Rauschen (White noise) is the totality of sounds--``everything always'' in its acoustic representation. Comparable to white light that contains all colours, white noise contains all frequencies, and - poetically speaking - all music. [...] The reason why we hear ``less than nothing'' is that we cannot connect to it by just listening. It is simply too much. We can't do anything with it. The only thing that is left to do is to produce illusions, i.e., to hear something ``in'' the noise that is not there, that can be perceived only individually - to project our own imagination onto that white ``screen''. In this way Rauschen works like a mirror, reflecting back only what we project onto it. \footnote{\url{http://ablinger.mur.at/rauschen.html}}
+	\end{quote}
+
+	This idea of meaning emerging from self-reference in music drove my own explorations of automated looping systems.
 
 \chapter{Glitch Art}
 
@@ -331,6 +365,8 @@ In \cite[9]{karlheinz_brandenburg_mp3_1999}, Karlheinz mentions that we have all
 	
 \section{Structurally-Informed MP3 Glitching}
 
+	(This section will be about the technical details and aesthetic choices behind the implementation of ``Only Everything Lasts Forever.'')
+
 	The protagonist of Borges' ``The Aleph'' makes an interesting comment about the difference between how a work is received and how it is justified:
 	
 	\begin{quote}
@@ -345,8 +381,8 @@ In \cite[9]{karlheinz_brandenburg_mp3_1999}, Karlheinz mentions that we have all
 	
 \chapter{Conclusion}
 
-% The following produces a numbered bibliography where the numbers
-% correspond to the \cite commands in the text.
+	(This chapter will provide a brief summary of everything that was discussed.)
+
 \specialhead{References}
 \begin{singlespace}
 \bibliographystyle{plain}
