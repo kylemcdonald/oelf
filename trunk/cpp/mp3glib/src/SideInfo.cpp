@@ -12,19 +12,22 @@ void SideInfo::setFrame(Frame* frame) {
 
 ostream& SideInfo::write(ostream& out) const {
 	byte bits[sideInfoLength];
-	memset(bits, 0, sideInfoLength);
 
 	int offset = 0;
-	// 9 main_data_begin: "0" means main data begins directly after side info
-	offset += 9;
-	// 5 private_bits: all 0, not used
-	offset += 5;
+	memset(bits, 0, sideInfoLength);
+	offset += 9; // 9 main_data_begin: negative offset, 0 begins after side info
+	offset += 5; // 5 private_bits (padding): all 0 (only 3 for stereo)
 
 	/*
-		4 scfsi: are scalefactors transferred for both granules, or not?
+		4 scfsi (scale factor sharing information)
+			are scalefactors transferred for both granules, or not?
 			if short windows (block_type = 10) all scalefactors are sent
+		0 0-5
+		1 6-10
+		2 11-15
+		3 16-20
 	*/
-	// TODO: add scfsi check
+	// TODO: add scfsi
 	offset += 4;
 
 	frame->getGranule(0).writeInfo(bits, offset);
