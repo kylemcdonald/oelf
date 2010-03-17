@@ -6,7 +6,7 @@ public:
 	Header();
 	ostream& write(ostream& out);
 private:
-	unsigned char header[4];
+	byte header[4];
 };
 
 /*

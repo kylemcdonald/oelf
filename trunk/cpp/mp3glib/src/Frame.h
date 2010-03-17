@@ -3,6 +3,7 @@
 
 #include "SideInfo.h"
 #include "Header.h"
+#include "Granule.h"
 
 class Frame {
 public:
@@ -11,4 +12,5 @@ public:
 private:
 	Header header;
 	SideInfo sideInfo;
+	Granule granules[2];
 };
