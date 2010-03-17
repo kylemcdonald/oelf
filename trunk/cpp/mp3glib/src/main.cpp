@@ -1,7 +1,3 @@
-#include <iostream>
-#include <fstream>
-using namespace std;
-
 #include "mp3glib.h"
 
 int main() {
