@@ -3,10 +3,8 @@
 Granule::Granule() {
 }
 
-ostream& Granule::writeInfo(ostream& out) {
-	byte bits[granuleLength];
-	memset(bits, 0, granuleLength);
-	// first, fill out the bits aligned to 0
+int Granule::writeInfo(byte* data, int offset) const {
+	// 0-11 part2_3_length
 	/*
 		12 part2_3_length
 		9 big_values
@@ -32,6 +30,5 @@ ostream& Granule::writeInfo(ostream& out) {
 		1 scalefac_scale
 		1 count1table_select
 	*/ // 59
-	// then copy to unaligned input pointer
-	return out;
+	return offset;
 }

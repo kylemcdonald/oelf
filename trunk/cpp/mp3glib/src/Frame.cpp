@@ -9,3 +9,7 @@ ostream& Frame::write(ostream& out) {
 	sideInfo.write(out);
 	return out;
 }
+
+const Granule& Frame::getGranule(int which) {
+	return granules[which];
+}

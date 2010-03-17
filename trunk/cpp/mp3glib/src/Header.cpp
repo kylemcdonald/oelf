@@ -7,7 +7,7 @@ Header::Header() {
 	header[3] = 0xc4; // 1100 0100
 }
 
-ostream& Header::write(ostream& out) {
+ostream& Header::write(ostream& out) const {
 	out.write((char*) header, 4);
 	return out;
 }

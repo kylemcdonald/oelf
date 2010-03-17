@@ -7,7 +7,7 @@ class SideInfo {
 public:
 	SideInfo();
 	void setFrame(Frame* frame);
-	ostream& write(ostream& out);
+	ostream& write(ostream& out) const;
 private:
 	Frame* frame;
 

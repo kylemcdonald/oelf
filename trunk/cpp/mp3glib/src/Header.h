@@ -4,7 +4,7 @@
 class Header {
 public:
 	Header();
-	ostream& write(ostream& out);
+	ostream& write(ostream& out) const;
 private:
 	byte header[4];
 };
