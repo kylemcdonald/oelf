@@ -29,6 +29,7 @@
 		<Unit filename="src\Granule.h" />
 		<Unit filename="src\Header.cpp" />
 		<Unit filename="src\Header.h" />
+		<Unit filename="src\Shared.cpp" />
 		<Unit filename="src\Shared.h" />
 		<Unit filename="src\SideInfo.cpp" />
 		<Unit filename="src\SideInfo.h" />

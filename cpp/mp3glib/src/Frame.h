@@ -9,6 +9,7 @@ class Frame {
 public:
 	Frame();
 	ostream& write(ostream& out);
+	const Granule& getGranule(int which);
 private:
 	Header header;
 	SideInfo sideInfo;
