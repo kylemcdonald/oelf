@@ -21,7 +21,12 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add directory="src" />
 		</Compiler>
+		<Unit filename="src\Frame.h" />
+		<Unit filename="src\Header.h" />
+		<Unit filename="src\main.cpp" />
+		<Unit filename="src\mp3glib.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
