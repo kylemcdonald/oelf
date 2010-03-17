@@ -25,6 +25,8 @@
 		</Compiler>
 		<Unit filename="src\Frame.cpp" />
 		<Unit filename="src\Frame.h" />
+		<Unit filename="src\Granule.cpp" />
+		<Unit filename="src\Granule.h" />
 		<Unit filename="src\Header.cpp" />
 		<Unit filename="src\Header.h" />
 		<Unit filename="src\Shared.h" />

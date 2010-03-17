@@ -8,6 +8,6 @@ Header::Header() {
 }
 
 ostream& Header::write(ostream& out) {
-	out << header;
+	out.write((char*) header, 4);
 	return out;
 }

@@ -7,6 +7,9 @@ class SideInfo {
 public:
 	SideInfo();
 	void setFrame(Frame* frame);
+	ostream& write(ostream& out);
 private:
 	Frame* frame;
+
+	static const int sideInfoLength = 17;
 };
