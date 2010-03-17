@@ -1,13 +1,14 @@
+#pragma once
+#include "Shared.h"
+
+#include "SideInfo.h"
 #include "Header.h"
 
 class Frame {
 public:
-	Frame() {
-	}
-	ostream& write(ostream& out) {
-		header.write(out);
-		return out;
-	}
+	Frame();
+	ostream& write(ostream& out);
 private:
 	Header header;
+	SideInfo sideInfo;
 };
