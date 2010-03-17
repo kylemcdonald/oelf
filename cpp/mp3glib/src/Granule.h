@@ -5,4 +5,6 @@ class Granule {
 public:
 	Granule();
 	int writeInfo(byte* data, int offset) const;
+private:
+	bool windowSwitching;
 };
