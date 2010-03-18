@@ -1,40 +1,59 @@
 #include "Granule.h"
 
-Granule::Granule() {
+Granule::Granule() :
+	windowSwitching(false) {
 }
 
 int Granule::writeInfo(byte* data, int offset) const {
-	// 0-11 part2_3_length
-	offset += 12; // part2_3_length / main_data_bit
-	offset += 9; // big_values
-	offset += 8; // global_gain
-	offset += 4; // slength / scalefac_compress / bit allocation for scale factors
+	// part2_3_length / main_data_bit is computed
+	offset += 12;
 
+	// bigValues
+	offset += 9;
+
+	// globalGain; // global_gain
+	offset += 8;
+
+	// slength / scalefac_compress / bit allocation for scale factors
+	offset += 4;
+
+	// windowSwitching is true only when blockType is long, so why store separate?
 	set(data, offset, windowSwitching);
 	offset++;
-	if(windowSwitching) { // start, stop, short
-		/*
-			2 block_type
-			1 switch_point / mixed_blockflag
-			5 region0 table_select
-			5 region1 table_select
-			3 window0 subblock_gain
-			3 window1 subblock_gain
-			3 window2 subblock_gain
-		*/
-	} else {
-		/*
-			5 region0 table_select
-			5 region1 table_select
-			5 region2 table_select
-			4 region_address1 / region0_count
-			3 region_address2 / region1_count
-		*/
+	if(windowSwitching) { // start, stop, short (special)
+		// blockType; // either start, stop, or short
+		offset += 2;
+
+		// mixedBlock; // switch_point / mixed_blockflag
+		offset += 1;
+
+		for(int i = 0; i < 2; i++) {
+			// bigTableSelect[i]; / bigtable huffman table selection
+			offset += 5;
+		}
+		for(int i = 0; i < 3; i++) {
+			// subblockGain[i]; // window i subblock_gain
+			offset += 3;
+		}
+	} else { // long (normal)
+		for(int i = 0; i < 3; i++) {
+			// bigTableSelect[i]; / bigtable huffman table selection
+			offset += 5;
+		}
+		//regionCount[0] - 1; // region 0 bands
+		offset += 4;
+		//regionCount[1] - 1; // region 1 bands
+		offset += 3;
 	}
-	/*
-		1 preflag
-		1 scalefac_scale
-		1 count1table_select
-	*/
+
+	set(data, offset, preflag); // preemphasis flag
+	offset++;
+
+	set(data, offset, scaleShift); // sf quantize, scalefac_scale, scale_shift
+	offset++;
+
+	set(data, offset, smallTableSelect); // small values huffman table, count1table_select
+	offset++;
+
 	return offset;
 }
