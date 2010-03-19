@@ -18,8 +18,8 @@ int Granule::writeInfo(byte* data, int offset) const {
 	offset += 4;
 
 	// windowSwitching is true only when blockType is long, so why store separate?
-	set(data, offset, windowSwitching);
-	offset++;
+	set(data, offset++, windowSwitching);
+
 	if(windowSwitching) { // start, stop, short (special)
 		// blockType; // either start, stop, or short
 		offset += 2;
@@ -46,14 +46,9 @@ int Granule::writeInfo(byte* data, int offset) const {
 		offset += 3;
 	}
 
-	set(data, offset, preflag); // preemphasis flag
-	offset++;
-
-	set(data, offset, scaleShift); // sf quantize, scalefac_scale, scale_shift
-	offset++;
-
-	set(data, offset, smallTableSelect); // small values huffman table, count1table_select
-	offset++;
+	set(data, offset++, preflag); // preemphasis flag
+	set(data, offset++, scaleShift); // sf quantize, scalefac_scale, scale_shift
+	set(data, offset++, smallTableSelect); // small values huffman table, count1table_select
 
 	return offset;
 }
