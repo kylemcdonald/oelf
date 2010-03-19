@@ -4,16 +4,30 @@
 class Granule {
 public:
 	Granule();
-	int writeInfo(byte* data, int offset) const;
+	int writeSideInfo(byte* data, int offset) const;
+	int writeMainData(byte* data, int offset) const;
 private:
-	bool windowSwitching;
+	short bigValues;
+	short smallValues;
 	byte globalGain;
+	byte slength;
+
 	byte blockType;
 	bool mixedBlock;
-	byte bigTableSelect[3];
+
+	bool windowSwitching;
+
+	byte bigTableSelect[REGIONS];
 	bool smallTableSelect;
+
+	byte regionCount[REGIONS];
+	byte subblockGain[REGIONS];
+
 	bool preflag;
 	bool scaleShift;
-	byte regionCount[3];
-	byte subblockGain[3];
+
+	byte sfi[BANDS];
+
+	// bigCodes[FREQUENCIES / 2];
+	// smallCodes[FREQUENCIES / 2];
 };
