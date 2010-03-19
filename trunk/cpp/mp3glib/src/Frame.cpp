@@ -5,8 +5,8 @@ Frame::Frame() {
 }
 
 ostream& Frame::write(ostream& out) {
-	header.write(out);
-	sideInfo.write(out);
+	header.writeHeader(out);
+	sideInfo.writeSideInfo(out);
 	return out;
 }
 

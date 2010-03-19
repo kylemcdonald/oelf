@@ -10,7 +10,7 @@ void SideInfo::setFrame(Frame* frame) {
 	this->frame = frame;
 }
 
-ostream& SideInfo::write(ostream& out) const {
+ostream& SideInfo::writeSideInfo(ostream& out) const {
 	byte bits[sideInfoLength];
 
 	int offset = 0;
@@ -27,11 +27,11 @@ ostream& SideInfo::write(ostream& out) const {
 		2 11-15
 		3 16-20
 	*/
-	// TODO: add scfsi
-	offset += 4;
+	for(int i = 0; i < 4; i++)
+		set(bits, offset++, scfsi[i]);
 
-	frame->getGranule(0).writeInfo(bits, offset);
-	frame->getGranule(1).writeInfo(bits, offset);
+	frame->getGranule(0).writeSideInfo(bits, offset);
+	frame->getGranule(1).writeSideInfo(bits, offset);
 
 	out.write((char*) bits, 17);
 	return out;
