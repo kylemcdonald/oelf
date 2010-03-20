@@ -7,7 +7,6 @@ Granule::Granule() :
 		slength(0),
 		blockType(LONG_BLOCK),
 		mixedBlock(false),
-		windowSwitching(false),
 		smallTableSelect(false),
 		preflag(false),
 		scaleShift(false) {
@@ -18,57 +17,46 @@ Granule::Granule() :
 	}
 }
 
-int Granule::writeSideInfo(byte* data, int offset) const {
-	// part2_3_length / main_data_bit is computed
+short Granule::getMainDataLength() const {
 	// based on scale factor length + big value length + small value length
-	offset += 12;
-
-	// bigValues; // where big values end and small values begin
-	offset += 9;
-
-	// globalGain; // global_gain
-	offset += 8;
-
-	// slength; // scalefac_compress / bit allocation for scale factors
-	offset += 4;
-
-	// windowSwitching is true only when blockType is long
-	setBool(data, offset++, windowSwitching);
-
-	if(windowSwitching) { // start, stop, short (special)
-		// blockType; // either start, stop, or short
-		offset += 2;
-
-		// switch_point / mixed_blockflag
-		setBool(data, offset++, mixedBlock);
-
-		for(int i = 0; i < REGIONS - 1; i++) {
-			// bigTableSelect[i]; / bigtable huffman table selection
-			offset += 5;
-		}
-		for(int i = 0; i < REGIONS; i++) { // is this WINDOWS or REGIONS?
-			// subblockGain[i]; // window i subblock_gain
-			offset += 3;
-		}
-	} else { // long (normal)
-		for(int i = 0; i < REGIONS; i++) {
-			// bigTableSelect[i]; / bigtable huffman table selection
-			offset += 5;
-		}
-		//regionCount[0] - 1; // region 0 bands
-		offset += 4;
-		//regionCount[1] - 1; // region 1 bands
-		offset += 3;
-	}
-
-	setBool(data, offset++, preflag); // preemphasis flag
-	setBool(data, offset++, scaleShift); // sf quantize, scalefac_scale, scale_shift
-	setBool(data, offset++, smallTableSelect); // small values huffman table, count1table_select
-
-	return offset;
+	return 0;
 }
 
-int Granule::writeMainData(byte* data, int offset) const {
+bool Granule::getWindowSwitching() const {
+	return blockType != LONG_BLOCK;
+}
+
+void Granule::writeSideInfo(byte* data, int& position) const {
+	setShort(data, position, getMainDataLength(), 12);
+	setShort(data, position, bigValues, 9);
+	setByte(data, position, globalGain, 8);
+	position += 4; // bit allocation for scale factors (slength/slimit)
+
+
+	bool windowSwitching = getWindowSwitching();
+	setBool(data, position, windowSwitching);
+	if(windowSwitching) {
+		setByte(data, position, blockType, 2);
+
+		setBool(data, position, mixedBlock);
+
+		for(int i = 0; i < REGIONS - 1; i++)
+			setByte(data, position, bigTableSelect[i], 5);
+		for(int i = 0; i < SUBBLOCKS; i++)
+			setByte(data, position, subblockGain[i], 3);
+	} else {
+		for(int i = 0; i < REGIONS; i++)
+			setByte(data, position, bigTableSelect[i], 5);
+		setByte(data, position, regionCount[0], 4);
+		setByte(data, position, regionCount[1], 3);
+	}
+
+	setBool(data, position, preflag);;
+	setBool(data, position, scaleShift);
+	setBool(data, position, smallTableSelect);
+}
+
+void Granule::writeMainData(byte* data, int& position) const {
 	for(int i = 0; i < BANDS; i++) {
 		// use slength and sideInfo->scfsi to determine
 		// which bands and how long they are
@@ -81,5 +69,4 @@ int Granule::writeMainData(byte* data, int offset) const {
 		// all of the small value codes
 	}
 	*/
-	return offset;
 }
