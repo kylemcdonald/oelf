@@ -32,7 +32,7 @@ int Granule::writeSideInfo(byte* data, int offset) const {
 	// slength; // scalefac_compress / bit allocation for scale factors
 	offset += 4;
 
-	// windowSwitching is true only when blockType is long, so why store separate?
+	// windowSwitching is true only when blockType is long
 	set(data, offset++, windowSwitching);
 
 	if(windowSwitching) { // start, stop, short (special)
@@ -46,7 +46,7 @@ int Granule::writeSideInfo(byte* data, int offset) const {
 			// bigTableSelect[i]; / bigtable huffman table selection
 			offset += 5;
 		}
-		for(int i = 0; i < REGIONS; i++) {
+		for(int i = 0; i < REGIONS; i++) { // is this WINDOWS or REGIONS?
 			// subblockGain[i]; // window i subblock_gain
 			offset += 3;
 		}
