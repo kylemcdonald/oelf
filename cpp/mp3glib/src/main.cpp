@@ -5,8 +5,8 @@ int main() {
 	file.open("out.mp3", std::ios::binary | std::ios::out);
 	Frame frame;
 	//frame.write(file);
-	byte bytes[] = {0xf0, 0x0f};
-	set(bytes, 8, 0x05, 3);
-	file.write((char*) bytes, 2);
+	byte bytes[] = {0x00, 0x00, 0x00};
+	setShort(bytes, 7, 0x3ffd, 12);
+	file.write((char*) bytes, 3);
 	file.close();
 }

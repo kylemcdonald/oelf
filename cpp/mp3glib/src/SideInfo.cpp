@@ -28,7 +28,7 @@ ostream& SideInfo::writeSideInfo(ostream& out) const {
 		3 16-20
 	*/
 	for(int i = 0; i < 4; i++)
-		set(bits, offset++, scfsi[i]);
+		setBool(bits, offset++, scfsi[i]);
 
 	frame->getGranule(0).writeSideInfo(bits, offset);
 	frame->getGranule(1).writeSideInfo(bits, offset);
