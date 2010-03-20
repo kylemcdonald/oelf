@@ -2,18 +2,17 @@
 
 #define combine(a, b, mask) ((a & mask) | (b & ~mask))
 
-void setShort(byte* array, unsigned int position, unsigned short value, unsigned int length) {
+void setShort(byte* array, int& position, unsigned short value, int length) {
 	byte* bvalue = (byte*) &value;
 	if(length > 8) {
 		byte filled = length - 8;
 		setByte(array, position, bvalue[1], filled);
 		length = 8;
-		position += filled;
 	}
 	setByte(array, position, bvalue[0], length);
 }
 
-void setByte(byte* array, unsigned int position, byte value, unsigned int length) {
+void setByte(byte* array, int& position, byte value, int length) {
 	unsigned int whichByte = position >> 3;
 	byte whichBit = position - (whichByte << 3);
 	byte shift, mask;
@@ -24,6 +23,7 @@ void setByte(byte* array, unsigned int position, byte value, unsigned int length
 		byte filled = 8 - whichBit;
 		byte mask = ((1 << filled) - 1);
 		array[whichByte] = combine(shifted, array[whichByte], mask);
+		position += filled;
 		length -= filled;
 		whichByte++;
 		whichBit = 0;
@@ -32,11 +32,12 @@ void setByte(byte* array, unsigned int position, byte value, unsigned int length
 	value <<= shift;
 	mask = ((1 << length) - 1) << shift;
 	array[whichByte] = combine(value, array[whichByte], mask);
+	position += length;
 }
 
 /*
 // alternative solution: cast to shorts. not flexible or multiplatform.
-void setByte(byte* array, unsigned int position, byte value, unsigned int length) {
+void setByte(byte* array, int& position, byte value, int length) {
 	// determine byte and bit offsets
 	unsigned int whichByte = position >> 3;
 	byte whichBit = position - (whichByte << 3);
@@ -60,10 +61,12 @@ void setByte(byte* array, unsigned int position, byte value, unsigned int length
 	swap = array[whichByte];
 	array[whichByte] = array[whichByte + 1];
 	array[whichByte + 1] = swap;
+
+	position += length;
 }
 */
 
-void setBool(byte* array, unsigned int position, bool value) {
+void setBool(byte* array, int& position, bool value) {
 	unsigned int whichByte = position >> 3;
 	byte whichBit = position - (whichByte << 3);
 	byte mask = 1 << whichBit;
@@ -71,4 +74,5 @@ void setBool(byte* array, unsigned int position, bool value) {
 		array[whichByte] |= mask;
 	else
 		array[whichByte] &= ~mask;
+	position++;
 }

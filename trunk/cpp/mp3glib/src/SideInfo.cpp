@@ -11,12 +11,12 @@ void SideInfo::setFrame(Frame* frame) {
 }
 
 ostream& SideInfo::writeSideInfo(ostream& out) const {
-	byte bits[sideInfoLength];
+	byte data[sideInfoLength];
 
-	int offset = 0;
-	memset(bits, 0, sideInfoLength);
-	offset += 9; // 9 main_data_begin: negative offset, 0 begins after side info
-	offset += 5; // 5 private_bits (padding): all 0 (only 3 for stereo)
+	int position = 0;
+	memset(data, 0, sideInfoLength);
+	position += 9; // main_data_begin: negative position, 0 begins after side info
+	position += 5; // private_data, all 0
 
 	/*
 		4 scfsi (scale factor sharing information)
@@ -28,11 +28,13 @@ ostream& SideInfo::writeSideInfo(ostream& out) const {
 		3 16-20
 	*/
 	for(int i = 0; i < 4; i++)
-		setBool(bits, offset++, scfsi[i]);
+		setBool(data, position, scfsi[i]);
 
-	frame->getGranule(0).writeSideInfo(bits, offset);
-	frame->getGranule(1).writeSideInfo(bits, offset);
+	frame->getGranule(0).writeSideInfo(data, position);
+	frame->getGranule(1).writeSideInfo(data, position);
 
-	out.write((char*) bits, 17);
+	cout << "done with granules at " << position << endl;
+
+	out.write((char*) data, 17);
 	return out;
 }

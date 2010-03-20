@@ -7,6 +7,9 @@ Frame::Frame() {
 ostream& Frame::write(ostream& out) {
 	header.writeHeader(out);
 	sideInfo.writeSideInfo(out);
+	for(int i = 0; i < GRANULES; i++) {
+		//granules[i].writeMainData(out);
+	}
 	return out;
 }
 
