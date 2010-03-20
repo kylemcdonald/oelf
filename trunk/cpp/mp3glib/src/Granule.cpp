@@ -33,14 +33,14 @@ int Granule::writeSideInfo(byte* data, int offset) const {
 	offset += 4;
 
 	// windowSwitching is true only when blockType is long
-	set(data, offset++, windowSwitching);
+	setBool(data, offset++, windowSwitching);
 
 	if(windowSwitching) { // start, stop, short (special)
 		// blockType; // either start, stop, or short
 		offset += 2;
 
 		// switch_point / mixed_blockflag
-		set(data, offset++, mixedBlock);
+		setBool(data, offset++, mixedBlock);
 
 		for(int i = 0; i < REGIONS - 1; i++) {
 			// bigTableSelect[i]; / bigtable huffman table selection
@@ -61,9 +61,9 @@ int Granule::writeSideInfo(byte* data, int offset) const {
 		offset += 3;
 	}
 
-	set(data, offset++, preflag); // preemphasis flag
-	set(data, offset++, scaleShift); // sf quantize, scalefac_scale, scale_shift
-	set(data, offset++, smallTableSelect); // small values huffman table, count1table_select
+	setBool(data, offset++, preflag); // preemphasis flag
+	setBool(data, offset++, scaleShift); // sf quantize, scalefac_scale, scale_shift
+	setBool(data, offset++, smallTableSelect); // small values huffman table, count1table_select
 
 	return offset;
 }

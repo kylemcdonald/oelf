@@ -2,7 +2,18 @@
 
 #define combine(a, b, mask) ((a & mask) | (b & ~mask))
 
-void set(byte* array, unsigned int position, byte value, unsigned int length) {
+void setShort(byte* array, unsigned int position, unsigned short value, unsigned int length) {
+	byte* bvalue = (byte*) &value;
+	if(length > 8) {
+		byte filled = length - 8;
+		setByte(array, position, bvalue[1], filled);
+		length = 8;
+		position += filled;
+	}
+	setByte(array, position, bvalue[0], length);
+}
+
+void setByte(byte* array, unsigned int position, byte value, unsigned int length) {
 	unsigned int whichByte = position >> 3;
 	byte whichBit = position - (whichByte << 3);
 	byte shift, mask;
@@ -23,7 +34,36 @@ void set(byte* array, unsigned int position, byte value, unsigned int length) {
 	array[whichByte] = combine(value, array[whichByte], mask);
 }
 
-void set(byte* array, unsigned int position, bool value) {
+/*
+// alternative solution: cast to shorts. not flexible or multiplatform.
+void setByte(byte* array, unsigned int position, byte value, unsigned int length) {
+	// determine byte and bit offsets
+	unsigned int whichByte = position >> 3;
+	byte whichBit = position - (whichByte << 3);
+
+	// cast byte array to short array, reorder bytes
+	unsigned short* sarray = (unsigned short*) &array[whichByte];
+	byte swap = array[whichByte];
+	array[whichByte] = array[whichByte + 1];
+	array[whichByte + 1] = swap;
+
+	// cast value as short, shift, make a mask
+	unsigned short svalue = (unsigned short) value;
+	byte shift = 16 - whichBit - length;
+	svalue <<= shift;
+	unsigned short mask = ((1 << length) - 1) << shift;
+
+	// mask/combine everything
+	*sarray = combine(svalue, *sarray, mask);
+
+	// swap bytes back around
+	swap = array[whichByte];
+	array[whichByte] = array[whichByte + 1];
+	array[whichByte + 1] = swap;
+}
+*/
+
+void setBool(byte* array, unsigned int position, bool value) {
 	unsigned int whichByte = position >> 3;
 	byte whichBit = position - (whichByte << 3);
 	byte mask = 1 << whichBit;
