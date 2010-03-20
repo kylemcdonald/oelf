@@ -12,6 +12,5 @@ enum {LONG_BLOCK, START_BLOCK, SHORT_BLOCK, STOP_BLOCK};
 
 typedef unsigned char byte;
 
-void set(byte* array, unsigned int bit, bool value);
-void set(byte* array, unsigned int bit);
-void clear(byte* array, unsigned int bit);
+void set(byte* array, unsigned int position, byte value, unsigned int length);
+void set(byte* array, unsigned int position, bool value);
