@@ -12,6 +12,7 @@ public:
 	short getMainDataLength() const;
 	bool getWindowSwitching() const;
 	bool isShort() const;
+	bool isFirst() const;
 private:
 	Frame* frame;
 
