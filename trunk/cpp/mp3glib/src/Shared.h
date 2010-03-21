@@ -5,11 +5,13 @@
 #include <cstdlib>
 using namespace std;
 
-#define REGIONS 3
-#define BANDS 21
-#define FREQUENCIES 576
-#define SUBBLOCKS 3
-#define GRANULES 2
+#define GRANULES 2 // granules per frame
+#define FREQUENCIES 576 // frequency bands
+#define REGIONS 3 // frequency band regions
+#define BANDS 21 // scf bands
+#define GROUPS 4 // scfs groups
+#define SUBBLOCKS 3 // subblocks in short block
+
 enum {LONG_BLOCK, START_BLOCK, SHORT_BLOCK, STOP_BLOCK};
 
 typedef unsigned char byte;

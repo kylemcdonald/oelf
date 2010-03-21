@@ -1,18 +1,24 @@
 #pragma once
 #include "Shared.h"
 
+class Frame;
+
 class Granule {
 public:
 	Granule();
+	void setFrame(Frame* frame);
 	void writeSideInfo(byte* data, int& position) const;
 	void writeMainData(byte* data, int& position) const;
 	short getMainDataLength() const;
 	bool getWindowSwitching() const;
+	bool isShort() const;
 private:
+	Frame* frame;
+
 	short bigValues;
 	short smallValues;
 	byte globalGain;
-	byte slength;
+	byte slindex;
 
 	byte blockType;
 	bool mixedBlock;
@@ -27,6 +33,8 @@ private:
 	bool scaleShift;
 
 	byte sfi[BANDS];
+
+	static const byte slength[][2];
 
 	// bigCodes[FREQUENCIES / 2];
 	// smallCodes[FREQUENCIES / 2];
