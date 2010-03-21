@@ -25,7 +25,7 @@ const byte Granule::slength[16][2] = {
 Granule::Granule() :
 		bigValues(0),
 		smallValues(0),
-		globalGain(0),
+		globalGain(150),
 		slindex(0),
 		blockType(LONG_BLOCK),
 		mixedBlock(false),
@@ -47,7 +47,7 @@ void Granule::setFrame(Frame* frame) {
 short Granule::getMainDataLength() const {
 	short total = 0;
 
-	const bool* scfsi = frame->getSideInfo().getScfsi();
+	const bool* scfsi = frame->sideInfo.getScfsi();
 	byte slenLow = slength[slindex][0];
 	byte slenHigh = slength[slindex][1];
 	if(isFirst() || frame->hasShort()) { // without sharing
@@ -86,7 +86,7 @@ bool Granule::isShort() const {
 }
 
 bool Granule::isFirst() const {
-	return this == &(frame->getGranule(0));
+	return this == &(frame->granules[0]);
 }
 
 void Granule::writeSideInfo(byte* data, int& position) const {
@@ -119,7 +119,7 @@ void Granule::writeSideInfo(byte* data, int& position) const {
 }
 
 void Granule::writeMainData(byte* data, int& position) const {
-	const bool* scfsi = frame->getSideInfo().getScfsi();
+	const bool* scfsi = frame->sideInfo.getScfsi();
 
 	byte slenLow = slength[slindex][0];
 	byte slenHigh = slength[slindex][1];

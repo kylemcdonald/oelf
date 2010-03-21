@@ -12,6 +12,7 @@ using namespace std;
 #define SHORT_BANDS 12 // scf bands per subblock
 #define GROUPS 4 // scfs groups
 #define SUBBLOCKS 3 // subblocks in short block
+#define FRAME_SAMPLES 1152 // samples per frame
 
 enum {LONG_BLOCK, START_BLOCK, SHORT_BLOCK, STOP_BLOCK};
 

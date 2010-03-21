@@ -23,8 +23,8 @@ ostream& SideInfo::writeSideInfo(ostream& out) const {
 	for(int i = 0; i < GROUPS; i++)
 		setBool(data, position, scfsi[i]);
 
-	frame->getGranule(0).writeSideInfo(data, position);
-	frame->getGranule(1).writeSideInfo(data, position);
+	frame->granules[0].writeSideInfo(data, position);
+	frame->granules[1].writeSideInfo(data, position);
 
 	cout << "done with granules at " << position << endl;
 
