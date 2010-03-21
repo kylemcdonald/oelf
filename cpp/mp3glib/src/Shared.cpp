@@ -13,6 +13,8 @@ void setShort(byte* array, int& position, unsigned short value, int length) {
 }
 
 void setByte(byte* array, int& position, byte value, int length) {
+	if(length == 0)
+		return;
 	unsigned int whichByte = position >> 3;
 	byte whichBit = position - (whichByte << 3);
 	byte shift, mask;

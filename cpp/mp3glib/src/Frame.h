@@ -8,8 +8,10 @@
 class Frame {
 public:
 	Frame();
-	ostream& write(ostream& out);
-	const Granule& getGranule(int which);
+	ostream& write(ostream& out) const;
+	const Granule& getGranule(int which) const;
+	const SideInfo& getSideInfo() const;
+	bool hasShort() const;
 private:
 	Header header;
 	SideInfo sideInfo;

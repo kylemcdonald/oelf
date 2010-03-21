@@ -8,6 +8,7 @@ public:
 	SideInfo();
 	void setFrame(Frame* frame);
 	ostream& writeSideInfo(ostream& out) const;
+	const bool* getScfsi() const;
 private:
 	Frame* frame;
 	bool scfsi[4];

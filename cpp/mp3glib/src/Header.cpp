@@ -16,11 +16,19 @@
 	2 emphasis: no emphasis, 00
 */
 
-Header::Header() {
+Header::Header() :
+		padding(false) {
 	header[0] = 0xff; // 1111 1111
 	header[1] = 0xfb; // 1111 1011
-	header[2] = 0x90; // 1001 00x0
+	header[2] = 0x92; // 1001 00p0
 	header[3] = 0xc4; // 1100 0100
+}
+
+void Header::setPadding(bool padding) {
+	// at 128 kbps, 44.1 kHz, most frames will be padded
+	this->padding = padding;
+	int paddingPosition = 22;
+	setBool(header, paddingPosition, padding);
 }
 
 ostream& Header::writeHeader(ostream& out) const {
