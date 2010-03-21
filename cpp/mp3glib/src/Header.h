@@ -8,7 +8,7 @@ public:
 	bool getPadding() const;
 	int getBitrate() const;
 	int getSamplerate() const;
-	ostream& writeHeader(ostream& out) const;
+	void writeHeader(byte* data, int& position) const;
 private:
 	byte header[4];
 	bool padding;

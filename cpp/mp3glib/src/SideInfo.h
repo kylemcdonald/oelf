@@ -7,7 +7,7 @@ class SideInfo {
 public:
 	SideInfo();
 	void setFrame(Frame* frame);
-	ostream& writeSideInfo(ostream& out) const;
+	void writeSideInfo(byte* data, int& position) const;
 	const bool* getScfsi() const;
 private:
 	Frame* frame;

@@ -14,16 +14,15 @@ int Frame::getSize() const {
 }
 
 ostream& Frame::write(ostream& out) const {
-	byte* data = new byte[getSize()];
-	cout << "making a new frame of size " << getSize() << endl;
-	header.writeHeader(out);
-	sideInfo.writeSideInfo(out);
+	int size = getSize();
+	byte* data = new byte[size];
+	memset(data, 0, size);
 	int position = 0;
-	for(int i = 0; i < GRANULES; i++) {
+	header.writeHeader(data, position);
+	sideInfo.writeSideInfo(data, position);
+	for(int i = 0; i < GRANULES; i++)
 		granules[i].writeMainData(data, position);
-		cout << "position " << i << " is " << position << " bytes" << endl;
-	}
-	out.write((char*) data, getSize());
+	out.write((char*) data, size);
 	return out;
 }
 

@@ -123,11 +123,9 @@ void Granule::writeMainData(byte* data, int& position) const {
 
 	byte slenLow = slength[slindex][0];
 	byte slenHigh = slength[slindex][1];
-	cout << "slenLow is " << (int) slenLow << ", slenHigh is " << (int) slenHigh << endl;
 	if(isFirst() || frame->hasShort()) { // without sharing
 		if(isShort()) {
 			if(mixedBlock) { // mixed short
-				cout << "writing scf for mixed block" << endl;
 				for(int i = 0; i < 8; i++)
 					setByte(data, position, sfi[i], slenLow);
 				for(int i = 3; i < 6; i++)
@@ -137,7 +135,6 @@ void Granule::writeMainData(byte* data, int& position) const {
 					for(int s = 0; s < SUBBLOCKS; s++)
 						setByte(data, position, sfiShort[s][i], slenHigh);
 			} else { // pure short
-				cout << "writing scf for short block" << endl;
 				for(int i = 0; i < 6; i++)
 					for(int s = 0; s < SUBBLOCKS; s++)
 						setByte(data, position, sfiShort[s][i], slenLow);
@@ -146,14 +143,12 @@ void Granule::writeMainData(byte* data, int& position) const {
 						setByte(data, position, sfiShort[s][i], slenHigh);
 			}
 		} else { // long, start, stop
-			cout << "writing scf for long/start/stop without sharing" << endl;
 			for(int i = 0; i < 11; i++)
 				setByte(data, position, sfi[i], slenLow);
 			for(int i = 11; i < 21; i++)
 				setByte(data, position, sfi[i], slenHigh);
 		}
 	} else { // with sharing (long, start, stop)
-		cout << "writing scf for long/start/stop with sharing" << endl;
 		if(!scfsi[0])
 			for(int i = 0; i < 6; i++)
 				setByte(data, position, sfi[i], slenLow);
