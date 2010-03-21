@@ -9,6 +9,7 @@ using namespace std;
 #define FREQUENCIES 576 // frequency bands
 #define REGIONS 3 // frequency band regions
 #define BANDS 21 // scf bands
+#define SHORT_BANDS 12 // scf bands per subblock
 #define GROUPS 4 // scfs groups
 #define SUBBLOCKS 3 // subblocks in short block
 

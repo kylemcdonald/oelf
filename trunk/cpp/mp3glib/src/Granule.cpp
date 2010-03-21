@@ -22,7 +22,6 @@ const byte Granule::slength[16][2] = {
 	{4, 3}
 };
 
-
 Granule::Granule() :
 		bigValues(0),
 		smallValues(0),
@@ -91,23 +90,46 @@ void Granule::writeMainData(byte* data, int& position) const {
 	bool first = this == &(frame->getGranule(0));
 	const bool* scfsi = frame->getSideInfo().getScfsi();
 
-	if(first || frame->hasShort()) { // no sharing
-
-	} else { // use sharing
-		byte slen = slength[slindex][0];
+	byte slenLow = slength[slindex][0];
+	byte slenHigh = slength[slindex][1];
+	if(first || frame->hasShort()) { // without sharing
+		if(isShort()) {
+			if(mixedBlock) { // mixed short
+				for(int i = 0; i < 8; i++)
+					setByte(data, position, sfi[i], slenLow);
+				for(int i = 3; i < 6; i++)
+					for(int s = 0; s < SUBBLOCKS; s++)
+						setByte(data, position, sfiShort[s][i], slenLow);
+				for(int i = 6; i < 12; i++)
+					for(int s = 0; s < SUBBLOCKS; s++)
+						setByte(data, position, sfiShort[s][i], slenHigh);
+			} else { // pure short
+				for(int i = 0; i < 5; i++)
+					for(int s = 0; s < SUBBLOCKS; s++)
+						setByte(data, position, sfiShort[s][i], slenLow);
+				for(int i = 6; i < 12; i++)
+					for(int s = 0; s < SUBBLOCKS; s++)
+						setByte(data, position, sfiShort[s][i], slenHigh);
+			}
+		} else { // long, start, stop
+			for(int i = 0; i < 11; i++)
+				setByte(data, position, sfi[i], slenLow);
+			for(int i = 11; i < 21; i++)
+				setByte(data, position, sfi[i], slenHigh);
+		}
+	} else { // with sharing (long, start, stop)
 		if(!scfsi[0])
 			for(int i = 0; i < 6; i++)
-				setByte(data, position, sfi[i], slen);
+				setByte(data, position, sfi[i], slenLow);
 		if(!scfsi[1])
 			for(int i = 6; i < 11; i++)
-				setByte(data, position, sfi[i], slen);
-		slen = slength[slindex][1];
+				setByte(data, position, sfi[i], slenLow);
 		if(!scfsi[2])
 			for(int i = 11; i < 16; i++)
-				setByte(data, position, sfi[i], slen);
+				setByte(data, position, sfi[i], slenHigh);
 		if(!scfsi[3])
 			for(int i = 16; i < 21; i++)
-				setByte(data, position, sfi[i], slen);
+				setByte(data, position, sfi[i], slenHigh);
 	}
 
 	/*
