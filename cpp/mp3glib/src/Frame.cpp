@@ -9,9 +9,19 @@ Frame::Frame() {
 ostream& Frame::write(ostream& out) const {
 	header.writeHeader(out);
 	sideInfo.writeSideInfo(out);
+	int mainDataLength = 0;
 	for(int i = 0; i < GRANULES; i++) {
-		//granules[i].writeMainData(out);
+		mainDataLength += granules[i].getMainDataLength();
+		cout << "granule " << i << " is " << granules[i].getMainDataLength() << " bytes" << endl;
 	}
+	mainDataLength /= 8;
+	byte* data = new byte[mainDataLength];
+	int position = 0;
+	for(int i = 0; i < GRANULES; i++) {
+		granules[i].writeMainData(data, position);
+		cout << "position " << i << " is " << position << " bytes" << endl;
+	}
+	out.write((char*) data, mainDataLength);
 	return out;
 }
 
