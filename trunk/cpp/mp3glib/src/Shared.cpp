@@ -71,7 +71,7 @@ void setByte(byte* array, int& position, byte value, int length) {
 void setBool(byte* array, int& position, bool value) {
 	unsigned int whichByte = position >> 3;
 	byte whichBit = position - (whichByte << 3);
-	byte mask = 1 << whichBit;
+	byte mask = 1 << (7 - whichBit);
 	if(value)
 		array[whichByte] |= mask;
 	else

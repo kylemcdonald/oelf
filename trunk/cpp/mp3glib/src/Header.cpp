@@ -1,7 +1,7 @@
 #include "Header.h"
 
 /*
-	12 syncword: xFFF (or, x7FF for v2.5)
+	12 syncword: xFFF
 	1 id: 1, indicates v1 rather than v2
 	2 layer: 01 for layer 3
 	1 protection: 1, no error checking
@@ -20,8 +20,8 @@ Header::Header() :
 		padding(false) {
 	header[0] = 0xff; // 1111 1111
 	header[1] = 0xfb; // 1111 1011
-	header[2] = 0x92; // 1001 00p0
-	header[3] = 0xc0; // 1100 0100
+	header[2] = 0x90; // 1001 00p0
+	header[3] = 0xc4; // 1100 0100
 }
 
 bool Header::getPadding() const {
@@ -43,7 +43,8 @@ void Header::setPadding(bool padding) {
 	setBool(header, paddingPosition, padding);
 }
 
-ostream& Header::writeHeader(ostream& out) const {
-	out.write((char*) header, 4);
-	return out;
+void Header::writeHeader(byte* data, int& position) const {
+	// as header is always byte-aligned, this could just be a memcpy
+	for(int i = 0; i < 4; i++)
+		setByte(data, position, header[i], 8);
 }
