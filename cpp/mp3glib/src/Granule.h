@@ -33,6 +33,7 @@ private:
 	bool scaleShift;
 
 	byte sfi[BANDS];
+	byte sfiShort[SUBBLOCKS][SHORT_BANDS];
 
 	static const byte slength[][2];
 
