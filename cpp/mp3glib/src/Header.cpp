@@ -21,7 +21,19 @@ Header::Header() :
 	header[0] = 0xff; // 1111 1111
 	header[1] = 0xfb; // 1111 1011
 	header[2] = 0x92; // 1001 00p0
-	header[3] = 0xc4; // 1100 0100
+	header[3] = 0xc0; // 1100 0100
+}
+
+bool Header::getPadding() const {
+	return padding;
+}
+
+int Header::getBitrate() const {
+	return 128000;
+}
+
+int Header::getSamplerate() const {
+	return 44100;
 }
 
 void Header::setPadding(bool padding) {
