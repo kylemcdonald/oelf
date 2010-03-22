@@ -9,7 +9,7 @@ public:
 	void setFrame(Frame* frame);
 	void writeSideInfo(byte* data, int& position) const;
 	const bool* getScfsi() const;
-private:
+
 	Frame* frame;
 	bool scfsi[4];
 
