@@ -18,7 +18,6 @@ public:
 	static short smallLookupA[81][2];
 	static short smallLookupB[81][2];
 
-private:
 	Frame* frame;
 
 	short bigValues;

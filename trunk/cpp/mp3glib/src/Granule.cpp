@@ -7,7 +7,7 @@ short Granule::smallLookupA[81][2];
 short Granule::smallLookupB[81][2];
 
 Granule::Granule() :
-		bigValues(0),
+		bigValues(),
 		smallValues(0),
 		globalGain(150),
 		slindex(0),
@@ -16,12 +16,11 @@ Granule::Granule() :
 		smallTableSelect(false),
 		preflag(false),
 		scaleShift(false) {
-	for(int i = 0; i < REGIONS; i++) {
-		bigTableSelect[i] = 0;
-		regionCount[i] = 0;
-	}
-	for(int i = 0; i < SUBBLOCKS; i++)
-		subblockGain[i] = 0;
+	memset(bigTableSelect, 0, REGIONS);
+	memset(regionCount, 0, REGIONS);
+	memset(subblockGain, 0, SUBBLOCKS);
+	memset(sfi, 0, BANDS);
+	memset(sfiShort, 0, SUBBLOCKS * SHORT_BANDS * sizeof(short));
 }
 
 void Granule::setFrame(Frame* frame) {
@@ -58,7 +57,8 @@ short Granule::getMainDataLength() const {
 		if(!scfsi[3])
 			total += slenHigh * 5;
 	}
-	return 0;
+
+	return total;
 }
 
 bool Granule::getWindowSwitching() const {
@@ -109,23 +109,18 @@ void Granule::writeMainData(byte* data, int& position) const {
 	byte slenHigh = slength[slindex][1];
 	if(isFirst() || frame->hasShort()) { // without sharing
 		if(isShort()) {
+			int start = 0;
 			if(mixedBlock) { // mixed short
 				for(int i = 0; i < 8; i++)
 					setByte(data, position, sfi[i], slenLow);
-				for(int i = 3; i < 6; i++)
-					for(int s = 0; s < SUBBLOCKS; s++)
-						setByte(data, position, sfiShort[s][i], slenLow);
-				for(int i = 6; i < 12; i++)
-					for(int s = 0; s < SUBBLOCKS; s++)
-						setByte(data, position, sfiShort[s][i], slenHigh);
-			} else { // pure short
-				for(int i = 0; i < 6; i++)
-					for(int s = 0; s < SUBBLOCKS; s++)
-						setByte(data, position, sfiShort[s][i], slenLow);
-				for(int i = 6; i < 12; i++)
-					for(int s = 0; s < SUBBLOCKS; s++)
-						setByte(data, position, sfiShort[s][i], slenHigh);
+				start = 3;
 			}
+			for(int i = start; i < 6; i++)
+				for(int s = 0; s < SUBBLOCKS; s++)
+					setByte(data, position, sfiShort[s][i], slenLow);
+			for(int i = 6; i < 12; i++)
+				for(int s = 0; s < SUBBLOCKS; s++)
+					setByte(data, position, sfiShort[s][i], slenHigh);
 		} else { // long, start, stop
 			for(int i = 0; i < 11; i++)
 				setByte(data, position, sfi[i], slenLow);
@@ -149,12 +144,10 @@ void Granule::writeMainData(byte* data, int& position) const {
 
 	for(int i = 0; i < REGIONS; i++) {
 		int table = bigTableSelect[i];
-		if(table == 0) {
-			// output zeros
-		} else if(table <= 12) {
-			// output big
-		} else {
+		if(table > 12) {
 			// output very big
+		} else if(table > 0) {
+			// output big
 		}
 	}
 
