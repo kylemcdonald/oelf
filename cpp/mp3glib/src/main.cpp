@@ -1,7 +1,7 @@
 #include "mp3glib.h"
 
 int main() {
-	Granule::buildLookup();
+	buildLookup();
 
 	ofstream file;
 	file.open("out.mp3", std::ios::binary | std::ios::out);

@@ -33,6 +33,8 @@
 		<Unit filename="src\Shared.h" />
 		<Unit filename="src\SideInfo.cpp" />
 		<Unit filename="src\SideInfo.h" />
+		<Unit filename="src\Tables.cpp" />
+		<Unit filename="src\Tables.h" />
 		<Unit filename="src\main.cpp" />
 		<Unit filename="src\mp3glib.h" />
 		<Extensions>
