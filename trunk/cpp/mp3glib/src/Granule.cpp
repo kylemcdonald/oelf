@@ -158,14 +158,10 @@ void Granule::writeMainData(byte* data, int& position) const {
 		}
 	}
 
-	if(smallTableSelect) {
-		for(int i = 0; i < smallValues; i++) {
-			//byte* cur = smallLookupB[smallCodes[i]];
-			//setByte(data, position, cur[0], cur[1]);
-		}
-	} else {
-		// small values with table a
-		// ditto as small table b, but use huffman codes instead
-		// a bunch of huffman coded quadruples followed by up to 4 bit of signs
+	// write small values in quadruples using lookup tables
+	short (*smallLookup)[2] = smallTableSelect ? smallLookupB : smallLookupA;
+	for(int i = 0; i < smallValues; i++) {
+		short* cur = smallLookup[smallCodes[i]];
+		setShort(data, position, cur[0], cur[1]);
 	}
 }
