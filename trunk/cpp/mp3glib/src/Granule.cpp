@@ -3,8 +3,8 @@
 #include "Frame.h"
 #include "SideInfo.h"
 
-byte Granule::smallLookupA[81][2];
-byte Granule::smallLookupB[81][2];
+short Granule::smallLookupA[81][2];
+short Granule::smallLookupB[81][2];
 
 Granule::Granule() :
 		bigValues(0),
@@ -160,8 +160,8 @@ void Granule::writeMainData(byte* data, int& position) const {
 
 	if(smallTableSelect) {
 		for(int i = 0; i < smallValues; i++) {
-			byte* cur = smallLookupB[smallCodes[i]];
-			setByte(data, position, cur[0], cur[1]);
+			//byte* cur = smallLookupB[smallCodes[i]];
+			//setByte(data, position, cur[0], cur[1]);
 		}
 	} else {
 		// small values with table a

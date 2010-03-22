@@ -15,8 +15,8 @@ public:
 	bool isShort() const;
 	bool isFirst() const;
 
-	static byte smallLookupA[81][2];
-	static byte smallLookupB[81][2];
+	static short smallLookupA[81][2];
+	static short smallLookupB[81][2];
 
 private:
 	Frame* frame;
