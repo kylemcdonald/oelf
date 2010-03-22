@@ -39,4 +39,6 @@ const byte htabA[16][2] = {
 	{1, 6}  // 000001
 };
 
+string binary(short x, int length);
+string binary(byte x, int length);
 void buildLookup();
