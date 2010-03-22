@@ -1,5 +1,6 @@
 #pragma once
 #include "Shared.h"
+#include "Tables.h"
 
 class Frame;
 
@@ -14,7 +15,9 @@ public:
 	bool isShort() const;
 	bool isFirst() const;
 
-	static void buildLookup();
+	static byte smallLookupA[81][2];
+	static byte smallLookupB[81][2];
+
 private:
 	Frame* frame;
 
@@ -38,10 +41,6 @@ private:
 	byte sfi[BANDS];
 	byte sfiShort[SUBBLOCKS][SHORT_BANDS];
 
-	static const byte slength[][2];
-
 	byte bigCodes[FREQUENCIES];
 	byte smallCodes[FREQUENCIES / 4];
-
-	static byte smallLookupB[][2];
 };
