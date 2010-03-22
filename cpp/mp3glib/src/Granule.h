@@ -13,11 +13,13 @@ public:
 	bool getWindowSwitching() const;
 	bool isShort() const;
 	bool isFirst() const;
+
+	static void buildLookup();
 private:
 	Frame* frame;
 
 	short bigValues;
-	short smallValues;
+	short smallValues; // how many quadruples
 	byte globalGain;
 	byte slindex;
 
@@ -38,6 +40,8 @@ private:
 
 	static const byte slength[][2];
 
-	// bigCodes[FREQUENCIES / 2];
-	// smallCodes[FREQUENCIES / 2];
+	byte bigCodes[FREQUENCIES];
+	byte smallCodes[FREQUENCIES / 4];
+
+	static byte smallLookupB[][2];
 };

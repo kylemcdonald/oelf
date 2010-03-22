@@ -22,6 +22,8 @@ const byte Granule::slength[16][2] = {
 	{4, 3}
 };
 
+byte Granule::smallLookupB[81][2];
+
 Granule::Granule() :
 		bigValues(0),
 		smallValues(0),
@@ -163,12 +165,52 @@ void Granule::writeMainData(byte* data, int& position) const {
 				setByte(data, position, sfi[i], slenHigh);
 	}
 
-	/*
-	for(int i = 0; i < bigValues; i++) {
-		// all of the big value codes
+	for(int i = 0; i < REGIONS; i++) {
+		int table = bigTableSelect[i];
+		if(table == 0) {
+			// output zeros
+		} else if(table <= 12) {
+			// output big
+		} else {
+			// output very big
+		}
 	}
-	for(int i = 0; i < smallValues; i++) {
-		// all of the small value codes
+
+	if(smallTableSelect) {
+		for(int i = 0; i < smallValues; i++) {
+			byte* cur = smallLookupB[smallCodes[i]];
+			setByte(data, position, cur[0], cur[1]);
+		}
+		// small values with table b
+		// a bunch of 4-bit quadruples followed by up to 4 bit of signs
+		// e.g., 1010 10 => +1 0 -1 0
+	} else {
+		// small values with table a
+		// ditto as small table b, but use huffman codes instead
 	}
-	*/
+}
+
+void Granule::buildLookup() {
+	int i = 0;
+	// build lookup table for 3^4=81 small values in table b
+	for(int a = -1; a <= +1; a++) {
+		for(int b = -1; b <= +1; b++) {
+			for(int c = -1; c <= +1; c++) {
+				for(int d = -1; d <= +1; d++) {
+					byte cur = 0;
+					int position = 0;
+					int vals[4] = {a, b, c, d};
+					for(int j = 0; j < 4; j++)
+						setBool(&cur, position, vals[j] == 0);
+					for(int j = 0; j < 4; j++)
+						if(vals[j] != 0)
+							setBool(&cur, position, vals[j] == -1);
+					cur >>= 8 - position;
+					smallLookupB[i][0] = cur;
+					smallLookupB[i][1] = position;
+					i++;
+				}
+			}
+		}
+	}
 }
