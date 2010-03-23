@@ -150,9 +150,8 @@ void Granule::writeMainData(byte* data, int& position) const {
 
 	for(int i = 0; i < REGIONS; i++) {
 		int table = bigTableSelect[i];
-		if(table > 12) {
-			// output very big
-		} else if(table > 0) {
+		//cout << position/8 << ": bigTableSelect is " << table << endl;
+		if(table > 0) {
 			int cur = 0;
 			int end = blockType == SHORT_BLOCK ?
 				Tables::sfendShort[regionCount[i]] :
@@ -171,7 +170,6 @@ void Granule::writeMainData(byte* data, int& position) const {
 		}
 	}
 
-	// write small values in quadruples using lookup tables
 	short (*smallLookup)[2] = smallTableSelect ? Tables::smallLookupB : Tables::smallLookupA;
 	for(int i = 0; i < smallValues; i++) {
 		short* cur = smallLookup[smallCodes[i]];
