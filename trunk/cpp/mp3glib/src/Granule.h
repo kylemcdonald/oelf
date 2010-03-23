@@ -20,26 +20,25 @@ public:
 
 	Frame* frame;
 
-	short bigValues;
-	short smallValues; // how many quadruples
 	byte globalGain;
 	byte slindex;
 
 	byte blockType;
 	bool mixedBlock;
-
-	byte bigTableSelect[REGIONS];
-	bool smallTableSelect;
-
-	byte regionCount[REGIONS];
-	byte subblockGain[REGIONS];
-
-	bool preflag;
-	bool scaleShift;
-
-	byte sfi[BANDS];
+	byte subblockGain[SUBBLOCKS];
 	byte sfiShort[SUBBLOCKS][SHORT_BANDS];
 
-	byte bigCodes[FREQUENCIES];
+	bool scaleShift;
+	byte sfi[BANDS];
+
+	bool preflag;
+
+	short bigValues;
+	byte bigTableSelect[REGIONS];
+	byte bigCodes[REGIONS][FREQUENCIES];
+	byte regionCount[REGIONS];
+
+	short smallValues; // how many quadruples
+	bool smallTableSelect;
 	byte smallCodes[FREQUENCIES / 4];
 };

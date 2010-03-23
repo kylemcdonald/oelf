@@ -147,7 +147,8 @@ void Granule::writeMainData(byte* data, int& position) const {
 		if(table > 12) {
 			// output very big
 		} else if(table > 0) {
-			// output big
+			for(int i = 0; i < regionCount[i]; i++) {
+			}
 		}
 	}
 
