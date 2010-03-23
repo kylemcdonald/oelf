@@ -7,7 +7,9 @@ int main() {
 	file.open("out.mp3", std::ios::binary | std::ios::out);
 	long double samples = 0;
 	long double bits = 0;
-	while(bits / 8 < 10 * 16000) {
+	long double frames = 0;
+	while(bits / 8 < 1 * 16000) {
+	//while(frames < 1) {
 		Frame frame;
 
 		if(samples != 0) {
@@ -27,6 +29,7 @@ int main() {
 
 		for(int i = 0; i < REGIONS; i++) {
 			gr.regionCount[i] = 16;
+			gr.bigTableSelect[i] = 15;
 			for(int j = 0; j < gr.regionCount[i]; j++) {
 				gr.bigCodes[i][j] = j;
 			}
@@ -35,6 +38,7 @@ int main() {
 		frame.write(file);
 		samples += FRAME_SAMPLES;
 		bits += frame.getSize() * 8;
+		frames++;
 	}
 	file.close();
 }
