@@ -33,7 +33,7 @@ public:
 
 	byte regionCount[REGIONS]; // how many bands
 	byte bigTableSelect[REGIONS];
-	byte bigCodes[REGIONS][FREQUENCIES];
+	char bigCodes[REGIONS][FREQUENCIES];
 
 	short smallValues; // how many quadruples
 	bool smallTableSelect;

@@ -2,9 +2,6 @@
 #include "Shared.h"
 #include "Huffman.h"
 
-string binary(short x, int length);
-string binary(byte x, int length);
-
 class Tables {
 public:
 	static void buildLookup();
