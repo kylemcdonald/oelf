@@ -150,11 +150,21 @@ void Granule::writeMainData(byte* data, int& position) const {
 		int table = bigTableSelect[i];
 		if(table > 12) {
 			// output very big
-		} else if(table > 0) {
+		} else if(table > 0) {/*
+			int cur = 0;
 			for(int i = 0; i < REGIONS; i++) {
-				// here we get the location of the sfend form the regionCount[i]
-				// then iterate up to that band, applying the table from bigTableSelect[i]
-			}
+				int end = blockType == SHORT_BLOCK ?
+					Tables::sfendShort[regionCount[i]] :
+					Tables::sfend[regionCount[i]];
+				int table = bigTableSelect[i];
+				while(cur < end) {
+					// with this code and the next code we need to:
+					// combine them
+					// get the huffman reference
+					// add the sign bits
+					cur++;
+				}
+			}*/
 		}
 	}
 
