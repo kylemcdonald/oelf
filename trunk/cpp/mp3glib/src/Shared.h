@@ -21,3 +21,7 @@ typedef unsigned char byte;
 void setShort(byte* array, int& position, unsigned short value, int length);
 void setByte(byte* array, int& position, byte value, int length);
 void setBool(byte* array, int& position, bool value);
+
+string binary(short x, int length);
+string binary(byte x, int length);
+string binary(byte* x, int length);

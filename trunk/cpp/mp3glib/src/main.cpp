@@ -23,14 +23,14 @@ int main() {
 		gr.slindex = 15;
 		for(int i = 0; i < BANDS; i++)
 			gr.sfi[i] = 0xff;
-/*
+
 		for(int i = 0; i < REGIONS; i++) {
 			gr.regionCount[i] = 8;
 			for(int j = 0; j < gr.regionCount[i]; j++) {
 
 			}
 		}
-*/
+
 		frame.write(file);
 		samples += FRAME_SAMPLES;
 		bits += frame.getSize() * 8;

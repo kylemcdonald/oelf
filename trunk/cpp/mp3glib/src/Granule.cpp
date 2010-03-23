@@ -150,21 +150,21 @@ void Granule::writeMainData(byte* data, int& position) const {
 		int table = bigTableSelect[i];
 		if(table > 12) {
 			// output very big
-		} else if(table > 0) {/*
+		} else if(table > 0) {
 			int cur = 0;
-			for(int i = 0; i < REGIONS; i++) {
-				int end = blockType == SHORT_BLOCK ?
-					Tables::sfendShort[regionCount[i]] :
-					Tables::sfend[regionCount[i]];
-				int table = bigTableSelect[i];
-				while(cur < end) {
-					// with this code and the next code we need to:
-					// combine them
-					// get the huffman reference
-					// add the sign bits
-					cur++;
-				}
-			}*/
+			int end = blockType == SHORT_BLOCK ?
+				Tables::sfendShort[regionCount[i]] :
+				Tables::sfend[regionCount[i]];
+			while(cur < end) {
+				char a = bigCodes[i][cur++];
+				char b = bigCodes[i][cur++];
+				const byte* h = Huffman::bigLookup(table, a, b);
+				setByte(data, position, h[0], h[1]);
+				if(a != 0)
+					setBool(data, position, a < 0);
+				if(b != 0)
+					setBool(data, position, b < 0);
+			}
 		}
 	}
 

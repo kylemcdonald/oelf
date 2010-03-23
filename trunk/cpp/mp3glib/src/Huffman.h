@@ -17,5 +17,5 @@ public:
 	static const byte bigLookup12[64][2];
 	static const byte bigLookup13[256][2];
 	static const byte bigLookup15[256][2];
-	static const byte* bigLookup(int table, byte x, byte y);
+	static const byte* bigLookup(int table, char x, char y);
 };

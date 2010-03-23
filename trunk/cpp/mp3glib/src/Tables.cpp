@@ -2,27 +2,6 @@
 
 #include "Granule.h"
 
-string binary(short x, int length) {
-	string out = "";
-	byte* y = (byte*) &x;
-	if(length > 8) {
-		out += binary(y[1], length - 8);
-		length = 8;
-	}
-	out += binary(y[0], length);
-	return out;
-}
-
-string binary(byte x, int length) {
-	string out = "";
-	for(int i = 0; i < length; i++) {
-		int position = length - i - 1;
-		byte mask = 1 << position;
-		out += mask & x ? "1" : "0";
-	}
-	return out;
-}
-
 void Tables::buildLookup() {
 	// build end tables for sfbands
 	int band = 0;

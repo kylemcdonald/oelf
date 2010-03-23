@@ -1,21 +1,23 @@
 #include "Huffman.h"
 
-const byte* bigLookup(int table, byte x, byte y) {
+const byte* Huffman::bigLookup(int table, char x, char y) {
+	x = x < 0 ? -x : x;
+	y = y < 0 ? -y : y;
 	byte i = (x << 4) | y;
 	switch(table) {
-		case 1: return Huffman::bigLookup1[i];
-		case 2: return Huffman::bigLookup2[i];
-		case 3: return Huffman::bigLookup3[i];
-		case 5: return Huffman::bigLookup5[i];
-		case 6: return Huffman::bigLookup6[i];
-		case 7: return Huffman::bigLookup7[i];
-		case 8: return Huffman::bigLookup8[i];
-		case 9: return Huffman::bigLookup9[i];
-		case 10: return Huffman::bigLookup10[i];
-		case 11: return Huffman::bigLookup11[i];
-		case 12: return Huffman::bigLookup12[i];
-		case 13: return Huffman::bigLookup13[i];
-		case 15: return Huffman::bigLookup15[i];
+		case 1: return bigLookup1[i];
+		case 2: return bigLookup2[i];
+		case 3: return bigLookup3[i];
+		case 5: return bigLookup5[i];
+		case 6: return bigLookup6[i];
+		case 7: return bigLookup7[i];
+		case 8: return bigLookup8[i];
+		case 9: return bigLookup9[i];
+		case 10: return bigLookup10[i];
+		case 11: return bigLookup11[i];
+		case 12: return bigLookup12[i];
+		case 13: return bigLookup13[i];
+		case 15: return bigLookup15[i];
 		default: return 0;
 	}
 }
