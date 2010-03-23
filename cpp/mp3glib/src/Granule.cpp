@@ -59,6 +59,9 @@ short Granule::getMainDataLength() const {
 }
 
 short Granule::getBigValues() const {
+	// this value is actually based on the sum of the regionCounts
+	// but drawn from the sfEnd table
+	// and then divided by two (i think)
 	return regionCount[0] + regionCount[1] + regionCount[2];
 }
 
@@ -94,8 +97,8 @@ void Granule::writeSideInfo(byte* data, int& position) const {
 	} else {
 		for(int i = 0; i < REGIONS; i++)
 			setByte(data, position, bigTableSelect[i], 5);
-		setByte(data, position, regionCount[0], 4);
-		setByte(data, position, regionCount[1], 3);
+		setByte(data, position, regionCount[0] - 1, 4);
+		setByte(data, position, regionCount[1] - 1, 3);
 	}
 
 	setBool(data, position, preflag);;
@@ -148,7 +151,9 @@ void Granule::writeMainData(byte* data, int& position) const {
 		if(table > 12) {
 			// output very big
 		} else if(table > 0) {
-			for(int i = 0; i < regionCount[i]; i++) {
+			for(int i = 0; i < REGIONS; i++) {
+				// here we get the location of the sfend form the regionCount[i]
+				// then iterate up to that band, applying the table from bigTableSelect[i]
 			}
 		}
 	}
