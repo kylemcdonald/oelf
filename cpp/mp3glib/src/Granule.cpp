@@ -59,10 +59,12 @@ short Granule::getMainDataLength() const {
 }
 
 short Granule::getBigValues() const {
-	// this value is actually based on the sum of the regionCounts
-	// but drawn from the sfEnd table
-	// and then divided by two (i think)
-	return regionCount[0] + regionCount[1] + regionCount[2];
+	int totalCount = regionCount[0] + regionCount[1] + regionCount[2];
+	if(blockType == SHORT_BLOCK) {
+		return Tables::sfendShort[totalCount];
+	} else {
+		return Tables::sfend[totalCount];
+	}
 }
 
 bool Granule::getWindowSwitching() const {
@@ -155,6 +157,7 @@ void Granule::writeMainData(byte* data, int& position) const {
 			int end = blockType == SHORT_BLOCK ?
 				Tables::sfendShort[regionCount[i]] :
 				Tables::sfend[regionCount[i]];
+			// do the short blocks have the same number of codes?
 			while(cur < end) {
 				char a = bigCodes[i][cur++];
 				char b = bigCodes[i][cur++];

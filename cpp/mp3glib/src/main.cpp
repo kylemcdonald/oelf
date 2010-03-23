@@ -19,15 +19,16 @@ int main() {
 		}
 
 		Granule& gr = frame.granules[0];
+		gr.blockType = LONG_BLOCK;
 		gr.scaleShift = false;
 		gr.slindex = 15;
 		for(int i = 0; i < BANDS; i++)
 			gr.sfi[i] = 0xff;
 
 		for(int i = 0; i < REGIONS; i++) {
-			gr.regionCount[i] = 8;
+			gr.regionCount[i] = 16;
 			for(int j = 0; j < gr.regionCount[i]; j++) {
-
+				gr.bigCodes[i][j] = j;
 			}
 		}
 
