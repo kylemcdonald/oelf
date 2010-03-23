@@ -3,19 +3,16 @@
 #include "Frame.h"
 #include "SideInfo.h"
 
-short Granule::smallLookupA[81][2];
-short Granule::smallLookupB[81][2];
-
 Granule::Granule() :
-		bigValues(),
-		smallValues(0),
+		frame(NULL),
 		globalGain(150),
 		slindex(0),
 		blockType(LONG_BLOCK),
 		mixedBlock(false),
-		smallTableSelect(false),
+		scaleShift(false),
 		preflag(false),
-		scaleShift(false) {
+		smallValues(0),
+		smallTableSelect(false) {
 	memset(bigTableSelect, 0, REGIONS);
 	memset(regionCount, 0, REGIONS);
 	memset(subblockGain, 0, SUBBLOCKS);
@@ -31,8 +28,8 @@ short Granule::getMainDataLength() const {
 	short total = 0;
 
 	const bool* scfsi = frame->sideInfo.getScfsi();
-	byte slenLow = slength[slindex][0];
-	byte slenHigh = slength[slindex][1];
+	byte slenLow = Tables::slength[slindex][0];
+	byte slenHigh = Tables::slength[slindex][1];
 	if(isFirst() || frame->hasShort()) { // without sharing
 		if(isShort()) {
 			if(mixedBlock) {
@@ -61,6 +58,10 @@ short Granule::getMainDataLength() const {
 	return total;
 }
 
+short Granule::getBigValues() const {
+	return regionCount[0] + regionCount[1] + regionCount[2];
+}
+
 bool Granule::getWindowSwitching() const {
 	return blockType != LONG_BLOCK;
 }
@@ -75,7 +76,7 @@ bool Granule::isFirst() const {
 
 void Granule::writeSideInfo(byte* data, int& position) const {
 	setShort(data, position, getMainDataLength(), 12);
-	setShort(data, position, bigValues, 9);
+	setShort(data, position, getBigValues(), 9);
 	setByte(data, position, globalGain, 8);
 	setByte(data, position, slindex, 4);
 
@@ -105,8 +106,8 @@ void Granule::writeSideInfo(byte* data, int& position) const {
 void Granule::writeMainData(byte* data, int& position) const {
 	const bool* scfsi = frame->sideInfo.getScfsi();
 
-	byte slenLow = slength[slindex][0];
-	byte slenHigh = slength[slindex][1];
+	byte slenLow = Tables::slength[slindex][0];
+	byte slenHigh = Tables::slength[slindex][1];
 	if(isFirst() || frame->hasShort()) { // without sharing
 		if(isShort()) {
 			int start = 0;
@@ -153,7 +154,7 @@ void Granule::writeMainData(byte* data, int& position) const {
 	}
 
 	// write small values in quadruples using lookup tables
-	short (*smallLookup)[2] = smallTableSelect ? smallLookupB : smallLookupA;
+	short (*smallLookup)[2] = smallTableSelect ? Tables::smallLookupB : Tables::smallLookupA;
 	for(int i = 0; i < smallValues; i++) {
 		short* cur = smallLookup[smallCodes[i]];
 		setShort(data, position, cur[0], cur[1]);

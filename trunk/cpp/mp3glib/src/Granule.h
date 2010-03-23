@@ -14,9 +14,7 @@ public:
 	bool getWindowSwitching() const;
 	bool isShort() const;
 	bool isFirst() const;
-
-	static short smallLookupA[81][2];
-	static short smallLookupB[81][2];
+	short getBigValues() const;
 
 	Frame* frame;
 
@@ -33,10 +31,9 @@ public:
 
 	bool preflag;
 
-	short bigValues;
+	byte regionCount[REGIONS]; // how many bands
 	byte bigTableSelect[REGIONS];
 	byte bigCodes[REGIONS][FREQUENCIES];
-	byte regionCount[REGIONS];
 
 	short smallValues; // how many quadruples
 	bool smallTableSelect;
