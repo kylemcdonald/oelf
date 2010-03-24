@@ -1,14 +1,22 @@
 #include "mp3glib.h"
+#include <time.h>
+#include <sstream>
 
 int main() {
 	Tables::buildLookup();
 
+	system("move *.mp3 backup");
+
+	ostringstream filename;
+	filename << time(NULL);
+	filename << ".mp3";
+
 	ofstream file;
-	file.open("out.mp3", std::ios::binary | std::ios::out);
+	file.open(filename.str().c_str(), std::ios::binary | std::ios::out);
 	long double samples = 0;
 	long double bits = 0;
-	long double frames = 0;
-	while(bits / 8 < 1 * 16000) {
+	int frames = 0;
+	while(bits / 8 < 4 * 16000) {
 	//while(frames < 1) {
 		Frame frame;
 
@@ -21,6 +29,7 @@ int main() {
 		}
 
 		Granule& gr = frame.granules[0];
+		gr.globalGain = 190;
 		gr.blockType = LONG_BLOCK;
 		gr.scaleShift = false;
 		gr.slindex = 15;
@@ -28,7 +37,7 @@ int main() {
 			gr.sfi[i] = 0xff;
 
 		for(int i = 0; i < REGIONS; i++) {
-			gr.regionCount[i] = 16;
+			gr.regionCount[i] = 4;
 			gr.bigTableSelect[i] = 15;
 			for(int j = 0; j < gr.regionCount[i]; j++) {
 				gr.bigCodes[i][j] = j;
