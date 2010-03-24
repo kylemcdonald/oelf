@@ -16,7 +16,7 @@ int main() {
 	long double samples = 0;
 	long double bits = 0;
 	int frames = 0;
-	while(bits / 8 < 4 * 16000) {
+	while(bits / 8 < 1 * 16000) {
 	//while(frames < 1) {
 		Frame frame;
 
@@ -37,13 +37,17 @@ int main() {
 			gr.sfi[i] = 4;
 
 		for(int i = 0; i < REGIONS; i++) {
-			gr.regionCount[i] = 5;
+			gr.regionCount[i] = 6;
 			gr.bigTableSelect[i] = 15;
 		}
 
+		gr.regionCount[0] = 9;
+		gr.regionCount[1] = 5;
+		gr.regionCount[2] = 6;
+
 		int bv = gr.getBigValues();
 		for(int i = 0; i < bv; i++) {
-			gr.bigCodes[i] = ((i * 20) / bv) - 10;
+			gr.bigCodes[i] = 1 + (5 * i) / bv;
 		}
 
 		frame.write(file);
