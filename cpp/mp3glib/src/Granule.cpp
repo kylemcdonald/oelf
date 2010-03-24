@@ -21,7 +21,7 @@ Granule::Granule() :
 	memset(bigTableSelect, 0, REGIONS);
 	memset(bigCodes, 0, FREQUENCIES);
 
-	memset(smallCodes, 0, FREQUENCIES / 4);
+	memset(smallCodes, 40, FREQUENCIES / 4);
 }
 
 void Granule::setBlockType(byte blockType, bool mixedBlock) {
