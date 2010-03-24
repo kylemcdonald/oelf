@@ -435,6 +435,10 @@ Brandenburg recommends limiting the response of an MP3 or AAC encoder to 16 kHz 
 	
 	Every frame---header, side info, and main data---contains two ``granules'' that describe two consecutive chunks of audio. Sometimes granules share some of their 21 scale factors (a sort of EQ), which is why they are stored within a single frame. Each granule stores 576 ``frequency bands'', decoded into 576 PCM samples, meaning every frame consists of 1152 PCM samples. To understand where these frequency bands come from, it may be easiest to explain them in terms of encoding than decoding. The 576 PCM samples for a single granule are first subdivided into 18 sections consisting of 32 samples each. Each block is then encoded using 32 subband filters resembling critical bands. Finally, each subband block (an 18-element time-varying sequence) is processed using a modified discrete cosine transformation that describes these time-varying sequences with respect to their regular variations. In short, the main data stored in an MP3 is a heavily abstracted representation of the PCM data. It assumes that our understanding of sound is best represented by regularly varying critical bands rather than as a time-varying sequence of variations in relative air pressure.\footnote{There is a lot of detail left out here involving quantization, pre-emphasis, short versus long blocks, global gain, windowing, overlap-add, and scale factors. All these things play a significant role in the sound of MP3, but the inverse modified discrete cosine transformation and subband synthesis are at the heart of the algorithm.}
 	
+\section{How Many Sound Can We Hear?}
+
+	With the structure of MP3 in mind, under the assumption that MP3 represents all the sounds we can distinguish, we can make an approximation as to how many sounds that is. If the fundamental unit of the MP3 is the frame, and we are working at 128 kbits, every frame can have an average length of 418 bytes, or 3336 bits. In mono, 17 of these bytes are dedicated to the side information and 4 are the header. Most of the variation occurs in the main data, which is 397 remaining bytes. Therefore the total variation is $2^{397*8}=2^{3176}=10^{956}$. The number of 26 ms sounds we can distinguish is on the order of 10 followed by 956 zeros. If the fundamental unit is considered instead to be the granule, this cuts the power in half down to $10^{478}$. Considering AAC also further reduces the necessary bitrate by half, I'll place an upper bound on the number of uniquely distinguishable ``sound-atoms'' we can distinguish at $10^{239}$. The number of these sounds that can be played in a year is on the order of $10^9$, meaning that, played in succession, it would take $10^{230}$ years.
+	
 \section{MP3 Enumeration}
 
 	From the above section it should be apparent that MP3 is not a simple format. At least, not in the way a bitmap image or PCM file is ``simple''. To iterate through possible bitmap images, it is only necessary to pick your dimensions, bit depth, and number of channels---from there you can simply increment a binary number of equivalent length. Likewise with PCM: it is only necessary to pick your file length, bit depth, and number of channels. Unlike these formats, MP3 has a strict ``syntax'' that must be followed. Although the bitstream may appear to be a noisy sequence of ones and zeros, not just any noise is allowed.
@@ -450,6 +454,8 @@ Brandenburg recommends limiting the response of an MP3 or AAC encoder to 16 kHz 
 	In the same way you might enumerate possible English sentences by first describing a hierarchical grammar and then providing a vocabulary, I will describe a method for enumerating MP3 frames that first accounts for their syntax, followed by the content that may be placed within that structure.
 	
 \subsection{The Syntax of MP3}
+
+	(This whole section is way too detailed, and needs to be replaced with a general description of which values vary and what their sonic corollaries are.)
 	
 	Within the header a few sections must be considered:
 	
@@ -512,8 +518,6 @@ Brandenburg recommends limiting the response of an MP3 or AAC encoder to 16 kHz 
 
 	The main data is not described in terms of bits as the bit length can vary depending on the side info specifications.
 
-\subsection{Interdependencies Between Features}
-
 	Some features vary freely, without further constraining other features or being constrained by previous features. For example:
 
 \begin{itemize}
@@ -536,10 +540,14 @@ Brandenburg recommends limiting the response of an MP3 or AAC encoder to 16 kHz 
 	The big values must be smaller than the main data. This leads to $\sum_{i=0}^{2^{12}} min(i,2^9)$ possible combinations.\footnote{In practice, this number must be significantly smaller due to the limited space provided by the combination of the bit reservoir and the bitstream following the side info.}
 	
 	One piece remains: the main data location. Because the main data location is solely physical (bitstream-oriented) rather than logical (sound-descriptive), it can be derived rather than enumerated.
-
+	
 \section{Composing for a Large Space}
 
-	(Mention the ISO part 4 compliance testing files as examples of enumeration for technical purposes.)
+	(Mention the ISO part 4 compliance testing files as examples of enumeration for technical purposes, as a comparison to this composition.)
+	
+	(Discuss the notion of ``composing for psychoacoustic entropy''.)
+	
+	(Organizing everything as tessellation: whenever you take something away from one area, you have to add it to the opposite side. Similar to bit swapping. You necessarily must compose for the entire space simultaneously.)
 	
 	A basic enumeration of MP3 might be compared to writing out a chromatic scale. You probably wouldn't call a chromatic scale a ``composition'', but you might call one of Shch\"onberg's 12-tone pieces a ``composition''. Once the space is enumerated, it is still waiting to be arranged in an interesting way----simply enumerating the space doesn't justify the work.
 
