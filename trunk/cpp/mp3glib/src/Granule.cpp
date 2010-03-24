@@ -13,11 +13,15 @@ Granule::Granule() :
 		preflag(false),
 		smallValues(0),
 		smallTableSelect(false) {
-	memset(bigTableSelect, 0, REGIONS);
-	memset(regionCount, 0, REGIONS);
 	memset(subblockGain, 0, SUBBLOCKS);
 	memset(sfi, 0, BANDS);
 	memset(sfiShort, 0, SUBBLOCKS * SHORT_BANDS * sizeof(short));
+
+	memset(regionCount, 0, REGIONS);
+	memset(bigTableSelect, 0, REGIONS);
+	memset(bigCodes, 0, FREQUENCIES);
+
+	memset(smallCodes, 0, FREQUENCIES / 4);
 }
 
 void Granule::setFrame(Frame* frame) {
@@ -66,8 +70,8 @@ short Granule::getMainDataLength() const {
 				Tables::sfendShort[regionTotal] :
 				Tables::sfend[regionTotal];
 			while(cur < end) {
-				char a = bigCodes[i][cur++];
-				char b = bigCodes[i][cur++];
+				char a = bigCodes[cur++];
+				char b = bigCodes[cur++];
 				const byte* h = Huffman::bigLookup(table, a, b);
 				total += h[1];
 				if(a != 0)
@@ -81,13 +85,12 @@ short Granule::getMainDataLength() const {
 	return total;
 }
 
-// number of big value pairs
 short Granule::getBigValues() const {
 	int totalCount = regionCount[0] + regionCount[1] + regionCount[2];
 	if(blockType == SHORT_BLOCK) {
-		return Tables::sfendShort[totalCount] / 2;
+		return Tables::sfendShort[totalCount];
 	} else {
-		return Tables::sfend[totalCount] / 2;
+		return Tables::sfend[totalCount];
 	}
 }
 
@@ -105,7 +108,7 @@ bool Granule::isFirst() const {
 
 void Granule::writeSideInfo(byte* data, int& position) const {
 	setShort(data, position, getMainDataLength(), 12);
-	setShort(data, position, getBigValues(), 9);
+	setShort(data, position, getBigValues() / 2, 9); // big value pairs
 	setByte(data, position, globalGain, 8);
 	setByte(data, position, slindex, 4);
 
@@ -182,8 +185,8 @@ void Granule::writeMainData(byte* data, int& position) const {
 				Tables::sfendShort[regionTotal] :
 				Tables::sfend[regionTotal];
 			while(cur < end) {
-				char a = bigCodes[i][cur++];
-				char b = bigCodes[i][cur++];
+				char a = bigCodes[cur++];
+				char b = bigCodes[cur++];
 				const byte* h = Huffman::bigLookup(table, a, b);
 				setByte(data, position, h[0], h[1]);
 				if(a != 0)

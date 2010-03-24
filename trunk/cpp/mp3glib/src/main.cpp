@@ -34,14 +34,16 @@ int main() {
 		gr.scaleShift = false;
 		gr.slindex = 15;
 		for(int i = 0; i < BANDS; i++)
-			gr.sfi[i] = 0xff;
+			gr.sfi[i] = 4;
 
 		for(int i = 0; i < REGIONS; i++) {
-			gr.regionCount[i] = 4;
+			gr.regionCount[i] = 5;
 			gr.bigTableSelect[i] = 15;
-			for(int j = 0; j < gr.regionCount[i]; j++) {
-				gr.bigCodes[i][j] = j;
-			}
+		}
+
+		int bv = gr.getBigValues();
+		for(int i = 0; i < bv; i++) {
+			gr.bigCodes[i] = ((i * 20) / bv) - 10;
 		}
 
 		frame.write(file);
