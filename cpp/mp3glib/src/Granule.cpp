@@ -24,6 +24,7 @@ void Granule::setFrame(Frame* frame) {
 	this->frame = frame;
 }
 
+// total bit length of the main data
 short Granule::getMainDataLength() const {
 	short total = 0;
 
@@ -55,15 +56,38 @@ short Granule::getMainDataLength() const {
 			total += slenHigh * 5;
 	}
 
+	int cur = 0;
+	int regionTotal = 0;
+	for(int i = 0; i < REGIONS; i++) {
+		int table = bigTableSelect[i];
+		regionTotal += regionCount[i];
+		if(table > 0) {
+			int end = blockType == SHORT_BLOCK ?
+				Tables::sfendShort[regionTotal] :
+				Tables::sfend[regionTotal];
+			while(cur < end) {
+				char a = bigCodes[i][cur++];
+				char b = bigCodes[i][cur++];
+				const byte* h = Huffman::bigLookup(table, a, b);
+				total += h[1];
+				if(a != 0)
+					total++;
+				if(b != 0)
+					total++;
+			}
+		}
+	}
+
 	return total;
 }
 
+// number of big value pairs
 short Granule::getBigValues() const {
 	int totalCount = regionCount[0] + regionCount[1] + regionCount[2];
 	if(blockType == SHORT_BLOCK) {
-		return Tables::sfendShort[totalCount];
+		return Tables::sfendShort[totalCount] / 2;
 	} else {
-		return Tables::sfend[totalCount];
+		return Tables::sfend[totalCount] / 2;
 	}
 }
 
@@ -103,7 +127,7 @@ void Granule::writeSideInfo(byte* data, int& position) const {
 		setByte(data, position, regionCount[1] - 1, 3);
 	}
 
-	setBool(data, position, preflag);;
+	setBool(data, position, preflag);
 	setBool(data, position, scaleShift);
 	setBool(data, position, smallTableSelect);
 }
@@ -148,15 +172,15 @@ void Granule::writeMainData(byte* data, int& position) const {
 				setByte(data, position, sfi[i], slenHigh);
 	}
 
+	int cur = 0;
+	int regionTotal = 0;
 	for(int i = 0; i < REGIONS; i++) {
 		int table = bigTableSelect[i];
-		//cout << position/8 << ": bigTableSelect is " << table << endl;
+		regionTotal += regionCount[i];
 		if(table > 0) {
-			int cur = 0;
 			int end = blockType == SHORT_BLOCK ?
-				Tables::sfendShort[regionCount[i]] :
-				Tables::sfend[regionCount[i]];
-			// do the short blocks have the same number of codes?
+				Tables::sfendShort[regionTotal] :
+				Tables::sfend[regionTotal];
 			while(cur < end) {
 				char a = bigCodes[i][cur++];
 				char b = bigCodes[i][cur++];
