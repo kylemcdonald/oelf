@@ -82,6 +82,12 @@ short Granule::getMainDataLength() const {
 		}
 	}
 
+	short (*smallLookup)[2] = smallTableSelect ? Tables::smallLookupB : Tables::smallLookupA;
+	for(int i = 0; i < smallValues; i++) {
+		short* cur = smallLookup[smallCodes[i]];
+		total += cur[1];
+	}
+
 	return total;
 }
 
