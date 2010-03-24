@@ -24,6 +24,18 @@ Granule::Granule() :
 	memset(smallCodes, 0, FREQUENCIES / 4);
 }
 
+void Granule::setBlockType(byte blockType, bool mixedBlock) {
+	this->blockType = blockType;
+	this->mixedBlock = mixedBlock;
+	if(blockType != LONG_BLOCK) {
+		if(blockType == SHORT_BLOCK && !mixedBlock)
+			regionCount[0] = 9;
+		else
+			regionCount[0] = 8;
+		regionCount[2] = 0;
+	}
+}
+
 void Granule::setFrame(Frame* frame) {
 	this->frame = frame;
 }

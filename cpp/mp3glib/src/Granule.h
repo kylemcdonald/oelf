@@ -7,7 +7,10 @@ class Frame;
 class Granule {
 public:
 	Granule();
+
+	void setBlockType(byte blockType, bool mixedBlock = false);
 	void setFrame(Frame* frame);
+
 	void writeSideInfo(byte* data, int& position) const;
 	void writeMainData(byte* data, int& position) const;
 	short getMainDataLength() const;
@@ -33,7 +36,7 @@ public:
 
 	byte regionCount[REGIONS]; // how many bands
 	byte bigTableSelect[REGIONS];
-	char bigCodes[FREQUENCIES];
+	char bigCodes[FREQUENCIES]; // in the case of SHORT, these are interleaved
 
 	short smallValues; // how many quadruples
 	bool smallTableSelect;
