@@ -23,6 +23,7 @@ ostream& Frame::write(ostream& out) const {
 	for(int i = 0; i < GRANULES; i++)
 		granules[i].writeMainData(data, position);
 	out.write((char*) data, size);
+	delete [] data;
 	return out;
 }
 

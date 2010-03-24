@@ -28,36 +28,46 @@ int main() {
 				frame.header.setPadding(false);
 		}
 
-		Granule& gr = frame.granules[0];
-		gr.globalGain = 190;
-		gr.blockType = LONG_BLOCK;
-		gr.scaleShift = false;
-		gr.slindex = 15;
-		for(int i = 0; i < BANDS; i++)
-			gr.sfi[i] = 4;
+		for(int g = 0; g < 2; g++) {
+			Granule& gr = frame.granules[g];
+			gr.setBlockType(LONG_BLOCK);
 
-		for(int i = 0; i < REGIONS; i++)
-			gr.bigTableSelect[i] = 15;
+			// independent parameters
+			gr.globalGain = 200; // general volume
+			gr.scaleShift = false; // louder/quieter
 
-		gr.regionCount[0] = 8;
-		gr.regionCount[1] = 4;
-		gr.regionCount[2] = 2;
+			// choice of slindex determines the quantization of the sfi
+			gr.slindex = 15;
+			for(int i = 0; i < BANDS; i++)
+				gr.sfi[i] = 4;
 
-		int bv = gr.getBigValues();
-		for(int i = 0; i < bv; i++) {
-			gr.bigCodes[i] = 1 + (14 * i) / bv;
+			for(int i = 0; i < REGIONS; i++) {
+				// region division is just about using different huffman tables
+				// for different regions of the big values
+				gr.bigTableSelect[i] = 15;
+				// region count is used to determine how many big values there are
+				gr.regionCount[i] = 4;
+			}
+
+			// picking the big values describes the "meat" of the sound
+			int bv = gr.getBigValues();
+			for(int i = 0; i < bv; i++)
+				gr.bigCodes[i] = i == frames ? 10 : 0;
+
+			// the number of small values gives an upper bound on frequency
+			int smallValues = 576 - bv;
+			smallValues /= 4;
+			gr.smallValues = smallValues;
+			// the small value choices describes the texture of the upper frequencies
+			for(int i = 0; i < smallValues; i++)
+				gr.smallCodes[i] = (i + bv) == frames ? 41 : 40;
+
+			frames++;
 		}
-
-		int smallValues = 576 - bv;
-		smallValues /= 4;
-		gr.smallValues = smallValues;
-		for(int i = 0; i < smallValues; i++)
-			gr.smallCodes[i] = 41;
 
 		frame.write(file);
 		samples += FRAME_SAMPLES;
 		bits += frame.getSize() * 8;
-		frames++;
 	}
 	file.close();
 }
