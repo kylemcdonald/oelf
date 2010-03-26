@@ -8,7 +8,7 @@
 class MaskEnumerator : public Enumerator {
 public:
 	MaskEnumerator() :
-			order(49) {
+			order(13) {
 		counter.setup(BITS);
 		counter.set(0);
 
@@ -24,7 +24,7 @@ public:
 		frameBuffer.setup(418 * 8);
 	}
 	void write(ostream& out) {
-		frameBuffer.write(out);
+		frameBuffer.write(out, frame.getSize());
 	}
 protected:
 	void incrementCounter() {
@@ -39,11 +39,27 @@ protected:
 		}
 		counter.chordIncrement();
 	}
+	void desync() {
+		int consecutive = 0;
+		for(int i = 0; i < gray.size(); i++) {
+			if(gray.testBit(i))
+				consecutive++;
+			else
+				consecutive = 0;
+			if(consecutive == 12) {
+				gray.clearBit(i);
+				consecutive = 0;
+			}
+		}
+	}
 	void makeNext() {
-		incrementCounter();
+		frameBuffer.clear(); // .write() assumes already set to zero
 		frame.write(frameBuffer.getData());
+
+		incrementCounter();
 		gray &= frameMask;
-		//frameBuffer |= gray;
+		desync();
+		frameBuffer |= gray;
 	}
 private:
 	BigInteger frameBuffer, frameMask;

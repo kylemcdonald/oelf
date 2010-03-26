@@ -125,9 +125,15 @@ bool Granule::isFirst() const {
 }
 
 void Granule::writeSideInfo(byte* data, int& position) const {
+	// temporarily set manually
+	setShort(data, position, 1024, 12); // main data length
+	setShort(data, position, 128, 9); // big value pairs
+	setByte(data, position, 160, 8); // global gain
+	/*
 	setShort(data, position, getMainDataLength(), 12);
 	setShort(data, position, getBigValues() / 2, 9); // big value pairs
 	setByte(data, position, globalGain, 8);
+	*/
 	setByte(data, position, slindex, 4);
 
 	bool windowSwitching = getWindowSwitching();
@@ -144,8 +150,13 @@ void Granule::writeSideInfo(byte* data, int& position) const {
 	} else {
 		for(int i = 0; i < REGIONS; i++)
 			setByte(data, position, bigTableSelect[i], 5);
+		// temporarily set manually
+		setByte(data, position, 6, 4);
+		setByte(data, position, 5, 3);
+		/*
 		setByte(data, position, regionCount[0] - 1, 4);
 		setByte(data, position, regionCount[1] - 1, 3);
+		*/
 	}
 
 	setBool(data, position, preflag);
@@ -164,17 +175,17 @@ void Granule::writeSideInfoMask(byte* data, int& position) const {
 	 in order to maintain coherency
 	*/
 
-	setShort(data, position, 0x000, 12); // main data length is off limits
-	setShort(data, position, 0x000, 9); // big value pairs are off limits
-	setByte(data, position, 0xff, 8); // global gain is free (maybe limited?)
+	setShort(data, position, 0, 12); // main data length is off limits
+	setShort(data, position, 0, 9); // big value pairs are off limits
+	setByte(data, position, 0, 8); // global gain is of limits
 	setByte(data, position, 0xf, 4); // slindex is free
 	setBool(data, position, false); // window switching is fixed (for now)
 
 	// long windows
 	for(int i = 0; i < REGIONS; i++)
 		setByte(data, position, 0xff, 5); // big table selection is free
-	setByte(data, position, 0xf, 4); // region count 0 is free
-	setByte(data, position, 0xf, 3); // region count 1 is free
+	setByte(data, position, 0, 4); // region count 0 is off limits
+	setByte(data, position, 0, 3); // region count 1 is off limits
 
 	setBool(data, position, true); // preflag is free
 	setBool(data, position, true); // scale shift is free

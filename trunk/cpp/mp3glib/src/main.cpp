@@ -16,8 +16,8 @@ int main() {
 
 	Tables::buildLookup();
 	MaskEnumerator be;
-	//for(int i = 0; i < (10 * 44100) / 1152; i++) {
-	for(int i = 0; i < 100; i++) {
+	for(int i = 0; i < (60 * 4 * 44100) / 1152; i++) {
+	//for(int i = 0; i < 512; i++) {
 		be.getNext();
 		be.write(file);
 	}

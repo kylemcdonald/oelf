@@ -31,7 +31,7 @@ string BigInteger::toString() const {
 	return out;
 }
 
-void BigInteger::write(ostream& out) const {
+void BigInteger::write(ostream& out, int byteCount) const {
 	out.write((char*) data, byteCount);
 }
 
@@ -118,6 +118,10 @@ int BigInteger::intValue() const {
 	return out;
 }
 
+int BigInteger::size() const {
+	return bitCount;
+}
+
 void BigInteger::binaryIncrement() {
 	data[maxByte]++;
 	for(int i = 0; i < byteCount; i++) {
@@ -182,19 +186,22 @@ BigInteger& BigInteger::shiftRight() {
 }
 
 BigInteger& BigInteger::operator|=(const BigInteger& x) {
-	for(int i = 0; i < byteCount; i++)
+	int maxByteCount = byteCount > x.byteCount ? byteCount : x.byteCount;
+	for(int i = 0; i < maxByteCount; i++)
 		data[i] |= x.data[i];
 	return *this;
 }
 
 BigInteger& BigInteger::operator&=(const BigInteger& x) {
-	for(int i = 0; i < byteCount; i++)
+	int maxByteCount = byteCount > x.byteCount ? byteCount : x.byteCount;
+	for(int i = 0; i < maxByteCount; i++)
 		data[i] &= x.data[i];
 	return *this;
 }
 
 BigInteger& BigInteger::operator^=(const BigInteger& x) {
-	for(int i = 0; i < byteCount; i++)
+	int maxByteCount = byteCount > x.byteCount ? byteCount : x.byteCount;
+	for(int i = 0; i < maxByteCount; i++)
 		data[i] ^= x.data[i];
 	return *this;
 }
