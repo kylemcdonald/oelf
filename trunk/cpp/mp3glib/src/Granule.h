@@ -12,6 +12,7 @@ public:
 	void setFrame(Frame* frame);
 
 	void writeSideInfo(byte* data, int& position) const;
+	void writeSideInfoMask(byte* data, int& position) const;
 	void writeMainData(byte* data, int& position) const;
 	short getMainDataLength() const;
 	bool getWindowSwitching() const;

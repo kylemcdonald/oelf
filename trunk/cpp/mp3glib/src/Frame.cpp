@@ -6,10 +6,10 @@ Frame::Frame() {
 		granules[i].setFrame(this);
 }
 
-void Frame::getFrame(byte* out) const {
-}
-
 void Frame::getMask(byte* out) const {
+	int position = 0;
+	header.writeHeaderMask(out, position);
+	sideInfo.writeSideInfoMask(out, position);
 }
 
 int Frame::getSize() const {
@@ -23,14 +23,18 @@ ostream& Frame::write(ostream& out) const {
 	int size = getSize();
 	byte* data = new byte[size];
 	memset(data, 0, size);
+	write(data);
+	out.write((char*) data, size);
+	delete [] data;
+	return out;
+}
+
+void Frame::write(byte* data) const {
 	int position = 0;
 	header.writeHeader(data, position);
 	sideInfo.writeSideInfo(data, position);
 	for(int i = 0; i < GRANULES; i++)
 		granules[i].writeMainData(data, position);
-	out.write((char*) data, size);
-	delete [] data;
-	return out;
 }
 
 bool Frame::hasShort() const {

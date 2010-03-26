@@ -16,9 +16,10 @@ int main() {
 
 	Tables::buildLookup();
 	MaskEnumerator be;
-	for(int i = 0; i < (10 * 44100) / 1152; i++) {
-		const Frame& frame = be.getNext();
-		frame.write(file);
+	//for(int i = 0; i < (10 * 44100) / 1152; i++) {
+	for(int i = 0; i < 100; i++) {
+		be.getNext();
+		be.write(file);
 	}
 
 	file.close();
