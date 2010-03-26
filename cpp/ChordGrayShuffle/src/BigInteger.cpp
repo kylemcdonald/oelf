@@ -1,9 +1,12 @@
 #include "BigInteger.h"
 
+byte* BigInteger::magnitudeLut = NULL;
+
 BigInteger::BigInteger() :
 	bitCount(0),
 	byteCount(0),
-	data(NULL) {
+	data(NULL),
+	shuffleLut(NULL) {
 }
 
 void BigInteger::setup(const BigInteger& from) {
@@ -31,6 +34,14 @@ string BigInteger::toString() const {
 	return out;
 }
 
+void BigInteger::write(ostream& out, int byteCount) const {
+	out.write((char*) data, byteCount);
+}
+
+byte* BigInteger::getData() {
+	return data;
+}
+
 void BigInteger::set(byte x) {
 	data[maxByte] = x;
 }
@@ -45,6 +56,10 @@ void BigInteger::set(int x) {
 	data[maxByte - 1] = ((byte*) &x)[1];
 	data[maxByte - 2] = ((byte*) &x)[2];
 	data[maxByte - 3] = ((byte*) &x)[3];
+}
+
+void BigInteger::set(const byte* x) {
+	memcpy(data, x, byteCount);
 }
 
 bool BigInteger::testBit(int i) const {
@@ -86,12 +101,24 @@ int BigInteger::getLowestMovable() const {
 	return bitCount;
 }
 
+void BigInteger::buildMagnitudeLut() {
+	if(magnitudeLut == NULL) {
+		magnitudeLut = new byte[256];
+		for(int i = 0; i < 256; i++) {
+			byte cur = i;
+			byte count;
+			for (count = 0; cur; count++)
+				cur &= cur - 1;
+			magnitudeLut[i] = count;
+		}
+	}
+}
+
 int BigInteger::getMagnitude() const {
-	// this can be sped up with a bytewise LUT
+	buildMagnitudeLut();
 	int magnitude = 0;
-	for(int i = 0; i < bitCount; i++)
-		if(testBit(i))
-			magnitude++;
+	for(int i = 0; i < byteCount; i++)
+		magnitude += magnitudeLut[data[i]];
 	return magnitude;
 }
 
@@ -104,6 +131,10 @@ int BigInteger::intValue() const {
 	x[2] = data[maxByte - 2];
 	x[3] = data[maxByte - 3];
 	return out;
+}
+
+int BigInteger::size() const {
+	return bitCount;
 }
 
 void BigInteger::binaryIncrement() {
@@ -147,14 +178,21 @@ void BigInteger::reverse() {
 
 // only copies true bits, so shuffled should be cleared first
 void BigInteger::shuffleInto(BigInteger& shuffled) {
-	BigInteger position;
-	// this can be sped up by precomputing a LUT
-	position.setup(INDEX);
-	for(int i = 0; i < bitCount; i++) {
-		if(testBit(i)) {
-			position.set(i);
-			position.reverse();
-			shuffled.setBit(position.intValue());
+	buildShuffleLut();
+	for(int i = 0; i < bitCount; i++)
+		if(testBit(i))
+			shuffled.setBit(shuffleLut[i]);
+}
+
+void BigInteger::buildShuffleLut() {
+	if(shuffleLut == NULL) {
+		BigInteger cur;
+		cur.setup(INDEX);
+		shuffleLut = new int[bitCount];
+		for(int i = 0; i < bitCount; i++) {
+			cur.set(i);
+			cur.reverse();
+			shuffleLut[i] = cur.intValue();
 		}
 	}
 }
@@ -169,8 +207,23 @@ BigInteger& BigInteger::shiftRight() {
 	return *this;
 }
 
+BigInteger& BigInteger::operator|=(const BigInteger& x) {
+	int maxByteCount = byteCount > x.byteCount ? byteCount : x.byteCount;
+	for(int i = 0; i < maxByteCount; i++)
+		data[i] |= x.data[i];
+	return *this;
+}
+
+BigInteger& BigInteger::operator&=(const BigInteger& x) {
+	int maxByteCount = byteCount > x.byteCount ? byteCount : x.byteCount;
+	for(int i = 0; i < maxByteCount; i++)
+		data[i] &= x.data[i];
+	return *this;
+}
+
 BigInteger& BigInteger::operator^=(const BigInteger& x) {
-	for(int i = 0; i < byteCount; i++)
+	int maxByteCount = byteCount > x.byteCount ? byteCount : x.byteCount;
+	for(int i = 0; i < maxByteCount; i++)
 		data[i] ^= x.data[i];
 	return *this;
 }
@@ -178,4 +231,6 @@ BigInteger& BigInteger::operator^=(const BigInteger& x) {
 BigInteger::~BigInteger() {
 	if(data != NULL)
 		delete [] data;
+	if(shuffleLut != NULL)
+		delete [] shuffleLut;
 }
