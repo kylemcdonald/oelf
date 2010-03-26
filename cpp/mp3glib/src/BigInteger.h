@@ -35,9 +35,10 @@ public:
 	int getLowestMovable() const;
 	int getMagnitude() const;
 	int intValue() const;
+	int size() const;
 	byte* getData();
 	string toString() const;
-	void write(ostream& out) const;
+	void write(ostream& out, int byteCount) const;
 
 	void binaryIncrement();
 	void chordIncrement();
