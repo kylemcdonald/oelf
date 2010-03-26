@@ -8,13 +8,23 @@
 class MaskEnumerator : public Enumerator {
 public:
 	MaskEnumerator() :
-			order(0) {
+			order(49) {
 		counter.setup(BITS);
 		counter.set(0);
 
 		shifted.setup(counter);
 		gray.setup(counter);
 		shuffled.setup(counter);
+
+		frameMask.setup(418 * 8);
+		byte* mask = frameMask.getData();
+		memset(mask, 0xff, 418); // assume everything is allowed
+		frame.getMask(mask);
+
+		frameBuffer.setup(418 * 8);
+	}
+	void write(ostream& out) {
+		frameBuffer.write(out);
 	}
 protected:
 	void incrementCounter() {
@@ -31,8 +41,12 @@ protected:
 	}
 	void makeNext() {
 		incrementCounter();
+		frame.write(frameBuffer.getData());
+		gray &= frameMask;
+		//frameBuffer |= gray;
 	}
 private:
+	BigInteger frameBuffer, frameMask;
 	BigInteger counter, shifted, gray, shuffled;
 	int order;
 };

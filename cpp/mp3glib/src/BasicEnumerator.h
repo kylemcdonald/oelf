@@ -7,6 +7,9 @@ public:
 	BasicEnumerator() :
 			position(0) {
 	}
+	void write(ostream& out) {
+		frame.write(out);
+	}
 protected:
 	void incrementSfi(Granule& gr) {
 		int max1 = (1 << Tables::slength[gr.slindex][0]) - 1;

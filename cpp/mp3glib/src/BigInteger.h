@@ -25,6 +25,7 @@ public:
 	void set(byte x);
 	void set(short x);
 	void set(int x);
+	void set(const byte* x);
 	void set(bool x, int i = 0);
 	void setBit(int i);
 	void clearBit(int i);
@@ -34,7 +35,9 @@ public:
 	int getLowestMovable() const;
 	int getMagnitude() const;
 	int intValue() const;
+	byte* getData();
 	string toString() const;
+	void write(ostream& out) const;
 
 	void binaryIncrement();
 	void chordIncrement();
@@ -42,6 +45,8 @@ public:
 	void reverse();
 	void shuffleInto(BigInteger& shuffled);
 	BigInteger& shiftRight();
+	BigInteger& operator|=(const BigInteger& x);
+	BigInteger& operator&=(const BigInteger& x);
 	BigInteger& operator^=(const BigInteger& x);
 
 	~BigInteger();

@@ -31,6 +31,14 @@ string BigInteger::toString() const {
 	return out;
 }
 
+void BigInteger::write(ostream& out) const {
+	out.write((char*) data, byteCount);
+}
+
+byte* BigInteger::getData() {
+	return data;
+}
+
 void BigInteger::set(byte x) {
 	data[maxByte] = x;
 }
@@ -45,6 +53,10 @@ void BigInteger::set(int x) {
 	data[maxByte - 1] = ((byte*) &x)[1];
 	data[maxByte - 2] = ((byte*) &x)[2];
 	data[maxByte - 3] = ((byte*) &x)[3];
+}
+
+void BigInteger::set(const byte* x) {
+	memcpy(data, x, byteCount);
 }
 
 bool BigInteger::testBit(int i) const {
@@ -166,6 +178,18 @@ BigInteger& BigInteger::shiftRight() {
 			setBit((i << 3) - 1);
 		data[maxByte - i] >>= 1;
 	}
+	return *this;
+}
+
+BigInteger& BigInteger::operator|=(const BigInteger& x) {
+	for(int i = 0; i < byteCount; i++)
+		data[i] |= x.data[i];
+	return *this;
+}
+
+BigInteger& BigInteger::operator&=(const BigInteger& x) {
+	for(int i = 0; i < byteCount; i++)
+		data[i] &= x.data[i];
 	return *this;
 }
 

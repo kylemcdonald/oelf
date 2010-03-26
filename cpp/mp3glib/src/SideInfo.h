@@ -8,6 +8,7 @@ public:
 	SideInfo();
 	void setFrame(Frame* frame);
 	void writeSideInfo(byte* data, int& position) const;
+	void writeSideInfoMask(byte* data, int& position) const;
 	const bool* getScfsi() const;
 
 	Frame* frame;

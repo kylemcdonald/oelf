@@ -153,6 +153,34 @@ void Granule::writeSideInfo(byte* data, int& position) const {
 	setBool(data, position, smallTableSelect);
 }
 
+void Granule::writeSideInfoMask(byte* data, int& position) const {
+	/*
+	 3176 bits for side info
+	 74*2 of those bits can be scale factor bands
+	 3028 / 2 = 1514 main data length maximum
+	 could get an error if not enough small values
+	 or if too many big values
+	 so values should be set indirectly and then other parameters generated
+	 in order to maintain coherency
+	*/
+
+	setShort(data, position, 0x000, 12); // main data length is off limits
+	setShort(data, position, 0x000, 9); // big value pairs are off limits
+	setByte(data, position, 0xff, 8); // global gain is free (maybe limited?)
+	setByte(data, position, 0xf, 4); // slindex is free
+	setBool(data, position, false); // window switching is fixed (for now)
+
+	// long windows
+	for(int i = 0; i < REGIONS; i++)
+		setByte(data, position, 0xff, 5); // big table selection is free
+	setByte(data, position, 0xf, 4); // region count 0 is free
+	setByte(data, position, 0xf, 3); // region count 1 is free
+
+	setBool(data, position, true); // preflag is free
+	setBool(data, position, true); // scale shift is free
+	setBool(data, position, true); // small table select is free
+}
+
 void Granule::writeMainData(byte* data, int& position) const {
 	const bool* scfsi = frame->sideInfo.getScfsi();
 

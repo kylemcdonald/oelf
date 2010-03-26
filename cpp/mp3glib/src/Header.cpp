@@ -48,3 +48,9 @@ void Header::writeHeader(byte* data, int& position) const {
 	for(int i = 0; i < 4; i++)
 		setByte(data, position, header[i], 8);
 }
+
+void Header::writeHeaderMask(byte* data, int& position) const {
+	// the entire header is off limits
+	for(int i = 0; i < 4; i++)
+		setByte(data, position, 0, 8);
+}

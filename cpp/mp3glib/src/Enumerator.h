@@ -9,7 +9,7 @@ public:
 	}
 	virtual ~Enumerator() {
 	}
-	const Frame& getNext() {
+	void getNext() {
 		makeNext();
 
 		if(samples != 0) {
@@ -22,9 +22,8 @@ public:
 
 		samples += FRAME_SAMPLES;
 		bits += frame.getSize() * 8;
-
-		return frame;
 	}
+	virtual void write(ostream& out) = 0;
 protected:
 	virtual void makeNext() = 0;
 
