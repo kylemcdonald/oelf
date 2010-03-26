@@ -14,7 +14,8 @@ void BigInteger::setup(const BigInteger& from) {
 void BigInteger::setup(int bitCount) {
 	this->bitCount = bitCount;
 	this->byteCount = (bitCount >> 3) + (bitCount ? 1 : 0);
-	this->max = byteCount - 1;
+	this->maxByte = byteCount - 1;
+	this->maxBit = bitCount - 1;
 	data = new byte[byteCount];
 	clear();
 }
@@ -31,40 +32,47 @@ string BigInteger::toString() const {
 }
 
 void BigInteger::set(byte x) {
-	data[max] = x;
+	data[maxByte] = x;
 }
 
 void BigInteger::set(short x) {
-	data[max] = ((byte*) &x)[0];
-	data[max - 1] = ((byte*) &x)[1];
+	data[maxByte] = ((byte*) &x)[0];
+	data[maxByte - 1] = ((byte*) &x)[1];
 }
 
 void BigInteger::set(int x) {
-	data[max] = ((byte*) &x)[0];
-	data[max - 1] = ((byte*) &x)[1];
-	data[max - 2] = ((byte*) &x)[2];
-	data[max - 3] = ((byte*) &x)[3];
+	data[maxByte] = ((byte*) &x)[0];
+	data[maxByte - 1] = ((byte*) &x)[1];
+	data[maxByte - 2] = ((byte*) &x)[2];
+	data[maxByte - 3] = ((byte*) &x)[3];
 }
 
 bool BigInteger::testBit(int i) const {
 	int whichByte = i >> 3;
 	int whichBit = i - (whichByte << 3);
 	byte mask = 1 << whichBit;
-	return data[max - whichByte] & mask;
+	return data[maxByte - whichByte] & mask;
+}
+
+void BigInteger::set(bool x, int i) {
+	if(x)
+		setBit(i);
+	else
+		clearBit(i);
 }
 
 void BigInteger::setBit(int i) {
 	int whichByte = i >> 3;
 	int whichBit = i - (whichByte << 3);
 	byte mask = 1 << whichBit;
-	data[max - whichByte] |= mask;
+	data[maxByte - whichByte] |= mask;
 }
 
 void BigInteger::clearBit(int i) {
 	int whichByte = i >> 3;
 	int whichBit = i - (whichByte << 3);
 	byte mask = 1 << whichBit;
-	data[max - whichByte] &= ~mask;
+	data[maxByte - whichByte] &= ~mask;
 }
 
 void BigInteger::clear() {
@@ -79,7 +87,7 @@ int BigInteger::getLowestMovable() const {
 }
 
 int BigInteger::getMagnitude() const {
-	// this can be sped up with a bytewise lut
+	// this can be sped up with a bytewise LUT
 	int magnitude = 0;
 	for(int i = 0; i < bitCount; i++)
 		if(testBit(i))
@@ -87,11 +95,22 @@ int BigInteger::getMagnitude() const {
 	return magnitude;
 }
 
+int BigInteger::intValue() const {
+	int out;
+	// test if this can be done with a single memcpy
+	byte* x = (byte*) &out;
+	x[0] = data[maxByte];
+	x[1] = data[maxByte - 1];
+	x[2] = data[maxByte - 2];
+	x[3] = data[maxByte - 3];
+	return out;
+}
+
 void BigInteger::binaryIncrement() {
-	data[max]++;
+	data[maxByte]++;
 	for(int i = 0; i < byteCount; i++) {
-		if(data[max - i] == 0)
-			data[max - i - 1]++;
+		if(data[maxByte - i] == 0)
+			data[maxByte - i - 1]++;
 		else
 			break;
 	}
@@ -117,12 +136,35 @@ void BigInteger::chordIncrement() {
 	}
 }
 
+void BigInteger::reverse() {
+	for(int i = 0; i < bitCount / 2; i++) {
+		bool low = testBit(i);
+		int high = maxBit - i;
+		set((bool) testBit(high), i);
+		set((bool) low, high);
+	}
+}
+
+// only copies true bits, so shuffled should be cleared first
+void BigInteger::shuffleInto(BigInteger& shuffled) {
+	BigInteger position;
+	// this can be sped up by precomputing a LUT
+	position.setup(INDEX);
+	for(int i = 0; i < bitCount; i++) {
+		if(testBit(i)) {
+			position.set(i);
+			position.reverse();
+			shuffled.setBit(position.intValue());
+		}
+	}
+}
+
 BigInteger& BigInteger::shiftRight() {
-	data[max] >>= 1;
+	data[maxByte] >>= 1;
 	for(int i = 1; i < byteCount; i++) {
 		if(testBit(i << 3))
 			setBit((i << 3) - 1);
-		data[max - i] >>= 1;
+		data[maxByte - i] >>= 1;
 	}
 	return *this;
 }
