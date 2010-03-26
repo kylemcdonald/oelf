@@ -9,6 +9,8 @@ class Frame {
 public:
 	Frame();
 	ostream& write(ostream& out) const;
+	void getFrame(byte* out) const;
+	void getMask(byte* out) const;
 	int getSize() const;
 	bool hasShort() const;
 

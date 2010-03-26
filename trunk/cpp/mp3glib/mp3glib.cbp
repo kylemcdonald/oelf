@@ -24,6 +24,8 @@
 			<Add directory="src" />
 		</Compiler>
 		<Unit filename="src\BasicEnumerator.h" />
+		<Unit filename="src\BigInteger.cpp" />
+		<Unit filename="src\BigInteger.h" />
 		<Unit filename="src\Enumerator.h" />
 		<Unit filename="src\Frame.cpp" />
 		<Unit filename="src\Frame.h" />
@@ -33,6 +35,7 @@
 		<Unit filename="src\Header.h" />
 		<Unit filename="src\Huffman.cpp" />
 		<Unit filename="src\Huffman.h" />
+		<Unit filename="src\MaskEnumerator.h" />
 		<Unit filename="src\Shared.cpp" />
 		<Unit filename="src\Shared.h" />
 		<Unit filename="src\SideInfo.cpp" />

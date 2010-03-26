@@ -7,6 +7,8 @@ public:
 	Enumerator() :
 			samples(0), bits(0) {
 	}
+	virtual ~Enumerator() {
+	}
 	const Frame& getNext() {
 		makeNext();
 
