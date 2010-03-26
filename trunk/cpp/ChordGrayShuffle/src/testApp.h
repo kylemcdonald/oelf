@@ -1,17 +1,20 @@
 #pragma once
 
 #include "ofMain.h"
-#include "BigInteger.h"
 
-#define BITS 512
+#define BITS 1024
+
+#include "BigInteger.h"
 
 class testApp : public ofBaseApp {
 public:
 	void setup();
 	void update();
 	void draw();
+	void keyPressed(int key);
 
-	BigInteger counter, shifted, gray;
+	BigInteger counter, shifted, gray, shuffled;
+	int order;
 
 	ofImage img;
 };
