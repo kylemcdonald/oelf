@@ -4,7 +4,8 @@
 #include <iostream>
 typedef unsigned char byte;
 using namespace std;
-#define INDEX 10 // this controls the way the shuffle works
+
+#define INDEX 10 // this controls the resolution of shuffle()
 
 /*
 	Bits are internally stored in a big-endian format, as individual bytes are
@@ -24,6 +25,7 @@ public:
 	void set(byte x);
 	void set(short x);
 	void set(int x);
+	void set(const byte* x);
 	void set(bool x, int i = 0);
 	void setBit(int i);
 	void clearBit(int i);
@@ -33,7 +35,10 @@ public:
 	int getLowestMovable() const;
 	int getMagnitude() const;
 	int intValue() const;
+	int size() const;
+	byte* getData();
 	string toString() const;
+	void write(ostream& out, int byteCount) const;
 
 	void binaryIncrement();
 	void chordIncrement();
@@ -41,11 +46,19 @@ public:
 	void reverse();
 	void shuffleInto(BigInteger& shuffled);
 	BigInteger& shiftRight();
+	BigInteger& operator|=(const BigInteger& x);
+	BigInteger& operator&=(const BigInteger& x);
 	BigInteger& operator^=(const BigInteger& x);
 
 	~BigInteger();
 private:
+	void buildShuffleLut();
+	static void buildMagnitudeLut();
+
 	int bitCount, byteCount;
 	int maxBit, maxByte;
 	byte* data;
+
+	int* shuffleLut;
+	static byte* magnitudeLut;
 };
