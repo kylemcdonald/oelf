@@ -48,8 +48,7 @@ void draw() {
       for(int j = 0; j < low; j++) {
         if(x.testBit(j)) {
           x = x.clearBit(j);
-          x = x.setBit(lower);
-          lower++;
+          x = x.setBit(lower++);
         }
       }
     } else {
