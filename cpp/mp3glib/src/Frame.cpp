@@ -6,6 +6,12 @@ Frame::Frame() {
 		granules[i].setFrame(this);
 }
 
+void Frame::getFrame(byte* out) const {
+}
+
+void Frame::getMask(byte* out) const {
+}
+
 int Frame::getSize() const {
 	int bitrate = header.getBitrate();
 	int samplerate = header.getSamplerate();
