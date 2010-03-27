@@ -42,6 +42,7 @@ public:
 
 	void binaryIncrement();
 	void chordIncrement();
+	void convertToGray();
 
 	void reverse();
 	void shuffleInto(BigInteger& shuffled);
@@ -59,6 +60,6 @@ private:
 	int maxBit, maxByte;
 	byte* data;
 
-	int* shuffleLut;
+	unsigned int* shuffleLut;
 	static byte* magnitudeLut;
 };

@@ -69,21 +69,21 @@ bool BigInteger::testBit(int i) const {
 	return data[maxByte - whichByte] & mask;
 }
 
-void BigInteger::set(bool x, int i) {
+inline void BigInteger::set(bool x, int i) {
 	if(x)
 		setBit(i);
 	else
 		clearBit(i);
 }
 
-void BigInteger::setBit(int i) {
+inline void BigInteger::setBit(int i) {
 	int whichByte = i >> 3;
 	int whichBit = i - (whichByte << 3);
 	byte mask = 1 << whichBit;
 	data[maxByte - whichByte] |= mask;
 }
 
-void BigInteger::clearBit(int i) {
+inline void BigInteger::clearBit(int i) {
 	int whichByte = i >> 3;
 	int whichBit = i - (whichByte << 3);
 	byte mask = 1 << whichBit;
@@ -167,6 +167,18 @@ void BigInteger::chordIncrement() {
 	}
 }
 
+void BigInteger::convertToGray() {
+	byte original;
+	for(int i = maxByte; i > 0; i--) { // low to high
+		original = data[i]; // copy original value
+		data[i] >>= 1; // right shift
+		if(data[i - 1] & 0x01) // if the next bit up is available
+			data[i] |= 0x80; // shift it over
+		data[i] ^= original; // xor against original
+	}
+	data[0] = (data[0] >> 1) ^ data[0]; // last byte by itself
+}
+
 void BigInteger::reverse() {
 	for(int i = 0; i < bitCount / 2; i++) {
 		bool low = testBit(i);
@@ -188,7 +200,7 @@ void BigInteger::buildShuffleLut() {
 	if(shuffleLut == NULL) {
 		BigInteger cur;
 		cur.setup(INDEX);
-		shuffleLut = new int[bitCount];
+		shuffleLut = new unsigned int[bitCount];
 		for(int i = 0; i < bitCount; i++) {
 			cur.set(i);
 			cur.reverse();
