@@ -198,14 +198,46 @@ void BigInteger::shuffleInto(BigInteger& shuffled) {
 
 void BigInteger::buildShuffleLut() {
 	if(shuffleLut == NULL) {
+		shuffleLut = new unsigned int[bitCount];
+/*
 		BigInteger cur;
 		cur.setup(INDEX);
-		shuffleLut = new unsigned int[bitCount];
 		for(int i = 0; i < bitCount; i++) {
 			cur.set(i);
 			cur.reverse();
 			shuffleLut[i] = cur.intValue();
+			cout << i << ": " << (int) shuffleLut[i] << endl;
 		}
+*/
+
+		int lowest = 0;
+		bool* swapped = new bool[bitCount];
+		memset(swapped, 0, bitCount);
+		while(lowest < bitCount) {
+			if(!swapped[lowest]) {
+				int start = lowest;
+				int skip = 0;
+				while(start < bitCount) {
+					skip++;
+					int end = start + skip;
+					while(end < bitCount && swapped[end]) {
+						skip++;
+						end++;
+					}
+					if(end < bitCount) {
+						swapped[start] = true;
+						shuffleLut[start] = end;
+						swapped[end] = true;
+						shuffleLut[end] = start;
+					}
+					start = end;
+					while(start < bitCount && swapped[start])
+						start++;
+				}
+			}
+			lowest++;
+		}
+		delete [] swapped;
 	}
 }
 

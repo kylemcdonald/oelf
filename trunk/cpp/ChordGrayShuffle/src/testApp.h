@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 
-#define BITS 1024
+#define BITS 800
 
 #include "BigInteger.h"
 
@@ -12,6 +12,7 @@ public:
 	void update();
 	void draw();
 	void keyPressed(int key);
+	void mousePressed(int x, int y, int button);
 
 	BigInteger counter, gray, shuffled;
 	int order;
