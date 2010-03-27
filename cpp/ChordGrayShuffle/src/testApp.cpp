@@ -11,10 +11,10 @@ void testApp::setup(){
 }
 
 void testApp::update(){
-	counter.clear();
-	/*
-	for(int i = 0; i < mouseY * 32; i++)
-		counter.chordIncrement();*/
+	//counter.clear();
+
+	for(int i = 0; i < mouseY; i++)
+		counter.chordIncrement();
 
 	order = (int) ofMap(mouseX, 0, ofGetWidth(), 0, 128);
 
@@ -33,8 +33,10 @@ void testApp::update(){
 		for(int k = 0; k < BITS; k++)
 			pixels[i++] = shuffled.testBit(k) ? 255 : 0;
 
-		counter.chordIncrement();
+		//counter.chordIncrement();
+		counter.binaryIncrement();
 	}
+
 	img.update();
 }
 
@@ -46,4 +48,8 @@ void testApp::keyPressed(int key) {
 	ostringstream filename;
 	filename << BITS << "x" << (int) ofGetHeight() << " " << order << " order.png";
 	img.saveImage(filename.str());
+}
+
+void testApp::mousePressed(int x, int y, int button) {
+	counter.set(gray);
 }
