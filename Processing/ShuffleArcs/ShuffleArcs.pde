@@ -17,14 +17,15 @@ void draw() {
   int[] positions = new int[n];
   while(lowest < n) {
     if(!swapped[lowest]) {
-      swapped[lowest] = true;
       int start = lowest;
       int skip = 0;
       while(start < n) {
         skip++;
-        while(start + skip < n && swapped[start + skip])
-          skip++;
         int end = start + skip;
+        while(end < n && swapped[end]) {
+          skip++;
+          end++;
+        }
         if(end < n) {
           swapped[start] = true;
           positions[start] = end;
