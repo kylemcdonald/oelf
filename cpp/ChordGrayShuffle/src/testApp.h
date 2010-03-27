@@ -13,7 +13,7 @@ public:
 	void draw();
 	void keyPressed(int key);
 
-	BigInteger counter, shifted, gray, shuffled;
+	BigInteger counter, gray, shuffled;
 	int order;
 
 	ofImage img;

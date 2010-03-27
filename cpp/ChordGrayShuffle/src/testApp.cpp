@@ -4,7 +4,6 @@ void testApp::setup(){
 	counter.setup(BITS);
 	counter.set(0);
 
-	shifted.setup(counter);
 	gray.setup(counter);
 	shuffled.setup(counter);
 
@@ -23,14 +22,11 @@ void testApp::update(){
 	int h = (int) img.getHeight();
 	int i = 0;
 	for(int j = 0; j < h; j++) {
-		shifted.set(counter);
 		gray.set(counter);
 		for(int k = 0; k < order; k++) {
-			gray ^= shifted.shiftRight(); // make gray code
+			gray.convertToGray();
 			shuffled.clear(); // clear shuffle buffer
 			gray.shuffleInto(shuffled); // make shuffle
-
-			shifted.set(shuffled); // copy result
 			gray.set(shuffled); // copy result
 		}
 
