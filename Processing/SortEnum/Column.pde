@@ -22,7 +22,7 @@ class Column implements Comparable {
     avg /= count;
     
     sortOrder[0] = transitions;
-    sortOrder[1] = avg;
+    sortOrder[1] = count;
   }
   int compareTo(Object o) {
     Column co = (Column) o;
