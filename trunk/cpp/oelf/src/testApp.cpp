@@ -4,6 +4,7 @@ void testApp::setup() {
 	ofSetVerticalSync(true);
 	ofSetFrameRate((int) (38.28 / (float) VIZFRAMES));
 	img.allocate(generator.getSize(), VIZFRAMES, OF_IMAGE_COLOR);
+	shouldReset = true;
 }
 
 void testApp::update(){
@@ -54,6 +55,7 @@ void testApp::mousePressed(int x, int y, int button) {
 			generator.setOrder((int) ofMap(mouseX, 0, ofGetWidth(), 0, 128));
 		} else {
 			generator.reflect();
+			shouldReset = false;
 		}
 	}
 }
@@ -66,8 +68,9 @@ void testApp::generateMp3() {
 
 	ofstream file;
 	file.open(filename.str().c_str(), std::ios::binary | std::ios::out);
-	//generator.reset();
-	for(int i = 0; i < (15 * 60 * 44100) / 1152; i++) {
+	if(shouldReset)
+		generator.reset();
+	for(int i = 0; i < (60 * 60 * 44100) / 1152; i++) {
 	//for(int i = 0; i < 512; i++) {
 		generator.makeNext();
 		generator.write(file);
