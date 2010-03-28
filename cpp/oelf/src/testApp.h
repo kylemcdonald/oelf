@@ -6,7 +6,7 @@
 #include "Frame.h"
 #include "Generator.h"
 
-#define VIZFRAMES 16
+#define VIZFRAMES 128
 #define DEBUG true
 
 class testApp : public ofBaseApp {

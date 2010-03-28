@@ -8,7 +8,6 @@ Generator::Generator() :
 	cout << "Frame size is " << size << " bits." << endl;
 
 	// load in mask
-	BigInteger mask;
 	mask.setup(size);
 	frameBuffer.setup(size);
 	frame.writeMask(mask.getData());
@@ -20,14 +19,11 @@ Generator::Generator() :
 	for(int i = 0; i < size; i++)
 		if(mask.testBit(i))
 			swap[cur++] = i;
-/*
-	// reverse the order above a given base
-	for(int i = 64; i < size / 2; i++) {
-		int cur = swap[i];
-		swap[i] = swap[size - 1 - i];
-		swap[size - 1 - i] = cur;
-	}
-*/
+
+	// more fine revisions could be made here
+	swapRegions(1024, maskMagnitude - 1 - 512, 128);
+	reverseRegion(600, 512);
+
 	// set up the counter for enumeration
 	counter.setup(maskMagnitude);
 	counter.set(0);
@@ -89,6 +85,7 @@ void Generator::makeNext() {
 		gray.set(shuffled); // copy result
 	}
 	counter.binaryIncrement();
+	//counter.chordIncrement();
 	desync();
 
 	frameBuffer.clear();
@@ -116,4 +113,24 @@ const BigInteger& Generator::getFrame() {
 
 const BigInteger& Generator::getGray() {
 	return gray;
+}
+
+const BigInteger& Generator::getMask() {
+	return mask;
+}
+
+void Generator::swapRegions(int from, int to, int length) {
+	for(int i = 0; i < length; i++) {
+		int cur = swap[from + i];
+		swap[from + i] = swap[to + i];
+		swap[to + i] = cur;
+	}
+}
+
+void Generator::reverseRegion(int start, int length) {
+	for(int i = 0; i < length; i++) {
+		int cur = swap[start + i];
+		swap[start + i] = swap[start + (length - 1 - i)];
+		swap[start + (length - 1 - i)] = cur;
+	}
 }
