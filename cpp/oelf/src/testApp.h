@@ -20,4 +20,5 @@ public:
 
 	ofImage img;
 	Generator generator;
+	bool shouldReset;
 };
