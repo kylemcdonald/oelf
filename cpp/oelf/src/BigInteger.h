@@ -9,7 +9,8 @@ using namespace std;
 
 /*
 	Bits are internally stored in a big-endian format, as individual bytes are
-	big-endian. This means a BigInteger can be used to manage a bitstream.
+	big-endian. This means a BigInteger can be used to manage a bitstream without
+	needing to flip the direction of shifts within a byte.
 
 	The advantage of little-endian storage would be that arbitrary datatypes
 	can be quickly set and retrieved using mempcy.
@@ -63,3 +64,16 @@ private:
 	unsigned int* shuffleLut;
 	static byte* magnitudeLut;
 };
+
+/*
+	These functions operate in a little-endian format, and are optimized for
+	working with bitstreams from left to right.
+*/
+
+void setShort(byte* array, int& position, unsigned short value, int length);
+void setByte(byte* array, int& position, byte value, int length);
+void setBool(byte* array, int& position, bool value);
+
+string binary(short x, int length);
+string binary(byte x, int length);
+string binary(byte* x, int length);

@@ -1,10 +1,11 @@
 #pragma once
 
 #include "ofMain.h"
+#include "BigInteger.h"
+#include "Frame.h"
+#include "Generator.h"
 
 #define BITS 1024
-
-#include "BigInteger.h"
 
 class testApp : public ofBaseApp {
 public:
