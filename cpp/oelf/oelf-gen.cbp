@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="oelf-gen" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Release">
+				<Option output="bin\oelf-gen" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\release" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="src" />
+			<Add directory="gen-src" />
+		</Compiler>
+		<Unit filename="gen-src\main.cpp" />
+		<Unit filename="src\BigInteger.cpp" />
+		<Unit filename="src\BigInteger.h" />
+		<Unit filename="src\Frame.h" />
+		<Unit filename="src\Generator.cpp" />
+		<Unit filename="src\Generator.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<wxsmith version="1">
+				<gui name="wxWidgets" src="" main="" init_handlers="necessary" language="CPP" />
+			</wxsmith>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
