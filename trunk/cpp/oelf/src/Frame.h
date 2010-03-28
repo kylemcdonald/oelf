@@ -11,14 +11,13 @@ public:
 		samplerate(44100),
 		padding(false) {
 		for(int gr = 0; gr < 2; gr++) {
-			mainDataLength[gr] = 0;
-			bigValues[gr] = 0;
-			globalGain[gr] = 0;
+			mainDataLength[gr] = 512;
+			bigValues[gr] = 128;
+			globalGain[gr] = 140;
 			slindex[gr] = 0;
-			windowSwitching[gr] = 0;
 			for(int i = 0; i < REGIONS; i++) {
 				bigTableSelect[gr][i] = 0;
-				regionCount[gr][i] = 0;
+				regionCount[gr][i] = 4;
 			}
 			preflag[gr] = 0;
 			scaleShift[gr] = 0;
@@ -30,24 +29,35 @@ public:
 		memset(mask, 0, 21 + 4); // assume the header and side info are closed
 
 		int position = 4 * 8;
-		position += 9; // main data begin
-		position += 5; // private data
-		// setByte(data, position, 0xf, 4); // to free the scfsi
-		position += 4; // scfsi (open?)
+		position += 9; // main mask begin
+		position += 5; // private mask
+		//setByte(mask, position, 0xf, 4); // open scfsi
+		position += 4; // closed scfsi
 
 		for(int gr = 0; gr < GRANULES; gr++) {
-			position += 12; // main data length
-			position += 9; // big value pairs
-			position += 8; // global gain (open)
-			position += 4; // slength index
+			//setShort(mask, position, 0xfff, 12); // open main mask length
+			position += 12; // closed main mask length
+			//setShort(mask, position, 0xfff, 9); // open big value pairs
+			position += 9; // closed big value pairs
+			//setByte(mask, position, 0xff, 8); // open global gain
+			position += 8; // closed global gain
+			setByte(mask, position, 0xf, 4); // open slength index
+			//position += 4; // closed slength index
 			position += 1; // window switching
-			for(int i = 0; i < REGIONS; i++)
-				position += 5; // open
-			position += 4; // region count 0 (open?)
-			position += 3; // region count 1 (open?)
-			position += 1; // preflag (open)
-			position += 1; // scale shift (open)
-			position += 1; // small table select (open)
+			for(int i = 0; i < REGIONS; i++) {
+				setByte(mask, position, 0xff, 5); // open table select
+				//position += 5; // closed table select
+			}
+			//setByte(mask, position, 0xf, 4); // open region count 0
+			position += 4; // closed region count 0
+			//setByte(mask, position, 0xf, 3); // open region count 1
+			position += 3; // closed region count 1
+			setByte(mask, position, 0xf, 1); // open preflag
+			//position += 1; // closed preflag
+			setByte(mask, position, 0xf, 1); // open scale shift
+			//position += 1; // closed scale shift
+			setByte(mask, position, 0xf, 1); // open table select
+			//position += 1; // closed small table select
 		}
 	}
 	void write(byte* data) const {
@@ -66,7 +76,7 @@ public:
 			setShort(data, position, bigValues[gr], 9); // big value pairs
 			setByte(data, position, globalGain[gr], 8); // global gain (open)
 			setByte(data, position, slindex[gr], 4); // slength index
-			setBool(data, position, windowSwitching[gr]); // window switching
+			setBool(data, position, false); // window switching
 			for(int i = 0; i < REGIONS; i++)
 				setByte(data, position, bigTableSelect[gr][i], 5); // open
 			setByte(data, position, regionCount[gr][0], 4); // open?
@@ -97,7 +107,6 @@ private:
 	short bigValues[GRANULES];
 	byte globalGain[GRANULES];
 	byte slindex[GRANULES];
-	bool windowSwitching[GRANULES];
 	byte bigTableSelect[GRANULES][REGIONS];
 	byte regionCount[GRANULES][REGIONS];
 	bool preflag[GRANULES];

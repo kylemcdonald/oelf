@@ -10,8 +10,8 @@ void testApp::setup() {
 	ofstream file;
 	file.open(filename.str().c_str(), std::ios::binary | std::ios::out);
 	Generator generator;
-	//for(int i = 0; i < (10 * 44100) / 1152; i++) {
-	for(int i = 0; i < 512; i++) {
+	for(int i = 0; i < (60 * 44100) / 1152; i++) {
+	//for(int i = 0; i < 512; i++) {
 		generator.makeNext();
 		generator.write(file);
 	}
