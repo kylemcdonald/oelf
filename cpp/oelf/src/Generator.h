@@ -16,7 +16,7 @@ public:
 		mask.setup(size);
 		frameBuffer.setup(size);
 		frame.writeMask(mask.getData());
-		int maskMagnitude = size;//mask.getMagnitude(); // temporarily use entire mask
+		maskMagnitude = size;//mask.getMagnitude(); // temporarily use entire mask
 		cout << "Magnitude of mask is " << maskMagnitude << " bits." << endl;
 
 		// set up the counter for enumeration
