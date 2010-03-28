@@ -1,9 +1,9 @@
-int sc = 8;
+int sc = 4;
 boolean[] swapped;
 int[] positions;
 
 void setup() {
-  size(512, 64);
+  size(512, 256);
   ellipseMode(CORNER);
   noFill();
   smooth();
@@ -12,19 +12,19 @@ void setup() {
 void draw() {
   int n = mouseX / sc + 1;
 
-  int lowest = 0;
+  int skipAmount = (mouseY / 8) + 1;
   boolean[] swapped = new boolean[n];
   int[] positions = new int[n];
-  while(lowest < n) {
+  for(int lowest = 0; lowest < n; lowest++) {
     if(!swapped[lowest]) {
       int start = lowest;
-      int skip = 0;
+      int skip = 1;
       while(start < n) {
-        skip++;
+        skip += skipAmount;
         int end = start + skip;
         while(end < n && swapped[end]) {
-          skip++;
-          end++;
+          skip += skipAmount;
+          end += skipAmount;
         }
         if(end < n) {
           swapped[start] = true;
@@ -37,13 +37,13 @@ void draw() {
           start++;
       }
     }
-    lowest++;
   }
-  
+
   background(255);
-  stroke(200);
-  for(int i = 0; i < n; i++)
+  for(int i = 0; i < n; i++) {
+    stroke(swapped[i] ? color(200) : color(255, 0, 0));
     line(i * sc, 0, i * sc, height);
+  }
   stroke(0);
   for(int i = 0; i < n; i++) {
     if(positions[i] > i) {
@@ -53,4 +53,5 @@ void draw() {
     }
   }
 }
+
 
