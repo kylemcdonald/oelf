@@ -1,21 +1,29 @@
 #include "testApp.h"
 
-void testApp::setup(){
-	counter.setup(BITS);
-	counter.set(0);
+void testApp::setup() {
+	system("move *.mp3 backup");
 
-	gray.setup(counter);
-	shuffled.setup(counter);
+	ostringstream filename;
+	filename << time(NULL);
+	filename << ".mp3";
 
-	img.allocate(BITS, ofGetHeight(), OF_IMAGE_GRAYSCALE);
+	ofstream file;
+	file.open(filename.str().c_str(), std::ios::binary | std::ios::out);
+	Generator generator;
+	//for(int i = 0; i < (10 * 44100) / 1152; i++) {
+	for(int i = 0; i < 512; i++) {
+		generator.makeNext();
+		generator.write(file);
+	}
+	file.close();
+
+	cout << "Wrote " << filename.str() << " out." << endl;
+
+	img.allocate(generator.getMagnitude(), ofGetHeight(), OF_IMAGE_GRAYSCALE);
 }
 
 void testApp::update(){
-	//counter.clear();
-
-	/*for(int i = 0; i < mouseY; i++)
-		counter.chordIncrement();*/
-
+	/*
 	order = (int) ofMap(mouseX, 0, ofGetWidth(), 0, 128);
 
 	byte* pixels = img.getPixels();
@@ -38,6 +46,7 @@ void testApp::update(){
 	}
 
 	img.update();
+	*/
 }
 
 void testApp::draw(){
@@ -45,11 +54,7 @@ void testApp::draw(){
 }
 
 void testApp::keyPressed(int key) {
-	ostringstream filename;
-	filename << BITS << "x" << (int) ofGetHeight() << " " << order << " order.png";
-	img.saveImage(filename.str());
 }
 
 void testApp::mousePressed(int x, int y, int button) {
-	counter.set(gray);
 }

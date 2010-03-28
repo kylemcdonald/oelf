@@ -1,5 +1,6 @@
 #pragma once
 
+#include <fstream>
 #include "ofMain.h"
 #include "BigInteger.h"
 #include "Frame.h"
@@ -14,9 +15,6 @@ public:
 	void draw();
 	void keyPressed(int key);
 	void mousePressed(int x, int y, int button);
-
-	BigInteger counter, gray, shuffled;
-	int order;
 
 	ofImage img;
 };
