@@ -12,6 +12,17 @@ public:
 		padding(false) {
 		for(int gr = 0; gr < 2; gr++) {
 			mainDataLength[gr] = 0;
+			bigValues[gr] = 0;
+			globalGain[gr] = 0;
+			slindex[gr] = 0;
+			windowSwitching[gr] = 0;
+			for(int i = 0; i < REGIONS; i++) {
+				bigTableSelect[gr][i] = 0;
+				regionCount[gr][i] = 0;
+			}
+			preflag[gr] = 0;
+			scaleShift[gr] = 0;
+			smallTableSelect[gr] = 0;
 		}
 	}
 	void writeMask(byte* mask) const {
@@ -72,9 +83,16 @@ public:
 	void setPadding(bool padding) {
 		this->padding = padding;
 	}
+	int getBitrate() {
+		return bitrate;
+	}
+	int getSamplerate() {
+		return samplerate;
+	}
 private:
 	int bitrate, samplerate;
 	bool padding;
+
 	short mainDataLength[GRANULES];
 	short bigValues[GRANULES];
 	byte globalGain[GRANULES];
