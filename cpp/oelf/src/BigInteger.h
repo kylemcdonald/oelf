@@ -5,7 +5,7 @@
 typedef unsigned char byte;
 using namespace std;
 
-#define INDEX 10 // this controls the resolution of shuffle()
+#define SKIP_AMOUNT 3 // determines some properties of the swapping arrangement
 
 /*
 	Bits are internally stored in a big-endian format, as individual bytes are
