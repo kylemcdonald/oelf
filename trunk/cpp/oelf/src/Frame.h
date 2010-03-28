@@ -1,5 +1,7 @@
 #pragma once
 
+#include "BigInteger.h"
+
 #define FRAME_SAMPLES 1152
 #define REGIONS 3
 #define GRANULES 2

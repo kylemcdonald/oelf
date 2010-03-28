@@ -69,21 +69,21 @@ bool BigInteger::testBit(int i) const {
 	return data[maxByte - whichByte] & mask;
 }
 
-inline void BigInteger::set(bool x, int i) {
+void BigInteger::set(bool x, int i) {
 	if(x)
 		setBit(i);
 	else
 		clearBit(i);
 }
 
-inline void BigInteger::setBit(int i) {
+void BigInteger::setBit(int i) {
 	int whichByte = i >> 3;
 	int whichBit = i - (whichByte << 3);
 	byte mask = 1 << whichBit;
 	data[maxByte - whichByte] |= mask;
 }
 
-inline void BigInteger::clearBit(int i) {
+void BigInteger::clearBit(int i) {
 	int whichByte = i >> 3;
 	int whichBit = i - (whichByte << 3);
 	byte mask = 1 << whichBit;
