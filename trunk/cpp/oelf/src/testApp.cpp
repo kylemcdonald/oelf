@@ -2,7 +2,8 @@
 
 void testApp::setup() {
 	ofSetVerticalSync(true);
-	img.allocate(generator.getSize(), VIZFRAMES, OF_IMAGE_GRAYSCALE);
+	ofSetFrameRate((int) (38.28 / (float) VIZFRAMES));
+	img.allocate(generator.getSize(), VIZFRAMES, OF_IMAGE_COLOR);
 }
 
 void testApp::update(){
@@ -12,10 +13,21 @@ void testApp::update(){
 		for(int j = 0; j < VIZFRAMES; j++) {
 			generator.makeNext();
 			const BigInteger& ref = generator.getFrame();
-			for(int k = 0; k < ref.size(); k++)
-				pixels[i++] = ref.testBit(k) ? 255 : 0;
+			const BigInteger& mask = generator.getMask();
+			for(int k = 0; k < ref.size(); k++) {
+				bool curBit = ref.testBit(k);
+				if(mask.testBit(k)) {
+					pixels[i++] = curBit ? 255 : 0;
+					pixels[i++] = curBit ? 255 : 0;
+					pixels[i++] = curBit ? 255 : 0;
+				} else {
+					pixels[i++] = curBit ? 255 : 64;
+					pixels[i++] = curBit ? 0 : 0;
+					pixels[i++] = curBit ? 0 : 0;
+				}
+			}
+			img.update();
 		}
-		img.update();
 	}
 }
 
@@ -55,7 +67,7 @@ void testApp::generateMp3() {
 	ofstream file;
 	file.open(filename.str().c_str(), std::ios::binary | std::ios::out);
 	//generator.reset();
-	for(int i = 0; i < (1 * 60 * 44100) / 1152; i++) {
+	for(int i = 0; i < (15 * 60 * 44100) / 1152; i++) {
 	//for(int i = 0; i < 512; i++) {
 		generator.makeNext();
 		generator.write(file);

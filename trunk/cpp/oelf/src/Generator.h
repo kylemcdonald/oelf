@@ -17,6 +17,9 @@ public:
 	int getSize();
 	const BigInteger& getFrame();
 	const BigInteger& getGray();
+	const BigInteger& getMask();
+	void swapRegions(int from, int to, int length);
+	void reverseRegion(int start, int length);
 private:
 	int size;
 	BigInteger frameBuffer;
@@ -28,5 +31,5 @@ private:
 	long double bits;
 
 	int order, maskMagnitude;
-	BigInteger counter, gray, shuffled;
+	BigInteger mask, counter, gray, shuffled;
 };
