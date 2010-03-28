@@ -7,14 +7,14 @@ void testApp::setup(){
 	gray.setup(counter);
 	shuffled.setup(counter);
 
-	img.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_GRAYSCALE);
+	img.allocate(BITS, ofGetHeight(), OF_IMAGE_GRAYSCALE);
 }
 
 void testApp::update(){
 	//counter.clear();
 
-	for(int i = 0; i < mouseY; i++)
-		counter.chordIncrement();
+	/*for(int i = 0; i < mouseY; i++)
+		counter.chordIncrement();*/
 
 	order = (int) ofMap(mouseX, 0, ofGetWidth(), 0, 128);
 
@@ -41,7 +41,7 @@ void testApp::update(){
 }
 
 void testApp::draw(){
-	img.draw(0, 0);
+	img.draw(0, 0, ofGetWidth(), ofGetHeight());
 }
 
 void testApp::keyPressed(int key) {

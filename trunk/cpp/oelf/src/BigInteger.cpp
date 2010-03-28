@@ -200,6 +200,8 @@ void BigInteger::buildShuffleLut() {
 	if(shuffleLut == NULL) {
 		shuffleLut = new unsigned int[bitCount];
 /*
+	#define INDEX 10 // this controls the resolution of shuffle()
+
 		BigInteger cur;
 		cur.setup(INDEX);
 		for(int i = 0; i < bitCount; i++) {
@@ -210,19 +212,19 @@ void BigInteger::buildShuffleLut() {
 		}
 */
 
-		int lowest = 0;
+		int skipAmount = SKIP_AMOUNT;
 		bool* swapped = new bool[bitCount];
 		memset(swapped, 0, bitCount);
-		while(lowest < bitCount) {
+		for(int lowest = 0; lowest < bitCount; lowest++) {
 			if(!swapped[lowest]) {
 				int start = lowest;
-				int skip = 0;
+				int skip = 1;
 				while(start < bitCount) {
-					skip++;
+					skip += skipAmount;
 					int end = start + skip;
 					while(end < bitCount && swapped[end]) {
-						skip++;
-						end++;
+						skip += skip; // skipAmount
+						end += skip; // skipAmount
 					}
 					if(end < bitCount) {
 						swapped[start] = true;
@@ -235,9 +237,12 @@ void BigInteger::buildShuffleLut() {
 						start++;
 				}
 			}
-			lowest++;
 		}
 		delete [] swapped;
+
+		for(int i = 0; i < bitCount; i++)
+			if(!swapped[i])
+				shuffleLut[i] = i;
 	}
 }
 

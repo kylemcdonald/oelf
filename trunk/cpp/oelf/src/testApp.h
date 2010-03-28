@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 
-#define BITS 800
+#define BITS 1024
 
 #include "BigInteger.h"
 
