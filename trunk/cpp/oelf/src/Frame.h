@@ -15,11 +15,11 @@ public:
 		for(int gr = 0; gr < 2; gr++) {
 			mainDataLength[gr] = 512;
 			bigValues[gr] = 128;
-			globalGain[gr] = 140;
+			globalGain[gr] = 160;
 			slindex[gr] = 0;
 			for(int i = 0; i < REGIONS; i++) {
 				bigTableSelect[gr][i] = 0;
-				regionCount[gr][i] = 4;
+				regionCount[gr][i] = 6;
 			}
 			preflag[gr] = 0;
 			scaleShift[gr] = 0;
@@ -31,18 +31,21 @@ public:
 		memset(mask, 0, 21 + 4); // assume the header and side info are closed
 
 		int position = 4 * 8;
-		position += 9; // main mask begin
-		position += 5; // private mask
+		position += 9; // main data begin
+		position += 5; // private data
 		//setByte(mask, position, 0xf, 4); // open scfsi
 		position += 4; // closed scfsi
 
 		for(int gr = 0; gr < GRANULES; gr++) {
-			//setShort(mask, position, 0xfff, 12); // open main mask length
-			position += 12; // closed main mask length
+			//setShort(mask, position, 0xfff, 12); // open main data length
+			position += 12; // closed main data length
 			//setShort(mask, position, 0xfff, 9); // open big value pairs
 			position += 9; // closed big value pairs
+
 			//setByte(mask, position, 0xff, 8); // open global gain
-			position += 8; // closed global gain
+			//position += 8; // closed global gain
+			setByte(mask, position, 0x80, 8); // partially closed global gain
+
 			setByte(mask, position, 0xf, 4); // open slength index
 			//position += 4; // closed slength index
 			position += 1; // window switching
@@ -51,9 +54,13 @@ public:
 				//position += 5; // closed table select
 			}
 			//setByte(mask, position, 0xf, 4); // open region count 0
-			position += 4; // closed region count 0
+			//position += 4; // closed region count 0
+			setByte(mask, position, 0x01, 4); // partially closed region count 0
+
 			//setByte(mask, position, 0xf, 3); // open region count 1
-			position += 3; // closed region count 1
+			//position += 3; // closed region count 1
+			setByte(mask, position, 0x01, 3); // partially closed region count 1
+
 			setByte(mask, position, 0xf, 1); // open preflag
 			//position += 1; // closed preflag
 			setByte(mask, position, 0xf, 1); // open scale shift

@@ -1,60 +1,65 @@
 #include "testApp.h"
 
 void testApp::setup() {
+	ofSetVerticalSync(true);
+	img.allocate(generator.getSize(), VIZFRAMES, OF_IMAGE_GRAYSCALE);
+}
+
+void testApp::update(){
+	if(true) {
+		byte* pixels = img.getPixels();
+		int i = 0;
+		for(int j = 0; j < VIZFRAMES; j++) {
+			generator.makeNext();
+			const BigInteger& ref = generator.getFrame();
+			for(int k = 0; k < ref.size(); k++)
+				pixels[i++] = ref.testBit(k) ? 255 : 0;
+		}
+		img.update();
+	}
+}
+
+void testApp::draw(){
+	int offset = (int) ofMap(mouseX, 0, ofGetWidth(), 0, ofGetWidth() - img.getWidth());
+	img.draw(offset, 0, img.getWidth(), ofGetHeight());
+
+	if(DEBUG) {
+		ofSetColor(0, 0, 0);
+		ofRect(2, 2, 30, 12);
+		ofSetColor(255, 255, 255);
+		ofDrawBitmapString(ofToString(generator.getOrder()), 6, 12);
+	}
+}
+
+void testApp::keyPressed(int key) {
+	if(key == ' ' && DEBUG)
+		generateMp3();
+}
+
+void testApp::mousePressed(int x, int y, int button) {
+	if(DEBUG) {
+		if(x < ofGetWidth() / 2) {
+			generator.setOrder((int) ofMap(mouseX, 0, ofGetWidth(), 0, 128));
+		} else {
+			generator.reflect();
+		}
+	}
+}
+
+void testApp::generateMp3() {
 	system("move *.mp3 backup");
 
 	ostringstream filename;
-	filename << time(NULL);
-	filename << ".mp3";
+	filename << time(NULL) << "-" << generator.getOrder() << "-" << SKIP_AMOUNT << ".mp3";
 
 	ofstream file;
 	file.open(filename.str().c_str(), std::ios::binary | std::ios::out);
-	Generator generator;
-	for(int i = 0; i < (60 * 44100) / 1152; i++) {
+	//generator.reset();
+	for(int i = 0; i < (1 * 60 * 44100) / 1152; i++) {
 	//for(int i = 0; i < 512; i++) {
 		generator.makeNext();
 		generator.write(file);
 	}
 	file.close();
-
 	cout << "Wrote " << filename.str() << " out." << endl;
-
-	img.allocate(generator.getMagnitude(), ofGetHeight(), OF_IMAGE_GRAYSCALE);
-}
-
-void testApp::update(){
-	/*
-	order = (int) ofMap(mouseX, 0, ofGetWidth(), 0, 128);
-
-	byte* pixels = img.getPixels();
-	int h = (int) img.getHeight();
-	int i = 0;
-	for(int j = 0; j < h; j++) {
-		gray.set(counter);
-		for(int k = 0; k < order; k++) {
-			gray.convertToGray();
-			shuffled.clear(); // clear shuffle buffer
-			gray.shuffleInto(shuffled); // make shuffle
-			gray.set(shuffled); // copy result
-		}
-
-		for(int k = 0; k < BITS; k++)
-			pixels[i++] = shuffled.testBit(k) ? 255 : 0;
-
-		//counter.chordIncrement();
-		counter.binaryIncrement();
-	}
-
-	img.update();
-	*/
-}
-
-void testApp::draw(){
-	img.draw(0, 0, ofGetWidth(), ofGetHeight());
-}
-
-void testApp::keyPressed(int key) {
-}
-
-void testApp::mousePressed(int x, int y, int button) {
 }

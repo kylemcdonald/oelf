@@ -6,7 +6,8 @@
 #include "Frame.h"
 #include "Generator.h"
 
-#define BITS 1024
+#define VIZFRAMES 16
+#define DEBUG true
 
 class testApp : public ofBaseApp {
 public:
@@ -15,6 +16,8 @@ public:
 	void draw();
 	void keyPressed(int key);
 	void mousePressed(int x, int y, int button);
+	void generateMp3();
 
 	ofImage img;
+	Generator generator;
 };

@@ -2,18 +2,32 @@
 Generator::Generator() :
 		samples(0),
 		bits(0),
-		order(50) {
+		order(16) {
 	frame.setPadding(true);
-	int size = frame.getSize() * 8;
+	size = frame.getSize() * 8;
 	cout << "Frame size is " << size << " bits." << endl;
 
 	// load in mask
+	BigInteger mask;
 	mask.setup(size);
 	frameBuffer.setup(size);
 	frame.writeMask(mask.getData());
 	maskMagnitude = mask.getMagnitude();
 	cout << "Magnitude of mask is " << maskMagnitude << " bits." << endl;
 
+	swap = new int[size];
+	int cur = 0;
+	for(int i = 0; i < size; i++)
+		if(mask.testBit(i))
+			swap[cur++] = i;
+/*
+	// reverse the order above a given base
+	for(int i = 64; i < size / 2; i++) {
+		int cur = swap[i];
+		swap[i] = swap[size - 1 - i];
+		swap[size - 1 - i] = cur;
+	}
+*/
 	// set up the counter for enumeration
 	counter.setup(maskMagnitude);
 	counter.set(0);
@@ -21,8 +35,16 @@ Generator::Generator() :
 	shuffled.setup(counter);
 }
 
+Generator::~Generator() {
+	delete [] swap;
+}
+
 void Generator::setOrder(int order) {
 	this->order = order;
+}
+
+int Generator::getOrder() {
+	return order;
 }
 
 void Generator::desync() {
@@ -37,6 +59,14 @@ void Generator::desync() {
 			consecutive = 0;
 		}
 	}
+}
+
+void Generator::reset() {
+	counter.clear();
+}
+
+void Generator::reflect() {
+	counter.set(gray);
 }
 
 void Generator::makeNext() {
@@ -59,14 +89,13 @@ void Generator::makeNext() {
 		gray.set(shuffled); // copy result
 	}
 	counter.binaryIncrement();
-	gray &= mask;
 	desync();
 
 	frameBuffer.clear();
 	frame.write(frameBuffer.getData());
-	for(int i = 0; i < maskMagnitude; i++) {
-
-	}
+	for(int i = 0; i < maskMagnitude; i++)
+		if(gray.testBit(i))
+			frameBuffer.setBit(swap[i]);
 }
 
 void Generator::write(ostream& out) {
@@ -75,4 +104,16 @@ void Generator::write(ostream& out) {
 
 int Generator::getMagnitude() {
 	return maskMagnitude;
+}
+
+int Generator::getSize() {
+	return size;
+}
+
+const BigInteger& Generator::getFrame() {
+	return frameBuffer;
+}
+
+const BigInteger& Generator::getGray() {
+	return gray;
 }
