@@ -97,6 +97,8 @@
 		</ExtraCommands>
 		<Unit filename="src\BigInteger.cpp" />
 		<Unit filename="src\BigInteger.h" />
+		<Unit filename="src\Frame.h" />
+		<Unit filename="src\Generator.h" />
 		<Unit filename="src\main.cpp" />
 		<Unit filename="src\testApp.cpp" />
 		<Unit filename="src\testApp.h" />
