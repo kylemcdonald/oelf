@@ -13,6 +13,8 @@ public:
 	void desync();
 	void makeNext();
 	void write(ostream& out);
+	void writeState(ostream& out);
+	void readState(istream& in);
 	int getMagnitude();
 	int getSize();
 	const BigInteger& getFrame();

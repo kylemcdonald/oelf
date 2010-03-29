@@ -42,6 +42,9 @@ public:
 	string toString() const;
 	void write(ostream& out, int byteCount) const;
 
+	void write(ostream& out) const;
+	void read(istream& in);
+
 	void binaryIncrement();
 	void chordIncrement();
 	void convertToGray();

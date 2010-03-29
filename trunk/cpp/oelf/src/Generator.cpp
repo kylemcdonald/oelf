@@ -99,6 +99,14 @@ void Generator::write(ostream& out) {
 	out.write((char*) frameBuffer.getData(), frame.getSize());
 }
 
+void Generator::writeState(ostream& out) {
+	counter.write(out);
+}
+
+void Generator::readState(istream& in) {
+	counter.read(in);
+}
+
 int Generator::getMagnitude() {
 	return maskMagnitude;
 }

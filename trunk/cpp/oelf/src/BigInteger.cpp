@@ -38,6 +38,14 @@ void BigInteger::write(ostream& out, int byteCount) const {
 	out.write((char*) data, byteCount);
 }
 
+void BigInteger::write(ostream& out) const {
+	out.write((char*) data, byteCount);
+}
+
+void BigInteger::read(istream& in) {
+	in.read((char*) data, byteCount);
+}
+
 byte* BigInteger::getData() {
 	return data;
 }
