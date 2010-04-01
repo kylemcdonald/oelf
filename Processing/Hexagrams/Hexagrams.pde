@@ -10,9 +10,11 @@ int bits = 6;
 int top = 1 << bits;
 int side = (int) sqrt(top);
 
+boolean useGray = true;
+
 void setup() {
   size((hw + padding) * side - padding,
-    (bits * 2 + padding) * side - padding, PDF, "binary-hexagrams.pdf");
+    (bits * 2 + padding) * side - padding, PDF, "hexagrams.pdf");
   noLoop();
 }
 
@@ -23,7 +25,13 @@ void draw() {
   for(int i = 0; i < side; i++) {
     pushMatrix();
     for(int j = 0; j < side; j++) {
-      drawHexagram(counter);
+      if(useGray) {
+        BigInteger shifted = counter.shiftRight(1);
+        BigInteger gray = shifted.xor(counter);
+        drawHexagram(gray);
+      } else {
+        drawHexagram(counter);
+      }
       translate(hw + padding, 0);
       counter = counter.add(BigInteger.ONE);
     }
