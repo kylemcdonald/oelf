@@ -87,7 +87,7 @@ int getLowestMovable(BigInteger x, int len) {
 }
 
 BigInteger shuffle(BigInteger x, int len) {
-  BigInteger y = new BigInteger("0");
+  BigInteger y = BigInteger.ZERO;
   for(int i = 0; i < len; i++) {
     if(x.testBit(i)) {
       BigInteger pos = new BigInteger(binary(i), 2);
