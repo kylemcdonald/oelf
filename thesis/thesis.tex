@@ -306,17 +306,21 @@ The main subjects of this thesis are:
 
 	Sebastian Tomczak has done some work with enumeration in a sonic domain, working with loops of short PCM encoded waveforms. ``All 4-bit Waveforms That Have 32 Samples''\cite{tomczak_all_2009} expands into a space of $2^{4^{32}}=16^{32}$ possible samples at 440 Hz, which ``will take 1,079,028,307,100,000,000,000,000,000 centuries to complete''. His ``Hardware-based Waveform Permutations''\cite{tomczak_hardware-based_2009} implements the same concept in hardware with counters and multiplexers, but for only 4 samples instead of 32.
 	
-	Working with twelve notes of an octave rather than 32 samples, Tom Johnson's ``Chord Catalogue''\cite{tom_johnson_liner_1999} performs a similar iteration through possible sounds: the 8178 possible chords in an octave. The composition uses a similar enumeration as ``De Wensput'': first all two notes intervals, then three note chords, then four notes, etc. An interesting historical precursor is mentioned in the liner notes:
+	Working with twelve notes of an octave rather than 32 samples, Tom Johnson's ``The Chord Catalogue''\cite{tom_johnson_liner_1999} performs a similar iteration through possible sounds: the 8178 possible chords in an octave. The composition uses a similar enumeration as ``De Wensput'': first all two notes intervals, then three note chords, then four notes, etc. An interesting historical precursor is mentioned in the liner notes:
 	
 	\begin{quote}
 	Already in the early 17th century, the intellectual monk Marin Mersenne posed questions in the Livre du chant of his Harmonie universelle as to the number of possible melodies one could construct by changing the order of notes in a 22-note sequence. After much calculation he concluded that there was no point in actually carrying out this experiment, since one could never hear that many melodies in one lifetime.
 	\end{quote}
+	
+	The complexity of ``The Chord Catalogue'' compared to the MP3 specification is worth elaborating: Johnson's composition includes $2^13$ chords, while MP3 contains a serendipitous $2^13$ possible values for each of the 576 frequency lines.
 		
 	Paul Slocum's ``Pi House Generator''\cite{paul_slocum_pi_2007} uses the digits of $\pi$ to generate an infinitely long piece of house music. He claims that there is no repetition, but this is technically impossible as the program is deterministic and runs on a computer with limited resources. Furthermore, $\pi$ itself contains an infinite amount of repetition. It would be more accurate to say that the program generates pseudo-random music informed by the digits of $\pi$, and that it's hard to predict what you'll hear next.
 	
 	John Cage's ``Organ$^2$/ASLAP'' (As Slow As Possible)\cite{john_cage_as_????} is one of the more infamous performances of a Cage piece. While the first performance lasted only 29 minutes, it is now being performed on a custom built organ at St. Burchardi church in Halberstadt, Germany. Starting with a pause in 2000, it is scheduled to last 639 years, ending in 2640. This composition is likely related to Cage's comment that he was ``trying to find a way to make music that does not depend on time''.
 	
 	``Longplayer'' by Jem Finer\cite{jem_finer_longplayer_????} is a thousand year long composition scheduled to end on December 31 2999. Composed as the end of the twentieth century, Longplayer is primarily concerned with time and only secondarily with music. The way it solves the musical ``problem'' of creating a one thousand year long composition is interesting: starting with a single 20'20'' composition for Tibetan singing bowls, six two-minute segments are chosen as source material, these segments are played out of phase, and the phase slowly drifts over time. The slowest drifting phase moves with the composition, only completing its phrase when the entire composition is complete. The fastest changing phase makes a cycle every 3.7 days. Longplayer is regularly performed at Trinity Buoy Wharf in London, and is constantly streaming online.
+	
+	Leif Inge's ``9 Beet Stretch''\footnote{\url{http://www.harsmedia.com/SoundBlog/Archief/00550.php}} takes Beethoven's ninth symphony, usually 65 to 75 minutes long, and stretches it to 24 hours with pitch correction. This is a simple act of ``slowing down''; the poetics of ``Longplayer'' without the intense compositional act.
 	
 	Brian Whitman's ``Eigenradio''\cite{brian_whitman_eigenradio_2005} project listened to multiple radio streams and used principle components analysis to create a single stream that represented all of them simultaneously. Whitman is heavily involved with music analysis, and acknowledges that the only way for a computer to ``understand'' music is by learning its relationship to a large amount of extramusical information:
 	
@@ -431,7 +435,7 @@ Brandenburg recommends limiting the response of an MP3 or AAC encoder to 16 kHz 
 \section{The General Structure of MP3}
 	In order to iterate through the space of MP3, it's essential to understand how the format is structured.
 	
-	An MP3 file consists of a bit stream that is divided into metadata\footnote{Only the audio data is defined by the ISO standard, which has lead to the proliferation of metadata formats for MP3. This is itself an interesting space, with special limitations and biases. In ID3---the most common metadata format---one byte is alloted for genre, indexing a list of 148 genres. The list includes thirteen varieties of ``Rock'', from ``Southern Rock'' to ``Symphonic Rock'' and ``Gothic Rock'', without a mention of Indian classical music, gamelan, any kind of chant, klezmer, Afro-cuban music, or baroque.} and audio data. The audio data is a sequence of logically independent frames physically embedded in two interleaved bitstreams: one stream occurs at regular intervals, the other fills the space in between. The regular data begins with an easily identifiable signature: a sequence of twelve binary ones, or \verb!0xfff!. This sync is part of a 4 byte header that describes the high level characteristics of the current frame, such as the number of channels\footnote{MP3 includes mono and three types of stereo encoding. Any quantitative descriptions of the MP3 format given here are in reference to the mono mode, as OELF is a mono composition.}, samplerate, bitrate, and format version.
+	An MP3 file consists of a bit stream that is divided into metadata\footnote{Only the audio data is defined by the ISO standard, which has lead to the proliferation of metadata formats for MP3. This is itself an interesting space, with special limitations and biases. In ID3---the most common metadata format---one byte is alloted for genre, indexing a list of 148 genres. The list includes thirteen varieties of ``Rock'', from ``Southern Rock'' to ``Symphonic Rock'' and ``Gothic Rock'', without a mention of Indian classical music, gamelan, any kind of chant, klezmer, Afro-cuban music, or baroque. Biases can be found in any ontological system, a classic example being the Dewey Decimal System's bias for Christian literature.} and audio data. The audio data is a sequence of logically independent frames physically embedded in two interleaved bitstreams: one stream occurs at regular intervals, the other fills the space in between. The regular data begins with an easily identifiable signature: a sequence of twelve binary ones, or \verb!0xfff!. This sync is part of a 4 byte header that describes the high level characteristics of the current frame, such as the number of channels\footnote{MP3 includes mono and three types of stereo encoding. Any quantitative descriptions of the MP3 format given here are in reference to the mono mode, as OELF is a mono composition.}, samplerate, bitrate, and format version.
 	
 	Following the header is 17 bytes of ``side information'' (side info). The header and side information together make up the regular bitstream, while the ``main data'' falls in between. The main data is Huffman coded,\footnote{Huffman coding is an algorithm for compressing information. It is based on the principle of replacing more commonly occurring symbol sequences with short codes, and less frequent symbol sequences with longer codes. MP3 uses a modified version of Huffman coding that allows significant variation in the length of the symbol sequences.} and the side info provides a variety of details about how to go about decoding it. Once decoded from its Huffman representation, the main data goes through a series of complex transformations informed by various settings and scalings described in the side info.
 	
@@ -542,14 +546,40 @@ Brandenburg recommends limiting the response of an MP3 or AAC encoder to 16 kHz 
 	The big values must be smaller than the main data. This leads to $\sum_{i=0}^{2^{12}} min(i,2^9)$ possible combinations.\footnote{In practice, this number must be significantly smaller due to the limited space provided by the combination of the bit reservoir and the bitstream following the side info.}
 	
 	One piece remains: the main data location. Because the main data location is solely physical (bitstream-oriented) rather than logical (sound-descriptive), it can be derived rather than enumerated.
+
+\section{The I Ching and Enumeration}
+
+	The I Ching as an introduction to enumeration of binary sequences.
+	
+	Standard binary enumeration, the Fu Xi sequence.
+	
+	Chu Hsi sequence, ordered by bit count. Bears similarity to ``Chord Catalogue'' enumeration. Johnson's enumeration is:
+	
+	\begin{quote}
+	The lowest voice that can rise a half-tone does so and any lower voices descend to their points of departure.
+	\end{quote}
+	
+	While Chu Hsi's might be written:
+	
+	\begin{quote}
+	The highest voice that can rise a half-tone does so and any higher voices descend as low as possible without crossing another.
+	\end{quote}
+	
+	Gray code can either be seen as an enumeration---through an algorithm for constructing an entire sequence---or as an operation to be carried out on a given binary number. The operation consists of a single right shift followed by an XOR against the original value.\footnote{``A Reordering of the Hexagrams of the I Ching'' Victor Mair and Stephen McKenna, "Philosophy East and West", Oct. 1979. proposes an alternative ordering of the hexagrams based on Gray code.}
+	
+	These all have the problem of having small Hamming distances between adjacent codes---which in these cases also corresponds to low frequency of variation in any given bit.
+	
+	Other I Ching sequences include the classic King Wen sequence (which has many inverted pairs but is otherwise not mathematically well-defined), The Mawangdui sequence (similar to concatenation of the x/y position of a hexagram).
 	
 \section{Composing for a Large Space}
+	
+	(Change ringing/method ringing as a solution to a factorial musical-temporal space based on permutations and swapping.)
 
 	(Mention the ISO part 4 compliance testing files as examples of enumeration for technical purposes, as a comparison to this composition.)
 	
 	(Discuss the notion of ``composing for psychoacoustic entropy''.)
 	
-	(Organizing everything as tessellation: whenever you take something away from one area, you have to add it to the opposite side. Similar to bit swapping. You necessarily must compose for the entire space simultaneously.)
+	(Organizing everything as tessellation: whenever you take something away from one area, you have to add it to the opposite side. Similar to bit swapping. You must necessarily compose for the entire space simultaneously.)
 	
 	A basic enumeration of MP3 might be compared to writing out a chromatic scale. You probably wouldn't call a chromatic scale a ``composition'', but you might call one of Shch\"onberg's 12-tone pieces a ``composition''. Once the space is enumerated, it is still waiting to be arranged in an interesting way----simply enumerating the space doesn't justify the work.
 
