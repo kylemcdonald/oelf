@@ -78,24 +78,6 @@ The main subjects of this thesis are:
 	
 	It's been called a ``meme'', but that's almost a secondary characteristic of this project. Memes have origins you can point to and say, ``There, look at that---isn't it funny? That's why everybody's been copying it.'' 241543903 and MOOKDFJLAL exist primarily because of the photos, not because of Horvitz' original instructions. This is a perfect example of \emph{socially constructed meaning}.
 			
-	In ``Music and Discourse'' by Jean-Jacques Nattiez\cite{nattiez_music_1990}, he describes musical meaning as a ``symbolic web''. He essentially accepts a coherentist account of meaning, saying it emerges ``when an object is placed in relationship to a horizon''. His view of this horizon is informed by psychologist Robert Franc\`es, who outlines four types of judgments:
-	
-\begin{enumerate}
-	\item Normative judgments (such as personal taste)
-	\item Objective/technical judgments (timbre, tempo and genre)
-	\item Judgments about meaning (extramusical references)
-		\begin{enumerate}
-			\item an individual referent (connection to personal experience)
-			\item concrete meaning (naturally occurring sounds)
-			\item abstract meaning (playfulness, serenity or hierarchy)
-		\end{enumerate}
-	\item ``Affirmations of interior order'' (psychological effects upon the listener)
-\end{enumerate}
-
-	Of these relationships, a number are independent of judgment: ``concrete meaning'', and arguably ``technical'' meaning as well. These relationships exist regardless of whether a conscious observer makes a judgment about them. The ``objective/technical'' relationships are suspicious only in so far as properties such as tempo and vibrato are constructs of a cultural tradition, but other properties such as relative amplitude, frequency, and timbre are more physically based rather than culturally.
-	
-	(There has to be a discussion about the I-ching here. The idea of different arrangements of the hexagrams corresponds directly to allrgb, and the fact that every hexagram is described in the context of every other hexagram...)
-
 \section{Psychology and Nature}
 
 \subsection{Gestalt and Illusion}
@@ -159,7 +141,7 @@ The main subjects of this thesis are:
 	For art is the ability to construct, not on the interrelation of form and color, and not on an aesthetic basis of beauty in composition, but on the basis of weight speed and the direction of movement. [...] Color and texture in painting are ends in themselves. They are the essence of painting, but this essence has always been destroyed by the subject.
 	\end{quote}
 	
-	It's interesting that these first Suprematist works of Malevich (``Black Square'', ``Red Square'', ``White on White'') used squares, which he called a ``zero form''. More geometrically elegant is the circle. More intuitive to paint is the line, or even the point. But he focused on the square (and later, rectangles), in a strange foreshadowing of raster images.
+	It's interesting that these first Suprematist works of Malevich (``Black Square'', ``Red Square'', ``White on White'') used squares, which he called a ``zero form''. More geometrically elegant is the circle. More intuitive to paint is the line, or even the point. But he focused on the square (and later, rectangles), in a strange foreshadowing of raster images. Because these pieces were about filling the space of the canvas, it must have been an intuitive response to the squareness of the canvas---itself informed by the physical biases of construction. In the same way, screens have been arranged in rectangular matrices (rather than hexagonal or any other pattern) for manufacturing and electronic reasons.
 	
 	\cite{moma_rodchenko_1998}
 	In 1921 Alexander Rodchenko first exhibited his three canvases, ``Pure Red Color, Pure Yellow Color, and Pure Blue Color''. These three canvases were the first true monochromes. He later said of them:
@@ -254,6 +236,8 @@ The main subjects of this thesis are:
 	
 \subsection{The I Ching}
 
+	The I Ching as a perfect example of a coherent system.
+
 	The I Ching as an introduction to enumeration of binary sequences.
 	
 	Standard binary enumeration, the Fu Xi sequence.
@@ -337,7 +321,9 @@ The main subjects of this thesis are:
 	\end{quote}
 	
 	The complexity of ``The Chord Catalogue'' compared to the MP3 specification is worth elaborating: Johnson's composition includes $2^13$ chords, while MP3 contains a serendipitous $2^13$ possible values for each of the 576 frequency lines.
-		
+
+\section{Long Pieces}
+
 	Paul Slocum's ``Pi House Generator''\cite{paul_slocum_pi_2007} uses the digits of $\pi$ to generate an infinitely long piece of house music. He claims that there is no repetition, but this is technically impossible as the program is deterministic and runs on a computer with limited resources. Furthermore, $\pi$ itself contains an infinite amount of repetition. It would be more accurate to say that the program generates pseudo-random music informed by the digits of $\pi$, and that it's hard to predict what you'll hear next.
 	
 	John Cage's ``Organ$^2$/ASLAP'' (As Slow As Possible)\cite{john_cage_as_????} is one of the more infamous performances of a Cage piece. While the first performance lasted only 29 minutes, it is now being performed on a custom built organ at St. Burchardi church in Halberstadt, Germany. Starting with a pause in 2000, it is scheduled to last 639 years, ending in 2640. This composition is likely related to Cage's comment that he was ``trying to find a way to make music that does not depend on time''.
@@ -351,23 +337,7 @@ The main subjects of this thesis are:
 	\begin{quote}
 	In the real world, does anyone ever hear music with absolutely no context? Even if you hear something on the radio by accident, you make an assumption about the artist simply because they have music on the radio. You also know the station and the time of day, maybe the song that came after it.
 	\end{quote}
-		
-\subsection{Experiments in enumeration}
-
-	After discovering so many variations on the ``Every Icon'' theme, I proposed a new work, ``Every Every Icon'':
-	
-	\begin{quote}
-	This work will include all of the above works, as well as any other variations that may be dreamed up in the future. It will accomplish this by iterating through every possible resolution, at every possible framerate, for every possible bit depth, in every possible order.\footnote{\url{http://erraticsemaphore.blogspot.com/2009/08/every-every-icon.html}}
-	\end{quote}
-	
-	Around the same I also created ``Every Song''\footnote{\url{http://openprocessing.org/visuals/?visualID=1170}}, which iterates through all possible equal-tempered songs using twelve notes in the octave. It does this as quickly as possible, with the reference for the tempo coming from the frequency of the lowest note being played. It uses simple binary enumeration, and proceeds in a manner very similar to ``Every Icon'' with the exception of being infinitely long: after the first chord is enumerated, it follows with all the two-chord sequences, then three, etc. I have never personally seen it get beyond playing an F in the second chord.
-
-	``pppd''\cite{kyle_mcdonald_pppd_2009} is an indirect approach to enumeration via a random walk. It draws on computability theory\cite{boolos_computability_2002} and the idea of a Turing-complete system. Turing-completeness refers to the ability of a system to compute anything that can be computed. pppd uses a very simple esoteric programming language known as P'' (``P prime prime'') to accomplish this. While practical programming languages are full of statements like \verb!z = x + y!, \verb!println(z)!, and \verb!for(int i = 0; i < n; i++)!, P'' breaks computing down to its essentials: moving a pointer through memory, changing memory, and looping---requiring only six commands, sometimes written as \verb![, ], +, -, <! and \verb!>!. Because P'' is Turing-complete, any program you could write with a language like C++ or Java could also be accomplished with P'' (albeit in a significantly slower and heavily obfuscated manner). Because any possible program can be represented, this means that any possible digital image or sound can also be written to the program's memory space. pppd generates random code, fitting the minor syntactical requirement of balanced brackets, and then visualizes and sonifies the memory space while running the code. In theory, not only can every image and sound be composed, but every compressed representation as well---along with the decompression algorithm. In practice, pppd produces very regular sequences of flashing colors and glitchy sounds. This acts a revelation of the nature of P'': it's likes to representing high-contrast memory sequences within constrained memory regions. Using another language would generate very different results.
-	
-	My nandhopper project\cite{kyle_mcdonald_nandhopper_2008} also draws on enumeration via directed random walks. The NAND is a binary logical operation, meaning it takes two inputs that are either true or false and returns a result of true or false. The NAND has the unusual property of being able to represent any possible logical operation on any number of inputs. In other words, while you might normally express a logical statement using multiple operators like IF, AND, OR, and NOT, they can all be reduced to statements that only use NAND. Practically, this means that any possible digital sound synthesis circuit can be represented using only NAND gates.
-	
-	I first came across NAND gates when exploring capacitive sensing. NAND gates are useful for constructing feedback loops that vary their frequency with respect to capacitance to ground.\footnote{Using a Schmitt trigger NAND like the 4093 you can use one input as an on-off switch while tying the output to the other input via a resistor. The feedback input is also tied to ground via a capacitor. This is a very basic RC circuit.} When I realized that NANDs could be used to simulate every other chip, I started exploring various NAND configurations and ways of connecting multiple NAND circuits. I developed three different configurations for an experimental filmmaker\footnote{Mexican filmmaker Diego Delmar, alias ``Macushi'' \url{http://www.knock.com.mx/}} based on intuitive explorations of these configurations. I published these designs along with detailed instructions on the tutorial-sharing site Instructables.com. In Spring of 2009 I developed a close connection to a complex variation on the NAND-synth that was developed for a performance context, integrating capacitive, resistive, and illumination sensing in a massively entangled feedback circuit. I see these as the first steps in a more general exploration of NAND-synthesis. I imagine a massive matrix of reconfigurable NAND circuits that can be rearranged during performance: constantly responding the the changing flow of logic, able to simulate any imaginable digital synthesizer in a very practical sense, complex enough to be interesting, but deterministic enough to be learned.
-	
+			
 \chapter{Glitch Art}
 (Insert brief introduction to the chapter.)
 
@@ -407,14 +377,6 @@ The main subjects of this thesis are:
 	
 \section{Memory}	
 	``The Ceibas Cycle'' by Evan Meaney\cite{evan_meaney_ceibas:_2008} approaches digital video as a container for a memory that will steadily fade over time. The work is relevant in that he addresses 27 different codec/container combinations and glitches them all in a similar way: substituting the ASCII representation of their data with some plain text. The resulting videos act as a record of the format's biases and assumptions about perception: some display optical flow artifacts, others quickly strobe magenta when color information goes missing.
-	
-	My own work, ``Future Fragments'', was an exploration of glitch-collaboration similar to ``The Ceibas Cycle''. I described it as:
-	
-	\begin{quote}
-	An anti-time-capsule: quotes from seven fellow art students, transcribed phonetically and encoded as colors. Prints of these colors were carried by the artists for a summer. Five returned. Two extra prints were accidentally intercepted and also returned. Decoded back into phonemes and re-formed into words, each text offers an indirect account of their respective journeys.\footnote{\url{http://www.flickr.com/photos/kylemcdonald/sets/72157608915887288/}}
-	\end{quote}
-	
-	A significant portion of this piece was the time spent developing a meaningful abstract encoding for phonemes. Just as a lossily encoded movie will yield something perceptually similar to the original even in the face of glitch, I developed a lossless encoding that was perceptually informed---in order to degrade in a perceptually relevant way. Bearing a vague resemblance to our mythologies and parables around the world that have gone through steady glitch (telephone/Chinese whispers and ''I am Sitting in a Room'') and co-evolved to reflect the structure of our collective mind rather than any specific historical event.
 
 	In ``Phantoms in the Brain''\cite{ramachandran_phantoms_1999}, V.S. Ramachandran espouses the notion of looking at where things break to understand how they work. When many patients have lesions in a similar area of the brain, and they all exhibit similar disabilities, it is assumed that that region of the brain is responsible for the missing behavior. More interesting than behavior localization is exploring the mechanisms for normal operation: the idea of a malleable body-image and it's ``phantom limb'' glitch, the notion of ``filling-in'' happening regularly in our blindspots at the optic nerve (or sometimes more extremely in the case of cataracts and blindsight), etc. The brain can experience glitches that reveal its inner workings the same way any other media might.
 	
@@ -437,6 +399,30 @@ The main subjects of this thesis are:
 	
 \chapter{Only Everything Lasts Forever}
 (Insert brief introduction to the chapter.)
+
+\section{Early Experiments}
+
+	After discovering so many variations on the ``Every Icon'' theme, I proposed a new work, ``Every Every Icon'':
+	
+	\begin{quote}
+	This work will include all of the above works, as well as any other variations that may be dreamed up in the future. It will accomplish this by iterating through every possible resolution, at every possible framerate, for every possible bit depth, in every possible order.\footnote{\url{http://erraticsemaphore.blogspot.com/2009/08/every-every-icon.html}}
+	\end{quote}
+	
+	Around the same I also created ``Every Song''\footnote{\url{http://openprocessing.org/visuals/?visualID=1170}}, which iterates through all possible equal-tempered songs using twelve notes in the octave. It does this as quickly as possible, with the reference for the tempo coming from the frequency of the lowest note being played. It uses simple binary enumeration, and proceeds in a manner very similar to ``Every Icon'' with the exception of being infinitely long: after the first chord is enumerated, it follows with all the two-chord sequences, then three, etc. I have never personally seen it get beyond playing an F in the second chord.
+
+	``pppd''\cite{kyle_mcdonald_pppd_2009} is an indirect approach to enumeration via a random walk. It draws on computability theory\cite{boolos_computability_2002} and the idea of a Turing-complete system. Turing-completeness refers to the ability of a system to compute anything that can be computed. pppd uses a very simple esoteric programming language known as P'' (``P prime prime'') to accomplish this. While practical programming languages are full of statements like \verb!z = x + y!, \verb!println(z)!, and \verb!for(int i = 0; i < n; i++)!, P'' breaks computing down to its essentials: moving a pointer through memory, changing memory, and looping---requiring only six commands, sometimes written as \verb![, ], +, -, <! and \verb!>!. Because P'' is Turing-complete, any program you could write with a language like C++ or Java could also be accomplished with P'' (albeit in a significantly slower and heavily obfuscated manner). Because any possible program can be represented, this means that any possible digital image or sound can also be written to the program's memory space. pppd generates random code, fitting the minor syntactical requirement of balanced brackets, and then visualizes and sonifies the memory space while running the code. In theory, not only can every image and sound be composed, but every compressed representation as well---along with the decompression algorithm. In practice, pppd produces very regular sequences of flashing colors and glitchy sounds. This acts a revelation of the nature of P'': it's likes to representing high-contrast memory sequences within constrained memory regions. Using another language would generate very different results.
+	
+	My nandhopper project\cite{kyle_mcdonald_nandhopper_2008} also draws on enumeration via directed random walks. The NAND is a binary logical operation, meaning it takes two inputs that are either true or false and returns a result of true or false. The NAND has the unusual property of being able to represent any possible logical operation on any number of inputs. In other words, while you might normally express a logical statement using multiple operators like IF, AND, OR, and NOT, they can all be reduced to statements that only use NAND. Practically, this means that any possible digital sound synthesis circuit can be represented using only NAND gates.
+	
+	I first came across NAND gates when exploring capacitive sensing. NAND gates are useful for constructing feedback loops that vary their frequency with respect to capacitance to ground.\footnote{Using a Schmitt trigger NAND like the 4093 you can use one input as an on-off switch while tying the output to the other input via a resistor. The feedback input is also tied to ground via a capacitor. This is a very basic RC circuit.} When I realized that NANDs could be used to simulate every other chip, I started exploring various NAND configurations and ways of connecting multiple NAND circuits. I developed three different configurations for an experimental filmmaker\footnote{Mexican filmmaker Diego Delmar, alias ``Macushi'' \url{http://www.knock.com.mx/}} based on intuitive explorations of these configurations. I published these designs along with detailed instructions on the tutorial-sharing site Instructables.com. In Spring of 2009 I developed a close connection to a complex variation on the NAND-synth that was developed for a performance context, integrating capacitive, resistive, and illumination sensing in a massively entangled feedback circuit. I see these as the first steps in a more general exploration of NAND-synthesis. I imagine a massive matrix of reconfigurable NAND circuits that can be rearranged during performance: constantly responding the the changing flow of logic, able to simulate any imaginable digital synthesizer in a very practical sense, complex enough to be interesting, but deterministic enough to be learned.
+	
+	Another project, ``Future Fragments'', was an exploration of glitch-collaboration similar to ``The Ceibas Cycle''. I described it as:
+	
+	\begin{quote}
+	An anti-time-capsule: quotes from seven fellow art students, transcribed phonetically and encoded as colors. Prints of these colors were carried by the artists for a summer. Five returned. Two extra prints were accidentally intercepted and also returned. Decoded back into phonemes and re-formed into words, each text offers an indirect account of their respective journeys.\footnote{\url{http://www.flickr.com/photos/kylemcdonald/sets/72157608915887288/}}
+	\end{quote}
+	
+	A significant portion of this piece was the time spent developing a meaningful abstract encoding for phonemes. Just as a lossily encoded movie will yield something perceptually similar to the original even in the face of glitch, I developed a lossless encoding that was perceptually informed---in order to degrade in a perceptually relevant way. Bearing a vague resemblance to our mythologies and parables around the world that have gone through steady glitch (telephone/Chinese whispers and ''I am Sitting in a Room'') and co-evolved to reflect the structure of our collective mind rather than any specific historical event.
 
 \section{The History and Psychoacoustics of MP3}
 ``Understanding MP3'' introduces perceptual coding with a discussion of metamers, which is a great way of describing reduced representations informed by human perception.
@@ -469,6 +455,22 @@ Brandenburg recommends limiting the response of an MP3 or AAC encoder to 16 kHz 
 	With the structure of MP3 in mind, under the assumption that MP3 represents all the sounds we can distinguish, we can make an approximation as to how many sounds that is. If the fundamental unit of the MP3 is the frame, and we are working at 128 kbits, every frame can have an average length of 418 bytes, or 3336 bits. In mono, 17 of these bytes are dedicated to the side information and 4 are the header. Most of the variation occurs in the main data, which is 397 remaining bytes. Therefore the total variation is $2^{397*8}=2^{3176}=10^{956}$. The number of 26 ms sounds we can distinguish is on the order of 10 followed by 956 zeros. If the fundamental unit is considered instead to be the granule, this cuts the power in half down to $10^{478}$. Considering AAC also further reduces the necessary bitrate by half, I'll place an upper bound on the number of uniquely distinguishable ``sound-atoms'' we can distinguish at $10^{239}$. The number of these sounds that can be played in a year is on the order of $10^9$, meaning that, played in succession, it would take $10^{230}$ years.
 	
 	MP3's 26 ms is approximately in line with Bob Snyder's analysis of musical meaning and memory. He groups sonic memory into three categories: event fusion, melodic and rhythmic grouping, and form. The cutoffs for each are between 1/32 second and 1/16 second, and 8 seconds and 16 seconds respectively.\footnote{p 12, ``Music and Memory''}
+	
+	Another perspective on musical meaning: in ``Music and Discourse'' by Jean-Jacques Nattiez\cite{nattiez_music_1990}, he describes musical meaning as a ``symbolic web''. He essentially accepts a coherentist account of meaning, saying it emerges ``when an object is placed in relationship to a horizon''. His view of this horizon is informed by psychologist Robert Franc\`es, who outlines four types of judgments:
+	
+\begin{enumerate}
+	\item Normative judgments (such as personal taste)
+	\item Objective/technical judgments (timbre, tempo and genre)
+	\item Judgments about meaning (extramusical references)
+		\begin{enumerate}
+			\item an individual referent (connection to personal experience)
+			\item concrete meaning (naturally occurring sounds)
+			\item abstract meaning (playfulness, serenity or hierarchy)
+		\end{enumerate}
+	\item ``Affirmations of interior order'' (psychological effects upon the listener)
+\end{enumerate}
+
+	Of these relationships, a number are independent of judgment: ``concrete meaning'', and arguably ``technical'' meaning as well. These relationships exist regardless of whether a conscious observer makes a judgment about them. The ``objective/technical'' relationships are suspicious only in so far as properties such as tempo and vibrato are constructs of a cultural tradition, but other properties such as relative amplitude, frequency, and timbre are more physically based rather than culturally.
 	
 \section{MP3 Enumeration}
 
