@@ -252,6 +252,30 @@ The main subjects of this thesis are:
 	Visually the work was formally more sophisticated and texturally richer than previous Systems work, but most striking was the sheer quantity of graphics and audio that was now being produced, something approaching a continuous torrent of sensory data.
 	\end{quote}
 	
+\subsection{The I Ching}
+
+	The I Ching as an introduction to enumeration of binary sequences.
+	
+	Standard binary enumeration, the Fu Xi sequence.
+	
+	Chu Hsi sequence, ordered by bit count. Bears similarity to ``Chord Catalogue'' enumeration. Johnson's enumeration is:
+	
+	\begin{quote}
+	The lowest voice that can rise a half-tone does so and any lower voices descend to their points of departure.
+	\end{quote}
+	
+	While Chu Hsi's might be written:
+	
+	\begin{quote}
+	The highest voice that can rise a half-tone does so and any higher voices descend as low as possible without crossing another.
+	\end{quote}
+	
+	Gray code can either be seen as an enumeration---through an algorithm for constructing an entire sequence---or as an operation to be carried out on a given binary number. The operation consists of a single right shift followed by an XOR against the original value.\footnote{``A Reordering of the Hexagrams of the I Ching'' Victor Mair and Stephen McKenna, "Philosophy East and West", Oct. 1979. proposes an alternative ordering of the hexagrams based on Gray code.}
+	
+	These all have the problem of having small Hamming distances between adjacent codes---which in these cases also corresponds to low frequency of variation in any given bit.
+	
+	Other I Ching sequences include the classic King Wen sequence (which has many inverted pairs but is otherwise not mathematically well-defined), The Mawangdui sequence (similar to concatenation of the x/y position of a hexagram).
+	
 \subsection{Visual enumeration}
 	In the visual domain there exists an obvious analogy to Borges' Library. His 25-letter alphabet is substituted with the 2-letter alphabet of binary, lines of text becomes rows of pixels, and the page becomes an image. Because this is such a well defined and unambiguous situation, a computer can steadily enumerate every possible combination of pixels in this image.
 	
@@ -407,6 +431,10 @@ The main subjects of this thesis are:
 	
 	The Moscow State University Graphics and Media Lab maintains this interesting page of glitches\cite{nikolai_trunichkin_and_dr._dmitriy_vatolin_crazy_????} they've stumbled across while developing their filter library (a collection of small visual processing modules used for research purposes). The unusual thing here is that they've made remarks on exactly which part of the algorithm has gone astray during the implementation. This is the other end of the Databender's Wordpad-mod scene: instead of making uninformed and intuitive modifications to a file in a non-representative format, the MSU Graphics and Media Lab has very precisely implemented the necessary algorithms and documented a few cases where something identifiable has gone wrong.
 	
+	MPF (``MPeg Fucker'') by imbecil\cite{imbecil_mpeg_2004} follows the general tradition of glitch-alike by making ASCII substitutions in the file. For example, substituting `a' (0110 0001) with `9' (0011 1001). Two scripts are provided for glitching files in slightly different ways, distinguished only by the choices of letter combinations for substitution. There is a bit of structural information represented here in that the substitutions themselves are fixed. The substitutions aren't made at random, but some favorites are encoded and shared.
+	
+	(Also discuss Mats \"Oljare's work with MP3 glitching by search/replace and in audio editors here.)
+	
 \chapter{Only Everything Lasts Forever}
 (Insert brief introduction to the chapter.)
 
@@ -427,11 +455,6 @@ Brandenburg states that we have all become ``expert listeners'' due to the simpl
 
 Brandenburg recommends limiting the response of an MP3 or AAC encoder to 16 kHz as there ``are some hints'' that there exist listeners who can identify the difference between complex signals above 16 kHz, but ``the full scientific proof has not yet been given''.\cite[10]{karlheinz_brandenburg_mp3_1999} This serves as a piece of the MP3-ideology, acts as an ontology of sound, and limits musical practice.
 	
-\section{Intuitive MP3 Glitching}
-	MPF (``MPeg Fucker'') by imbecil\cite{imbecil_mpeg_2004} follows the general tradition of glitch-alike by making ASCII substitutions in the file. For example, substituting `a' (0110 0001) with `9' (0011 1001). Two scripts are provided for glitching files in slightly different ways, distinguished only by the choices of letter combinations for substitution. There is a bit of structural information represented here in that the substitutions themselves are fixed. The substitutions aren't made at random, but some favorites are encoded and shared.
-	
-	(Also discuss Mats Oljare's work with MP3 glitching by search/replace and in audio editors here.)
-
 \section{The General Structure of MP3}
 	In order to iterate through the space of MP3, it's essential to understand how the format is structured.
 	
@@ -444,6 +467,8 @@ Brandenburg recommends limiting the response of an MP3 or AAC encoder to 16 kHz 
 \section{How Many Sound Can We Hear?}
 
 	With the structure of MP3 in mind, under the assumption that MP3 represents all the sounds we can distinguish, we can make an approximation as to how many sounds that is. If the fundamental unit of the MP3 is the frame, and we are working at 128 kbits, every frame can have an average length of 418 bytes, or 3336 bits. In mono, 17 of these bytes are dedicated to the side information and 4 are the header. Most of the variation occurs in the main data, which is 397 remaining bytes. Therefore the total variation is $2^{397*8}=2^{3176}=10^{956}$. The number of 26 ms sounds we can distinguish is on the order of 10 followed by 956 zeros. If the fundamental unit is considered instead to be the granule, this cuts the power in half down to $10^{478}$. Considering AAC also further reduces the necessary bitrate by half, I'll place an upper bound on the number of uniquely distinguishable ``sound-atoms'' we can distinguish at $10^{239}$. The number of these sounds that can be played in a year is on the order of $10^9$, meaning that, played in succession, it would take $10^{230}$ years.
+	
+	MP3's 26 ms is approximately in line with Bob Snyder's analysis of musical meaning and memory. He groups sonic memory into three categories: event fusion, melodic and rhythmic grouping, and form. The cutoffs for each are between 1/32 second and 1/16 second, and 8 seconds and 16 seconds respectively.\footnote{p 12, ``Music and Memory''}
 	
 \section{MP3 Enumeration}
 
@@ -459,9 +484,9 @@ Brandenburg recommends limiting the response of an MP3 or AAC encoder to 16 kHz 
 	
 	In the same way you might enumerate possible English sentences by first describing a hierarchical grammar and then providing a vocabulary, I will describe a method for enumerating MP3 frames that first accounts for their syntax, followed by the content that may be placed within that structure.
 	
-\subsection{The Syntax of MP3}
+\section{The MP3 Bitstream}
 
-	(This whole section is way too detailed, and needs to be replaced with a general description of which values vary and what their sonic corollaries are.)
+	(This whole section is way too detailed, and needs to be replaced with a general description of which values vary and what their sonic corollaries are. Maybe this should be in the appendix?)
 	
 	Within the header a few sections must be considered:
 	
@@ -547,30 +572,6 @@ Brandenburg recommends limiting the response of an MP3 or AAC encoder to 16 kHz 
 	
 	One piece remains: the main data location. Because the main data location is solely physical (bitstream-oriented) rather than logical (sound-descriptive), it can be derived rather than enumerated.
 
-\section{The I Ching and Enumeration}
-
-	The I Ching as an introduction to enumeration of binary sequences.
-	
-	Standard binary enumeration, the Fu Xi sequence.
-	
-	Chu Hsi sequence, ordered by bit count. Bears similarity to ``Chord Catalogue'' enumeration. Johnson's enumeration is:
-	
-	\begin{quote}
-	The lowest voice that can rise a half-tone does so and any lower voices descend to their points of departure.
-	\end{quote}
-	
-	While Chu Hsi's might be written:
-	
-	\begin{quote}
-	The highest voice that can rise a half-tone does so and any higher voices descend as low as possible without crossing another.
-	\end{quote}
-	
-	Gray code can either be seen as an enumeration---through an algorithm for constructing an entire sequence---or as an operation to be carried out on a given binary number. The operation consists of a single right shift followed by an XOR against the original value.\footnote{``A Reordering of the Hexagrams of the I Ching'' Victor Mair and Stephen McKenna, "Philosophy East and West", Oct. 1979. proposes an alternative ordering of the hexagrams based on Gray code.}
-	
-	These all have the problem of having small Hamming distances between adjacent codes---which in these cases also corresponds to low frequency of variation in any given bit.
-	
-	Other I Ching sequences include the classic King Wen sequence (which has many inverted pairs but is otherwise not mathematically well-defined), The Mawangdui sequence (similar to concatenation of the x/y position of a hexagram).
-	
 \section{Composing for a Large Space}
 	
 	(Change ringing/method ringing as a solution to a factorial musical-temporal space based on permutations and swapping.)
