@@ -31,7 +31,7 @@ Only Everything Lasts Forever is a sound composition containing every sound we c
 
 Noise is an invention. Not only an invention, but a necessity. Noise is misunderstanding and non-contextuality. As long as there are observers, there will be noise---and without observers, there is no noise.
 
-Historically, noise has had a number of definitions. A close definition to mine is ``that outside of a given representation'', given by Doug Van Nort in ``Noise/music and representation systems''\cite{Vannort06}. Or consider the definitions of Claude Shannon, Luigi Russolo\cite{Russolo04}, John Cage\cite{Cage61}, Jacques Attali\cite{Attali85}, Kim Cascone\cite{Cascone00}, Douglas Kahn\cite{Kahn01} and Paul Hegarty\cite{Hegarty02}.
+Historically, noise has had a number of definitions. A close definition to mine is ``that outside of a given representation'', given by Doug Van Nort\cite{Vannort06}. Similarly, Jean-Jacques Nattiez\cite{nattiez_music_1990}, says that musical meaning emerges ``when an object is placed in relationship to a horizon'', though I would only say this makes the sound meaningful and not necessarily musical. Or consider the numerous other perspectives on noise from Claude Shannon, Luigi Russolo\cite{Russolo04}, John Cage\cite{Cage61}, Jacques Attali\cite{Attali85}, and Kim Cascone\cite{Cascone00}.
 
 I propose an alternative definition of noise built on the notion of \emph{non-contextuality}. Rather than placing noise in the usual opposition to music, I will explore this definition directly. First, I will present a number of examples that outline the sense of ``context'' I'm using. Then I will discuss art works focused on collaborating with and revealing these contexts. Finally, I will describe my own work, ``Only Everything Lasts Forever'', and its exploration of the context of the MP3 format.
 
@@ -269,13 +269,9 @@ Every frame---header, side info, and main data---contains two ``granules'' that 
 	
 \section{How Many Sounds Can We Hear?}
 
-With the structure of MP3 in mind, under the assumption that MP3 represents all the sounds we can distinguish, we can approximate the number of sounds we can distinguish. If the fundamental unit of the MP3 is the frame, and we are working in mono at 64 kbit/s, every frame can have an average length of 209 bytes, or 1672 bits. In mono, 17 of these bytes are dedicated to the side information and 4 are the header. Most of the variation occurs in the main data, which is 188 remaining bytes. Therefore the total variation is $2^{188*8}=2^{1504}=10^{452}$. Considering AAC also further reduces the necessary bitrate by half, I'll place an upper bound on the number of uniquely distinguishable ``sound-atoms'' we can distinguish at $10^{226}$. The number of these sounds that can be played in a year is on the order of $10^9$, meaning that, played in succession, it would take $10^{217}$ years.
-	
-Another perspective on musical meaning: in ``Music and Discourse'' by Jean-Jacques Nattiez\cite{nattiez_music_1990}, he describes musical meaning as a ``symbolic web''. He essentially accepts a coherentist account of meaning, saying it emerges ``when an object is placed in relationship to a horizon''.
-	
-The complexity of ``The Chord Catalogue'' compared to the MP3 specification is worth elaborating: Johnson's composition includes $2^13$ chords, while MP3 contains a serendipitous $2^13$ possible values for each of the 576 frequency lines.
+With the structure of MP3 in mind, under the assumption that MP3 represents all the sounds we can distinguish, we can approximate the number of sounds we can distinguish. If the fundamental unit of the MP3 is the frame, and we are working in mono at 64 kbit/s, every frame can have an average length of 209 bytes, or 1672 bits. In mono, 17 of these bytes are dedicated to the side information and 4 are the header. Most of the variation occurs in the main data, which is 188 remaining bytes. Therefore the total variation is $2^{188*8}=2^{1504}=10^{452}$. This is the equivalent of a version of ``The Chord Catalogue'' with not only the entire 88 keys in use, but also 17 more microtonal notes between every half step.
 
-[It'd be nice to have a small table with a list of the different works analyzed for their number of combinations.]
+Considering AAC further reduces the necessary bitrate by half, I'll place an upper bound on the number of uniquely distinguishable ``sound-atoms'' we can distinguish at $10^{226}$. The number of these sounds that can be played in a year is on the order of $10^9$, meaning that, played in succession, it would take $10^{217}$ years.
 	
 \section{Structurally Informed Enumeration}
 
