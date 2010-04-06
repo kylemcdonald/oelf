@@ -191,33 +191,15 @@ The earliest enumerative piece is ``De Wensput'' (``The Wishing Well'') by Lars 
 
 \subsection{Permutation}
 
-	[The I Ching as a perfect example of a coherent system.]
-	
-	Standard binary enumeration, the Fu Xi sequence.
-	
-	Chu Hsi sequence, ordered by bit count. Bears similarity to ``Chord Catalogue'' enumeration. Johnson's enumeration is:
-	
-	\begin{quote}
-	The lowest voice that can rise a half-tone does so and any lower voices descend to their points of departure.
-	\end{quote}
-	
-	While Chu Hsi's might be written:
-	
-	\begin{quote}
-	The highest voice that can rise a half-tone does so and any higher voices descend as low as possible without crossing another.
-	\end{quote}
-	
-Gray code can either be seen as an enumeration---through an algorithm for constructing an entire sequence---or as an operation to be carried out on a given binary number. The operation consists of a single right shift followed by an XOR against the original value.\footnote{``A Reordering of the Hexagrams of the I Ching'' Victor Mair and Stephen McKenna, "Philosophy East and West", Oct. 1979. proposes an alternative ordering of the hexagrams based on Gray code.}
+While enumeration emerges from combinations of fixed positions with variable values, permutation is based on a fixed set of values with variable positions. A perfect example is the tradition of change ringing---the practice of ringing $n$ bells in their $n!$ possible orders using one of many basic order-swapping algorithms, or ``methods''. Alexander Christiaan Jacob's ``allRGB''\cite{alexander_christiaan_jacob_allrgb_2008} project encourages a similar kind of exploration, inviting visitors to the site to submit a 4096x4096 image that contains every possible 24-bit RGB color. 
 
-These all have the problem of having small Hamming distances between adjacent codes---which in these cases also corresponds to low frequency of variation in any given bit.
-	
-Other I Ching sequences include the classic King Wen sequence (which has many inverted pairs but is otherwise not mathematically well-defined), The Mawangdui sequence (similar to concatenation of the x/y position of a hexagram).
-	
-`allRGB'' by Alexander Christiaan Jacob\cite{alexander_christiaan_jacob_allrgb_2008} is a web-based project that invites visiting programmers to create a square image that contains exactly one instance of the 16 million 24-bit RGB colors. The first submissions, from the author himself, explore basic geometric patterns that correspond to easily programmable algorithms. The tenth image is the first representational image, consisting of 16x16 dithered copies of a portrait. A number of user submitted images have appeared since a reddit post\footnote{\url{http://www.reddit.com/r/programming/comments/b002r/the\_objective\_of\_allrgb\_is\_simple\_to\_create/}} popularized the site. Some of the more difficult to generate images are accompanied by mathematical papers explaining the various techniques involved.\footnote{\url{http://d.hatena.ne.jp/ita/20100222/p1}}
-		
-[Changing ringing/method ringing should be discussed here.]
-	
-[It'd be nice to have a small table with a list of the different works analyzed for their number of combinations.]
+A more ancient permutative system is the 64 hexagrams of the I Ching. These hexagrams have been presented in a number of arrangements over time. For example: the classic King Wen sequence, The Mawangdui sequence, the Fu Xi sequence, and the Chu Hsi sequence. The King Wen sequence has many inverted pairs but is otherwise not best understood as a mathematically well-defined system. The Mawangdui sequence is similar to concatenation of the x/y position of a hexagram when arranged in an 8x8 grid and indexed by trigrams. The Fu Xi sequence consists of a simple binary enumeration. The Chu Hsi sequence is similar to ``The Chord Catalogue'' arrangement, but each ``section'' (for example, where there are three yin and three yang, or two yin and four yang) is upside down and backwards\footnote{``The Chord Catalogue'' reads: ``The lowest voice that can rise a half-tone does so and any lower voices descend to their points of departure.'' while the Chu Hsi sequence might be written ``The highest voice that can rise a half-tone does so and any higher voices descend as low as possible without crossing another.''}.
+
+I began exploring permutations not because they are a particularly effective way of revealing the context implicit to a medium, but because any enumerative piece is partially defined by which enumeration it uses. For the 64 hexagrams of the I Ching, there are $64!\approx10^{89}$ permutations---or possible enumerations---of which four are given above. For all the chords in the octave, there are $8178!\approx9.4*10^{28,463}$ possible scores. Though all of the pieces in this section use binary representations of their space, only ``The Chord Catalogue'' and ``De Wensput'' use a nonstandard enumeration.
+
+One other permutation of binary enumeration is Gray code. Gray code has the interesting property of only changing one bit between adjacent codes. A Gray code can be enumerated recursively, or by a simple logical operation on the standard binary enumeration.\footnote{While Gray codes are a fairly recent development, they have also been used to analyze the I Ching hexagrams. ``A Reordering of the Hexagrams of the I Ching'' Victor Mair and Stephen McKenna, ``Philosophy East and West'', Oct. 1979}
+
+Unfortunately all the enumerations discussed here---standard binary, Gray code, ``The Chord Catalogue'' and Chu Hsi's slight variant---have two properties that make it difficult to explore a space as large as MP3. The Hamming distance between nearby values---the number of bits that are different---is very small, and the bits that are different are confined to a small region. Both of these properties are independent of bit length. This is why, out of all the pieces in this section, perhaps only ``8-bit'' is genuinely interesting to watch, even if it is enumerated in binary. 256 variations can be explored on a human scale. The two quietly flickering rows of ``Every Icon'' set against thirty more completely empty rows illuminates nothing more than the text paired with it: ``Given: An icon described by a 32 X 32 grid. Allowed: Any element of the grid to be colored black or white. Shown: Every icon.''
 		
 \section{Long Pieces}
 
@@ -291,7 +273,7 @@ Following the header is 17 bytes of ``side information'' (side info). The header
 
 Every frame---header, side info, and main data---contains two ``granules'' that describe two consecutive chunks of audio. Sometimes granules share some of their 21 scale factors (a sort of EQ), which is why they are stored within a single frame. Each granule stores 576 ``frequency bands'', decoded into 576 PCM samples, meaning every frame consists of 1152 PCM samples. To understand where these frequency bands come from, it may be easiest to explain them in terms of encoding than decoding. The 576 PCM samples for a single granule are first subdivided into 18 sections consisting of 32 samples each. Each block is then encoded using 32 subband filters resembling critical bands. Finally, each subband block (an 18-element time-varying sequence) is processed using a modified discrete cosine transformation that describes these time-varying sequences with respect to their regular variations. In short, the main data stored in an MP3 is a heavily abstracted representation of the PCM data. It assumes that our understanding of sound is best represented by regularly varying critical bands rather than as a time-varying sequence of variations in relative air pressure.\footnote{There is a lot of detail left out here involving quantization, pre-emphasis, short versus long blocks, global gain, windowing, overlap-add, and scale factors. All these things play a significant role in the sound of MP3, but the inverse modified discrete cosine transformation and subband synthesis are at the heart of the algorithm.}
 	
-\section{How Many Sound Can We Hear?}
+\section{How Many Sounds Can We Hear?}
 
 With the structure of MP3 in mind, under the assumption that MP3 represents all the sounds we can distinguish, we can make an approximation as to how many sounds that is. If the fundamental unit of the MP3 is the frame, and we are working at 128 kbits, every frame can have an average length of 418 bytes, or 3336 bits. In mono, 17 of these bytes are dedicated to the side information and 4 are the header. Most of the variation occurs in the main data, which is 397 remaining bytes. Therefore the total variation is $2^{397*8}=2^{3176}=10^{956}$. The number of 26 ms sounds we can distinguish is on the order of 10 followed by 956 zeros. If the fundamental unit is considered instead to be the granule, this cuts the power in half down to $10^{478}$. Considering AAC also further reduces the necessary bitrate by half, I'll place an upper bound on the number of uniquely distinguishable ``sound-atoms'' we can distinguish at $10^{239}$. The number of these sounds that can be played in a year is on the order of $10^9$, meaning that, played in succession, it would take $10^{230}$ years.
 	
@@ -316,6 +298,8 @@ Another perspective on musical meaning: in ``Music and Discourse'' by Jean-Jacqu
 Of these relationships, a number are independent of judgment: ``concrete meaning'', and arguably ``technical'' meaning as well. These relationships exist regardless of whether a conscious observer makes a judgment about them. The ``objective/technical'' relationships are suspicious only in so far as properties such as tempo and vibrato are constructs of a cultural tradition, but other properties such as relative amplitude, frequency, and timbre are more physically based rather than culturally.
 	
 The complexity of ``The Chord Catalogue'' compared to the MP3 specification is worth elaborating: Johnson's composition includes $2^13$ chords, while MP3 contains a serendipitous $2^13$ possible values for each of the 576 frequency lines.
+
+[It'd be nice to have a small table with a list of the different works analyzed for their number of combinations.]
 	
 \section{Structurally Informed Enumeration}
 
