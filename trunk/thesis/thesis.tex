@@ -1,4 +1,5 @@
 \documentclass{thesis}
+\usepackage{subfigure}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{url}
@@ -17,7 +18,7 @@
 \titlepage
 \tableofcontents
 %\listoftables % required if there are tables
-%\listoffigures % required if there are figures
+\listoffigures % required if there are figures
 
 \specialhead{Acknowledgments}
 
@@ -31,7 +32,7 @@ Only Everything Lasts Forever is a sound composition containing every sound we c
 
 Noise is an invention. Not only an invention, but a necessity. Noise is misunderstanding and non-contextuality. As long as there are observers, there will be noise---and without observers, there is no noise.
 
-Historically, noise has had a number of definitions. A close definition to mine is ``that outside of a given representation'', given by Doug Van Nort\cite{Vannort06}. Similarly, Jean-Jacques Nattiez\cite{nattiez_music_1990}, says that musical meaning emerges ``when an object is placed in relationship to a horizon'', though I would only say this makes the sound meaningful and not necessarily musical. Or consider the numerous other perspectives on noise from Claude Shannon, Luigi Russolo\cite{Russolo04}, John Cage\cite{Cage61}, Jacques Attali\cite{Attali85}, and Kim Cascone\cite{Cascone00}.
+Historically, noise has had a number of definitions. A close definition to mine is ``that outside of a given representation'', given by Doug Van Nort\cite{Vannort06}. Similarly, Jean-Jacques Nattiez\cite{nattiez_music_1990}, says that musical meaning emerges ``when an object is placed in relationship to a horizon'', though I would only say this makes the sound meaningful and not necessarily musical. Or consider the numerous other perspectives on noise from signal processing and information theory, or composers like Luigi Russolo\cite{Russolo04}, John Cage\cite{Cage61} and Kim Cascone\cite{Cascone00}, or theorists like Jacques Attali\cite{Attali85}.
 
 I propose an alternative definition of noise built on the notion of \emph{non-contextuality}. Rather than placing noise in the usual opposition to music, I will explore this definition directly. First, I will present a number of examples that outline the sense of ``context'' I'm using. Then I will discuss art works focused on collaborating with and revealing these contexts. Finally, I will describe my own work, ``Only Everything Lasts Forever'', and its exploration of the context of the MP3 format.
 
@@ -119,7 +120,7 @@ A recently popularized glitch is the ``pixel bleed''\cite{john_michael_boling_rh
 	
 While the aesthetic of ``Download Finished'' celebrates the perceptual chaos that emerges from their ``transmogrifications'', ``The Ceibas Cycle'' by Evan Meaney\cite{evan_meaney_ceibas:_2008} takes a more clinical approach to Glitch. Digital video is seen as a container for a memory that will steadily fade over time, a steady corruption induced artificially by injection of plain text into the bitstream of 27 different codec/container combinations. The resulting videos reveal each format's otherwise invisible encoding and biases about perception: some display pixel bleed artifacts, others quickly strobe magenta when color information goes missing. A survey of the causes behind each effect are rarely elaborated in prose by Glitch artists\footnote{With some exceptions notable exceptions being Cory Arcangel's ``In Compression'' and the writings of Rosa Menkeman.}, and are instead surveyed by research institutions working with signal processing\cite{nikolai_trunichkin_and_dr._dmitriy_vatolin_crazy_????}.
 
-``Only Everything Lasts Forever'' draws on these Glitch works in its exegesis of MP3. Despite the ubiquity of the format, there is surprisingly little in the way of MP3 Glitch art. One example is ``MPeg Fucker'' by imbecil\cite{imbecil_mpeg_2004}, which performs a similar injection as ``The Ceibas Cycle'', but on MP3s using search-and-replace. This search-and-replace technique was also used Mats \"Oljare, one of the original members of the databenders group. \"Oljare is an exception to the other databenders that avoided MP3 due to the difficulty of constructing syntactically valid frames. He overcame the limitations of search-and-replace by using audio editors to edit the raw MP3 bitstream as a whole, using the resulting sonic material\footnote{\"Oljare describes the glitches as ``mostly random short bleeps in the original signal, only sometimes a strange spectral distorsion [sic] of the signal, and sometimes some other peculiar effects like jumps''.} for further composition.
+``Only Everything Lasts Forever'' draws on these Glitch works in its exegesis of MP3. Despite the ubiquity of the format, there is surprisingly little in the way of MP3 Glitch art. One example is ``MPeg Fucker'' by imbecil\cite{imbecil_mpeg_2004}, which performs a similar injection as ``The Ceibas Cycle'', but on MP3s using search-and-replace. This search-and-replace technique was also used Mats \"Oljare, one of the original members of the databenders group. \"Oljare is an exception to the other databenders that avoided MP3 due to the difficulty of constructing syntactically valid frames. He overcame the limitations of search-and-replace by using audio editors to edit the raw MP3 bitstream as a whole\footnote{(From personal communication.)}, using the resulting sonic material\footnote{\"Oljare describes the glitches as ``mostly random short bleeps in the original signal, only sometimes a strange spectral distorsion [sic] of the signal, and sometimes some other peculiar effects like jumps''.} for further composition.
 
 \section{Enumeration and Permutation}
 	
@@ -143,9 +144,25 @@ This barrage of content, a ``continuous torrent of sensory data'', can be found 
 
 \subsection{One Dimensional Spaces}
 
-The simplest method of enumerating a space with $n$ possible values is to first create a mapping between the natural numbers and those $n$ values, and then count up one at a time. While binary is no better suited to the task of representing natural numbers than decimal, many recent enumerative works draw in binary due to its deep connection to digital technology. For example, Michael Aschauer's ``8-bit''\cite{michael_aschauer_8-bit_????} consists of 8 fluorescent tubes steadily enumerating all 256 configurations, and Sebastian Tomczak\cite{tomczak_hardware-based_2009}\cite{tomczak_all_2009} has explored the various binary enumerations of 32-sample PCM encoded sounds as represented in binary. The content of these works exist in one dimension: a linear signal varying in space, as with ``8-bit'', or time  as in Tomczak's work.
-	
-Working with the twelve notes of an octave rather than 32 samples of a PCM buffer, Tom Johnson's ``The Chord Catalogue''\cite{tom_johnson_liner_1999} performs a similar iteration through possible sounds: the 8178 possible chords in an octave. While a chord can be represented linearly, like the two above examples, ``The Chord Catalogue'' uses a significantly different enumerative method: first all two notes intervals, then three note chords, then four notes, etc. The lack of reliance on standard binary enumeration might be explained by the fact that music has its own order that significantly precedes binary\footnote{The linear notes specifically mention experiments by Mersenne, saying he ``posed questions in the Livre du chant of his Harmonie universelle as to the number of possible melodies one could construct by changing the order of notes in a 22-note sequence. After much calculation he concluded that there was no point in actually carrying out this experiment, since one could never hear that many melodies in one lifetime.''}.
+The simplest method of enumerating a space with $n$ possible values is to first create a mapping between the natural numbers and those $n$ values, and then count up one at a time. While binary is no better suited to the task of representing natural numbers than decimal, many recent enumerative works draw in binary due to its deep connection to digital technology. For a visualization of the standard binary enumeration see Figure~\ref{binary-bitmap}. For example, Michael Aschauer's ``8-bit''\cite{michael_aschauer_8-bit_????} consists of 8 fluorescent tubes steadily enumerating all 256 configurations, and Sebastian Tomczak\cite{tomczak_hardware-based_2009}\cite{tomczak_all_2009} has explored the various binary enumerations of 32-sample PCM encoded sounds as represented in binary. The content of these works exist in one dimension: a linear signal varying in space, as with ``8-bit'', or time  as in Tomczak's work.
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[scale=.8]{graphics/binary-bitmap.pdf}
+		\caption{Standard binary enumeration}
+	\end{center}
+	\label{binary-bitmap}
+\end{figure}
+
+Working with the twelve notes of an octave rather than 32 samples of a PCM buffer, Tom Johnson's ``The Chord Catalogue''\cite{tom_johnson_liner_1999} performs a similar iteration through possible sounds: the 8178 possible chords in an octave. While a chord can be represented linearly, like the two above examples, ``The Chord Catalogue'' uses a significantly different enumerative method: first all two notes intervals, then three note chords, then four notes---see Figure~\ref{chord-bitmap} for the exact pattern. The lack of reliance on standard binary enumeration might be explained by the simple fact that music has its own order significantly preceding binary\footnote{The linear notes specifically mention experiments by Mersenne, saying he ``posed questions in the Livre du chant of his Harmonie universelle as to the number of possible melodies one could construct by changing the order of notes in a 22-note sequence. After much calculation he concluded that there was no point in actually carrying out this experiment, since one could never hear that many melodies in one lifetime.''}.
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[scale=.8]{graphics/chord-bitmap.pdf}
+		\caption{``The Chord Catalogue'' enumeration}
+	\end{center}
+	\label{chord-bitmap}
+\end{figure}
 
 \subsection{Two Dimensional Spaces}
 
@@ -191,11 +208,31 @@ Three later enumerative pieces are ``ImageN'' by Leander Seige\cite{leander_seig
 	
 ``magic mirror'' was only proposed, never implemented. It runs at 720x576 and 25 frames per second with 24-bit color. The resolution and framerate of ``magic mirror'' describe the standard format for PAL DVDs in the same way Borges references the 400-page novel, or Cage references the four and a half minute Muzak song. Similarly, Sintron uses 800x600 24-bit pixels---the standard desktop configuration at the time---and Simon 32x32 1-bit icons.
 	
-The earliest enumerative piece is ``De Wensput'' (``The Wishing Well'') by Lars Eijssen and Boele Klopman.\cite{remko_scha_every_2001} Produced in 1991, it precedes ``Every Icon'' by five years. It used a 172x172 pixel grid, and was closely tied to its physical installation: an entire truck bed worth of continuous feed printer paper was driven into the gallery space and fed into the computer at regular intervals. Every time the computer finished rendering a drawing, it would print out the image and move on. Hanging in the gallery space were various representational prints prepared in advance (for example, a portrait of the artists) with a note indicating on what date and time that specific print would appear. It featured an interactive function that allowed people to explore the space while the computer was printing, by recursively zooming in to a time line to select a specific date and time. ``De Wensput'' is unique in that it does not count in binary. Instead, it uses the same enumeration as ``The Chord Catalogue''. According to Eijssen, this enumeration was chosen because it is more accessible than binary. For the same reason, ``De Wensput'' was not presented as a minimal conceptual piece, but with a bit of theater (the truck) and an diverse collection of prints offering an immediate sense of the barrage of ``everything''.
+\begin{figure}
+	\begin{center}
+		\includegraphics[scale=.8]{graphics/dewensput-bitmap.pdf}
+		\caption{``De Wensput'' enumeration}
+	\end{center}
+	\label{dewensput-bitmap}
+\end{figure}
+
+The earliest enumerative piece is ``De Wensput'' (``The Wishing Well'') by Lars Eijssen and Boele Klopman.\cite{remko_scha_every_2001} Produced in 1991, it precedes ``Every Icon'' by five years. It used a 172x172 pixel grid, and was closely tied to its physical installation: an entire truck bed worth of continuous feed printer paper was driven into the gallery space and fed into the computer at regular intervals. Every time the computer finished rendering a drawing, it would print out the image and move on. Hanging in the gallery space were various representational prints prepared in advance (for example, a portrait of the artists) with a note indicating on what date and time that specific print would appear. It featured an interactive function that allowed people to explore the space while the computer was printing, by recursively zooming in to a time line to select a specific date and time. ``De Wensput'' is unique in that it does not count in binary. Instead, it uses a similar enumeration as ``The Chord Catalogue''---see Figure~\ref{dewensput-bitmap} for the pattern. According to Eijssen\footnote{(From personal communication.)}, this enumeration was chosen because it is more accessible than binary. For the same reason, ``De Wensput'' was not presented as a minimal conceptual piece, but with a bit of theater (the truck) and an diverse collection of prints offering an immediate sense of the barrage of ``everything''.
 
 \subsection{Permutation}
 
-While enumeration emerges from combinations of fixed positions with variable values, permutation is based on a fixed set of values with variable positions. A perfect example is the tradition of change ringing---the practice of ringing $n$ bells in their $n!$ possible orders using one of many basic order-swapping algorithms, or ``methods''. Alexander Christiaan Jacob's ``allRGB''\cite{alexander_christiaan_jacob_allrgb_2008} project encourages a similar kind of exploration, inviting visitors to the site to submit a 4096x4096 image that contains every possible 24-bit RGB color. 
+While enumeration emerges from combinations of fixed positions with variable values, permutation is based on a fixed set of values with variable positions. A perfect example is the tradition of change ringing---the practice of ringing $n$ bells in their $n!$ possible orders using one of many basic order-swapping algorithms, or ``methods''. Alexander Christiaan Jacob's ``allRGB''\cite{alexander_christiaan_jacob_allrgb_2008} project encourages a similar kind of exploration, inviting visitors to the site to submit a 4096x4096 image that contains every possible 24-bit RGB color.
+
+\begin{figure}
+  \begin{center}
+  	\setlength\fboxsep{12pt}
+		\setlength\fboxrule{0pt}
+		\fbox{\subfigure[Fu Xi Hexagram Sequence]{\label{binary-hexagrams}\includegraphics[scale=1]{graphics/binary-hexagrams.png}}}
+    \fbox{\subfigure[Chu Hsi Hexagram Sequence]{\label{chuhsi-hexagrams}\includegraphics[scale=1]{graphics/chuhsi-hexagrams.png}}}
+    \fbox{\subfigure[Gray Code Hexagram Sequence]{\label{gray-hexagrams}\includegraphics[scale=1]{graphics/gray-hexagrams.png}}}
+  \end{center}
+  \caption{Hexagram Sequences}
+  \label{hexagrams}
+\end{figure}
 
 A more ancient permutative system is the 64 hexagrams of the I Ching. These hexagrams have been presented in a number of arrangements over time. For example: the classic King Wen sequence, The Mawangdui sequence, the Fu Xi sequence, and the Chu Hsi sequence. The King Wen sequence has many inverted pairs but is otherwise not best understood as a mathematically well-defined system. The Mawangdui sequence is similar to concatenation of the x/y position of a hexagram when arranged in an 8x8 grid and indexed by trigrams. The Fu Xi sequence consists of a simple binary enumeration. The Chu Hsi sequence is similar to ``The Chord Catalogue'' arrangement, but each ``section'' (for example, where there are three yin and three yang, or two yin and four yang) is upside down and backwards\footnote{``The Chord Catalogue'' reads: ``The lowest voice that can rise a half-tone does so and any lower voices descend to their points of departure.'' while the Chu Hsi sequence might be written ``The highest voice that can rise a half-tone does so and any higher voices descend as low as possible without crossing another.''}.
 
@@ -225,11 +262,38 @@ My first work exploring the idea of noise as non-contextual sound was in 2007 wh
 
 Rather than continue exploring contextuality through looping and self-reference, I started exploring enumeration. I created an infinitely long composition called ``Every Song''\footnote{\url{http://openprocessing.org/visuals/?visualID=1170}} in 2008, which iterates through all possible songs using the equal-tempered chromatic scale. It does this as quickly as possible, with the reference for the tempo coming from the frequency of the lowest note being played. It uses simple binary enumeration, and proceeds in a manner very similar to ``Every Icon'' with the exception of being infinitely long: after the first chord is enumerated, it follows with all the two-chord sequences, then three, etc.
 
+\begin{figure}
+  \begin{center}
+		\subfigure[Nandhopper v1]{\includegraphics[scale=.2]{graphics/nandhopperv1-light.jpg}}
+		\subfigure[Nandhopper v1 internals]{\includegraphics[scale=.2]{graphics/nandhopperv1-internals.jpg}}
+    \subfigure[Nandhopper v2 off]{\includegraphics[scale=.2]{graphics/nandhopperv2-light.jpg}}
+    \subfigure[Nandhopper v2 on]{\includegraphics[scale=.2]{graphics/nandhopperv2-dark.jpg}}
+  \end{center}
+  \caption{Nandhoppers}
+  \label{nandhoppers}
+\end{figure}
+
 That same summer I started my nandhopper project\cite{kyle_mcdonald_nandhopper_2008}, which also draws on enumeration. The NAND gate has the unusual property of being able to represent any possible logical operation on any number of inputs. This means that any possible digital sound synthesis circuit can be represented using only NAND gates.
 	
 I first came across NAND gates when exploring capacitive sensing. NAND gates are useful for constructing feedback loops that vary their frequency with respect to capacitance to ground. When I realized that NANDs could be used to simulate every other chip, I started exploring various NAND configurations and ways of connecting multiple NAND circuits.\footnote{I developed three different configurations for an experimental Mexican filmmaker, Diego Delmar, alias ``Macushi'' \url{http://www.knock.com.mx/} and later published these designs with detailed instructions on the tutorial-sharing site Instructables.com} In Spring of 2009 I developed a close connection to a complex variation on the NAND-synth that was developed for a performance context, integrating capacitive, resistive, and illumination sensing in a massively entangled feedback circuit. I see these as the first steps in a more general exploration of NAND-synthesis. I imagine a massive matrix of reconfigurable NAND circuits that can be rearranged during performance: constantly responding the the changing flow of logic, able to simulate any imaginable digital synthesizer in a very practical sense, complex enough to be engaging, but deterministic enough to be learned.
 
+\begin{figure}
+	\begin{center}
+		\includegraphics[scale=.5]{graphics/pppd.png}
+		\caption{pppd}
+	\end{center}
+\end{figure}
+
 This idea of ``the complete synth'' was expanded upon in 2009 with ``pppd''\cite{kyle_mcdonald_pppd_2009}, an indirect approach to enumeration via a random walk. It draws on computability theory\cite{boolos_computability_2002} and the idea of a Turing-complete system\footnote{Turing-completeness refers to the ability of a system to compute anything that can be computed.}. pppd uses a very simple esoteric programming language known as P'' (``P prime prime'') to accomplish this. While practical programming languages are full of statements like \verb!z = x + y!, \verb!println(z)!, and \verb!for(int i = 0; i < n; i++)!, P'' breaks computing down to its essentials: moving a pointer through memory, changing memory, and looping, while requiring only six commands. Because P'' is Turing-complete, any program you could write with a language like C++ or Java could also be accomplished with P'' (albeit in a significantly slower and heavily obfuscated manner). Because any possible program can be represented, this means that any possible digital image or sound can also be written to the program's memory space. pppd generates random code, constrained only by the minor syntactical requirement of balanced brackets, and then visualizes and sonifies the memory space while running the code. In theory, not only can every image and sound be composed, but every compressed representation as well---along with the decompression algorithm. In practice, pppd produces very regular sequences of bright colors and repetitive sounds. This acts a revelation of the context of P'': it is good at representing high-contrast memory sequences within constrained memory regions.
+
+\begin{figure}
+  \begin{center}
+		\subfigure[Fragmented message]{\includegraphics[height=2.5in]{graphics/futurefragments-fragment.jpg}}
+		\subfigure[Decoded phonemes]{\includegraphics[height=2.5in]{graphics/futurefragments-phonemes.png}}
+  \end{center}
+  \caption{Future Fragments}
+  \label{future-fragments}
+\end{figure}
 
 Also in 2009 I created ``Future Fragments'', a Glitch exegesis similar to ``The Ceibas Cycle''. I described it as:
 	
@@ -293,15 +357,51 @@ Organizing a huge space like that of MP3 frames might be compared to constructin
 
 Likewise, with an enumeration you must begin with an algorithm known to enumerate the entire space. Chu Hsi's arrangement of the hexagrams, Johnson's ``The Chord Catalogue'', standard binary enumeration, and Gray codes all fulfill this requirement. From there you can apply a one-to-one function over the enumerated codes that reorganizes or remaps them. One-to-one functions guarantee that no two codes are mapped to the same code---thereby preserving the property of complete enumeration. An example of a one-to-one function would be digit reversal---mapping 7,419 to 9,147\footnote{One way of knowing this is a one-to-one function is that a simple algorithm exists for transforming it back into the original value. In the case of digit reversal, the same algorithm simply needs to be applied again.}.
 
-Shuffle codes are constructed using the iterative application of two one-to-one functions. The first is the standard Gray code operation, consisting of a single bit shift followed by an XOR against the original value. The Gray code operation has the helpful property of spreading bits out. The second operation is the digit shuffle. Digit shuffling consists of reordering the digits of a number. Digit reversal is one kind of shuffling technique, one of $n!$ possible techniques for the set of numbers with $n$ digits. If the shuffling technique has both local and global movement---ensuring that two adjacent digits do not necessarily remain adjacent after being shuffled---then a pseudorandom chaotic behavior emerges from the iterative application of the Gray code and digit shuffling.
+\begin{figure}
+	\begin{center}
+		\includegraphics[scale=1.5]{graphics/gray-operation.pdf}
+		\caption{Gray Code operation}
+	\end{center}
+	\label{gray-operation}
+\end{figure}
+
+Shuffle codes are constructed using the iterative application of two one-to-one functions. The first is the standard Gray code operation, consisting of a single bit shift followed by an XOR against the original value as shown in Figure~\ref{gray-operation}. The Gray code operation has the helpful property of spreading bits out.
+
+The second operation is the digit shuffle. Digit shuffling consists of reordering the digits of a number. Digit reversal is one kind of shuffling technique, one of $n!$ possible techniques for the set of numbers with $n$ digits. If the shuffling technique has both local and global movement---ensuring that two adjacent digits do not necessarily remain adjacent after being shuffled---then a pseudorandom chaotic behavior emerges from the iterative application of the Gray code and digit shuffling.
 
 \section{Composition as Bit Placement}
 
-This pseudorandom behavior can be controlled by crafting alternative shuffling techniques. The first shuffling technique I used was based on digit reversal, but this did not fulfill the global movement requirement and lead to a very low variation between codes. Next I implemented a shuffling technique that moved digits to a new position based on a bitwise reversal of their original position\footnote{For example, in a code with length 32, the digit at position $26_{10}=11010_2$ would be moved to $11_{10}=01011_2$}. This lead to an enumeration that was uniformly pseudorandom across all the bits. While this variation is exactly what I was originally looking for, I soon realized that I was left with almost no lower frequency variation to compose with. After manual tweaking of the shuffling technique, I settled on a swap-based shuffle that slowly went from local movement to global movement over the length of the digits, providing both low frequency variation on the order of days and weeks up to high frequency variation on the order of a single frame.
+This pseudorandom behavior can be controlled by crafting alternative shuffling techniques. The first shuffling technique I used was based on digit reversal, but this did not fulfill the global movement requirement and lead to a very low variation between codes. Next I implemented a shuffling technique that moved digits to a new position based on a bitwise reversal of their original position\footnote{For example, in a code with length 32, the digit at position $26_{10}=11010_2$ would be moved to $11_{10}=01011_2$}, as shown in Figure~\ref{reversal-shuffle}.
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[scale=.5]{graphics/reversal-shuffle.pdf}
+		\caption{Digit reversal shuffle example}
+	\end{center}
+	\label{reversal-shuffle}
+\end{figure}
+
+This lead to an enumeration that was uniformly pseudorandom across all the bits, as shown for the 16-bit case in Figure~\ref{enumeration-diagram}. While this variation is exactly what I was originally looking for, I soon realized that I was left with almost no lower frequency variation to compose with. After manual tweaking of the shuffling technique, I settled on a swap-based shuffle that slowly went from local movement to global movement over the length of the digits, shown in Figure~\ref{swap-shuffle}. This provided both low frequency variation on the order of days and weeks up to high frequency variation on the order of a single frame.
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[scale=.5, angle=90]{graphics/enumeration-diagram.pdf}
+		\caption{Digit reversal shuffle code derivation}
+	\end{center}
+	\label{enumeration-diagram}
+\end{figure}
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[scale=.5]{graphics/actual-arcs.pdf}
+		\caption{Swap-based shuffle technique}
+	\end{center}
+	\label{swap-shuffle}
+\end{figure}
 
 With the enumeration developed, it was then placed in an MP3 ``skeleton''. I decided to use a 64 kbp/s at 44.1 kHz mono format, as I see 128 kbit/s at 44.1 kHz stereo as the quintessential MP3, but wanted to use a mono signal. There are also two curious bits in the MP3 header that required a decision: the ``copyright'' and ``original'' bits. These were originally meant to indicate whether a file was copyrighted and, if not, whether it was a copy. In ``Only Everything Lasts Forever'', both of these bits are set to false. Some bits within the side info were also set in order to limit the maximum frame length and avoid the technical limitation mentioned at the end of the section ``The General Structure of MP3''.
 
-The final steps involved lots of listening; tweaking the shuffle technique and the final placement of the bits in the resulting enumeration. The bit placement was informed by an earlier composition for MP3 presented at the Spring 2009 MFA show. This composition was essentially a glitched recording of 4'33'' broadcast by BBC Radio 3 in 2004\footnote{\url{http://news.bbc.co.uk/2/hi/entertainment/3401901.stm}}. The glitches were introduced by parsing an MP3 of the recording, modifying logically distinct portions of the bitstream, and writing out the modified version. I developed a basic glitch sequencer that allowed me to craft the glitches over time, translating a graphic score from my sketchbook into a series of bitwise manipulations. The score was preceded by experiments with ``linear'' MP3 glitching where I would modify one parameter at a time---for example, using a fixed value for the global gain, which causes dynamic range compression. I only explored variation in the side info, as it took another half year to completely understand the main data. For ``Only Everything Lasts Forever'', I used the technical knowledge and intuition gained from these experiments to help me place bits of different variation in the MP3 frame---for example, placing the bits with more variation in the higher frequency end of the main data, and using bits lower frequency variation for more global features in the side info like Huffman table selection and scale factor bands (introducing some rhythmic regularity). Moving from this earlier composition to ``Only Everything Lasts Forever'' also required a complete rewrite, from Java to C++, as the Java code was difficult to optimize for a real time installation setting.
+The final steps involved lots of listening; tweaking the shuffle technique and the final placement of the bits in the resulting enumeration. The bit placement was informed by an earlier composition for MP3 presented at the Spring 2009 MFA show. This composition was essentially a glitched recording of 4'33'' broadcast by BBC Radio 3 in 2004\footnote{\url{http://news.bbc.co.uk/2/hi/entertainment/3401901.stm}}. The glitches were introduced by parsing an MP3 of the recording, modifying logically distinct portions of the bitstream, and writing out the modified version. I developed a basic glitch sequencer that allowed me to craft the glitches over time, translating a graphic score from my sketchbook into a series of bitwise manipulations. The score was preceded by experiments with ``linear'' MP3 glitching where I would modify one parameter at a time---for example, using a fixed value for the global gain, which causes dynamic range compression. I only explored variation in the side info, as it took another half year to completely understand the main data. For ``Only Everything Lasts Forever'', I used the technical knowledge and intuition gained from these experiments to help me place bits of different variation in the MP3 frame---for example, placing the bits with more variation in the higher frequency end of the main data, and using bits lower frequency variation for more global features in the side info like Huffman table selection and scale factor bands (introducing some rhythmic regularity). Moving from this earlier composition to ``Only Everything Lasts Forever'' also required a complete rewrite, from Java to C++, as the Java was difficult to optimize for real time streaming.
 
 \section{Presentation}
 
