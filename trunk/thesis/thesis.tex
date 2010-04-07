@@ -303,119 +303,31 @@ With the enumeration developed, it was then placed in an MP3 ``skeleton''. I dec
 
 The final steps involved lots of listening; tweaking the shuffle technique and the final placement of the bits in the resulting enumeration. The bit placement was informed by an earlier composition for MP3 presented at the Spring 2009 MFA show. This composition was essentially a glitched recording of 4'33'' broadcast by BBC Radio 3 in 2004\footnote{\url{http://news.bbc.co.uk/2/hi/entertainment/3401901.stm}}. The glitches were introduced by parsing an MP3 of the recording, modifying logically distinct portions of the bitstream, and writing out the modified version. I developed a basic glitch sequencer that allowed me to craft the glitches over time, translating a graphic score from my sketchbook into a series of bitwise manipulations. The score was preceded by experiments with ``linear'' MP3 glitching where I would modify one parameter at a time---for example, using a fixed value for the global gain, which causes dynamic range compression. I only explored variation in the side info, as it took another half year to completely understand the main data. For ``Only Everything Lasts Forever'', I used the technical knowledge and intuition gained from these experiments to help me place bits of different variation in the MP3 frame---for example, placing the bits with more variation in the higher frequency end of the main data, and using bits lower frequency variation for more global features in the side info like Huffman table selection and scale factor bands (introducing some rhythmic regularity). Moving from this earlier composition to ``Only Everything Lasts Forever'' also required a complete rewrite, from Java to C++, as the Java code was difficult to optimize for a real time installation setting.
 
-\chapter{Conclusion}
-	This chapter will provide a brief summary of everything that was discussed, and provide some commentary on how I still appreciate the concept behind the piece but feel that it ultimately fails because it doesn't stand on its own.
-	
-	The protagonist of Borges' ``The Aleph'' makes an interesting comment about the difference between how a work is received and how it is justified:
-	
-	\begin{quote}
-	...Daneri's real work lay not in the poetry but in his invention of reasons why the poetry should be admired. Of course, this second phase of his effort modified the writing in his eyes, though not in the eyes of others.
-	\end{quote}
-	
-	Perhaps this is also what John F. Simon Jr. was referring to when he wrote:
+\chapter{Conclusion and Future Work}
+
+``Only Everything Lasts Forever'' started as an exploration into enumerating the space of our psychoacoustic awareness, and evolved into an attempt at revealing the implicit context of the MP3 format. I wanted to make a sound work that was more interesting to listen to than ``Every Icon'' is to watch. I challenged my own understanding of what constitutes ``noise'' and ``non-noise'', and explored the definition of ``noise'' as non-contextual sound.
+
+In the end, I feel like ``Only Everything Lasts Forever'' succeeds in that it enumerates the space in an interesting way, and provides a good sense of the inherent biases of MP3. On the other hand, I feel like it fails whenever I spend more time talking with someone about it than they have spent listening to it. The protagonist of Borges' ``The Aleph'' makes an interesting comment about the difference between how a work is received and how it is justified:
 	
 	\begin{quote}
-	While Every Icon is resolved conceptually, it is unresolvable in practice. In some ways the theoretical possibilities outdistance the time scales of both evolution and imagination. It posits a representational system where computational promise is intricately linked to extraordinary duration and momentary sensation.\cite{john_f._simon_jr._given:32_1997}
+	[...] Daneri's real work lay not in the poetry but in his invention of reasons why the poetry should be admired. Of course, this second phase of his effort modified the writing in his eyes, though not in the eyes of others.
 	\end{quote}
 	
-	Artists like Oval and Oto have taken Yasunao Tone's technique to a different level, producing more accessible music sometimes called ``Oceanic glitch'' (as opposed to ``Conceptual glitch'' and ``Minimal glitch'').\cite{Sangild04}
+Perhaps this distinction between affective power and conceptual admiration emerging from reflection is also what John F. Simon Jr. was referring to when he wrote:
 	
-	Future work, here or in the OELF section---mention how I'd like to work with this live in a feedback situation. 24 ms latency minimum, using LAME and mpg123 to do frame-by-frame encoding/decoding. Or applying the general principle without actually using encoding/decoding, variable latency/bitrate tradeoff?
+	\begin{quote}
+	While Every Icon is resolved conceptually, it is unresolvable in practice. In some ways the theoretical possibilities outdistance the time scales of both evolution and imagination.\cite{john_f._simon_jr._given:32_1997}
+	\end{quote}
+
+While Yasunao Tone's music may not be for everyone, similar ideas are made significantly more accessible by ``Oceanic glitch''\cite{Sangild04} artists like Oval and Oto---you don't need to know CD glitching is involved to appreciate them. I wasn't planning on making pop music, but I would like to continue working with MP3 in a way that is more accessible, without forfeiting the conceptual depth. I think the difficulty of working with an enumerative composition is that the the constraint of total enumeration requires composition to occur at an incredibly abstracted level, leaving little room to exercise general sonic intuition.
+
+There are three directions I would like to take this work. First, simply removing the constraint of total enumeration, opening up the possibility of a work with more locally composed variation. For example, simply changing the digit shuffling technique has a huge effect on the sound of the composition, but it's not possible to change the technique over the course of the composition without breaking the enumeration constraint. Second, I would like to work found MP3 material---reorganizing frames from unheard songs in stockpiled music libraries, or combining frames to create Frankenstein sounds where one frame describes the format while another provides the content. Third, I would like to extend these techniques to instruments and effects. For example, a VST plugin that encodes audio into MP3 frames and decodes back into PCM on the fly, allowing the user to glitch portions of the frame in real time, providing a much more direct method of MP3-collaboration than the slow, unwieldy cycle of coding and compilation.
 
 \specialhead{References}
 \begin{singlespace}
-%\bibliographystyle{plain}
-\bibliographystyle{unsrt}
+%\bibliographystyle{plain} % alphabetical
+\bibliographystyle{unsrt} % in order of appearance
 \bibliography{original,spiritofnoise,everythingart,glitchart,oelf}
 \end{singlespace}
-
-\appendix 
-\addtocontents{toc}{\parindent0pt\vskip12pt Appendices}
-
-\chapter{The MP3 bitstream}
-	
-	Within the header a few sections must be considered:
-	
-\begin{itemize}
-	\item Layer: Layer III is ``.mp3'', layers I and II are rarely used.
-	\item Bitrate: In Layer III, this varies from 32 to 320 kbps.
-	\item Samplerate: 32 kHz, 48 kHz, or 44.1 kHz.
-	\item Mode: Specifies mono or a variety of stereo.
-	\item Copyright: Whether the file is copyrighted.
-	\item Original: Whether the file is original, or a copy.\footnote{For obvious reasons, the copyright and original bits are not generally used---despite the best intentions of the ISO.}	
-\end{itemize}
-
-	In a normal MP3, most of these fields will remain constant from frame to frame. OELF does not enumerate these variations, and instead chooses a single format: Layer III, 128 kbps, 44.1 kHz, mono, non-copyrighted, and original.
-	
-	The side info contains:
-	
-\begin{itemize}
-	\item A description of where the main data is located in the interleaved bitstream.
-	\item Scale factor sharing information: if the two granules in this frame have similar frequency-domain characteristics, they can share any of four regions of 21 scale factors.
-	\item Side info for each granule
-\end{itemize}
-
-	The per-granule side info is where most of the variation exists:
-	
-\begin{itemize}
-	\item Size of main data: describes how many bits are encoded in the main data, where the scale factors and Huffman coded data is stored.
-	\item Big values: describes what portion of the main data frequency bands are ``big values''---the lower frequency components that tend to have large amplitudes. Following the big values are the ``small values'', up to the end of the main data---higher frequency components with small amplitudes.
-	\item Global gain: a straightforward scaling factor applied to the entire granule.
-	\item Scale factor bit allocation: an index to a table that describes how much detail the different scale factor bands are coded with.
-	\item Window switching flag: Distinguishes between ``normal'' and ``special'' blocks. Normal blocks scale the entire granule with up to 21 scale factors, certain types of special blocks are divided into three short bursts with separate scale factors.
-	\item A section that varies depending on the window switching flag value
-	\item Pre-emphasis flag: a small concession to high frequency content, this binary flag provides a minor amplification to higher frequency components.
-	\item Scale factor quantization: effectively, a multiplier flag that acts on all the scale factors.
-	\item Small value table selection: specifies one of two Huffman tables to use for decoding the small values.
-\end{itemize}
-
-	There are two forms the section that varies with respect to the window switching flag can take. If the flag is false, and we have a normal block:
-	
-\begin{itemize}
-	\item Huffman table selection: 15 bits
-	\item Description of region separation: 7 bits
-\end{itemize}
-
-	If the flag is true, we have a special block:
-	
-\begin{itemize}
-	\item Block type: 2 bits
-	\item Mixed block flag: 1 bit
-	\item Huffman table selection: 10 bits
-	\item Subblock gain: 9 bits
-\end{itemize}
-
-	Finally, the main data consists of:
-	
-\begin{itemize}
-	\item Scale factor bands
-	\item Big valued frequency bands
-	\item Small valued frequency bands
-\end{itemize}
-
-	The main data is not described in terms of bits as the bit length can vary depending on the side info specifications.
-
-	Some features vary freely, without further constraining other features or being constrained by previous features. For example:
-
-\begin{itemize}
-	\item Global gain: 8 bits
-	\item Window switching flag: 1 bit
-	\item Pre-emphasis flag: 1 bit
-	\item Scale factor quantization: 1 bit
-	\item Small value table selection: 1 bit
-\end{itemize}
-
-	That's $8+1+1+1+1=12$ bits of variation that could be assigned randomly for any given frame without destroying the syntax.\footnote{One of my first experiments with MP3 glitching was to use these 12 bits in a composition titled ``1241385461464'', a glitched version of a recording of 4'33'' taken from YouTube. [Discuss this composition more, as there were significant realizations here.]}
-	
-	Then we have to decide on the window switching flags for each granule, and the block types. This in turn will constrain the scale factor sharing. This constrains the scale factor bit allocation, which has an influence on the main data size (and in turn influences the big values):
-	
-\begin{itemize}
-	\item Size of main data: 12 bits
-	\item Big values: 9 bits
-\end{itemize}
-
-	The big values must be smaller than the main data. This leads to $\sum_{i=0}^{2^{12}} min(i,2^9)$ possible combinations.\footnote{In practice, this number must be significantly smaller due to the limited space provided by the combination of the bit reservoir and the bitstream following the side info.}
-	
-	One piece remains: the main data location. Because the main data location is solely physical (bitstream-oriented) rather than logical (sound-descriptive), it can be derived rather than enumerated.
 
 \end{document}
