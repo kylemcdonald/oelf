@@ -712,15 +712,15 @@
 % SOME INITIALIZATIONS:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % make the following names uppercase:
-\renewcommand\contentsname{CONTENTS}
-\renewcommand\listfigurename{LIST OF FIGURES}
-\renewcommand\listtablename{LIST OF TABLES}
-\renewcommand\bibname{BIBLIOGRAPHY}
-\renewcommand\indexname{INDEX}
-\renewcommand\partname{PART}
-\renewcommand\chaptername{CHAPTER}
-\renewcommand\appendixname{APPENDIX}
-\renewcommand\abstractname{ABSTRACT}
+\renewcommand\contentsname{Contents}
+\renewcommand\listfigurename{List of Figures}
+\renewcommand\listtablename{List of Tables}
+\renewcommand\bibname{Bibliography}
+\renewcommand\indexname{Index}
+\renewcommand\partname{Part}
+\renewcommand\chaptername{Chapter}
+\renewcommand\appendixname{Appendix}
+\renewcommand\abstractname{Abstract}
 
 \renewcommand\chaptersize{\large}
 \renewcommand\sectionsize{\large}
