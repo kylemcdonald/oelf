@@ -45,6 +45,7 @@ public:
 	void write(ostream& out) const;
 	void read(istream& in);
 
+	void binaryDecrement();
 	void binaryIncrement();
 	void chordIncrement();
 	void convertToGray();

@@ -145,6 +145,16 @@ int BigInteger::size() const {
 	return bitCount;
 }
 
+void BigInteger::binaryDecrement() {
+	data[maxByte]--;
+	for(int i = 0; i < byteCount; i++) {
+		if(data[maxByte - i] == 0xff)
+			data[maxByte - i - 1]--;
+		else
+			break;
+	}
+}
+
 void BigInteger::binaryIncrement() {
 	data[maxByte]++;
 	for(int i = 0; i < byteCount; i++) {
