@@ -85,7 +85,6 @@ void Generator::makeNext() {
 		gray.set(shuffled); // copy result
 	}
 	counter.binaryIncrement();
-	//counter.chordIncrement();
 	desync();
 
 	frameBuffer.clear();
@@ -103,8 +102,18 @@ void Generator::writeState(ostream& out) {
 	counter.write(out);
 }
 
+const BigInteger& Generator::getCounter() {
+	return counter;
+}
+
 void Generator::readState(istream& in) {
 	counter.read(in);
+
+	#ifdef USE_MIDDLE
+	srand(time(NULL));
+	for(int i = 0; i < counter.size(); i++)
+		counter.set(rand() > RAND_MAX >> 1, i);
+	#endif
 }
 
 int Generator::getMagnitude() {

@@ -1,8 +1,8 @@
 #include "testApp.h"
 
 void testApp::setup() {
-	ofSetVerticalSync(true);
-	ofSetFrameRate((int) (38.28 / (float) VIZFRAMES));
+	//ofSetVerticalSync(true);
+	//ofSetFrameRate((int) (38.28 / (float) VIZFRAMES));
 	img.allocate(generator.getSize(), VIZFRAMES, OF_IMAGE_COLOR);
 	shouldReset = true;
 }

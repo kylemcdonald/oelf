@@ -2,6 +2,14 @@
 
 #include "Frame.h"
 
+//#define USE_MIDDLE
+
+#ifdef USE_MIDDLE
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <time.h>
+#endif
+
 class Generator {
 public:
 	Generator();
@@ -20,6 +28,7 @@ public:
 	const BigInteger& getFrame();
 	const BigInteger& getGray();
 	const BigInteger& getMask();
+	const BigInteger& getCounter();
 	void swapRegions(int from, int to, int length);
 	void reverseRegion(int start, int length);
 private:

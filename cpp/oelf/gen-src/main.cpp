@@ -19,8 +19,10 @@ string generateMp3() {
 	for(int i = 0; i < max; i++) {
 		generator.makeNext();
 		generator.write(file);
-		if(i % (max / 10) == 0)
+		if(i % (max / 10) == 0) {
 			cout << i << " / " << max << " frames" << endl;
+			cout << generator.getCounter().toString() << endl;
+		}
 	}
 	file.close();
 	cout << "Wrote " << filename.str() << " out." << endl;
